@@ -26,3 +26,8 @@
 *.exe
 *.out
 *.app
+
+/src/*/dist/
+/src/*/build/
+**/nbproject/private/
+.dep.inc
