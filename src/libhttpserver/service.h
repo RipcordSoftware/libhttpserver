@@ -28,10 +28,10 @@ public:
     
     void Listen(const std::string& host, int port, listen_callback func);
     
-private:
-    Service(int threads) : service_(new boost::asio::io_service(threads)) {}
-    
     operator boost::asio::io_service&() { return *service_; }
+    
+private:
+    Service(int threads) : service_(new boost::asio::io_service(threads)) {}       
     
     static void StartAccept(socket_ptr socket, listen_callback func);
     static void HandleAccept(socket_ptr socket, listen_callback func, const boost::system::error_code& error);
