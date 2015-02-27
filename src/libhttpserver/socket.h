@@ -22,6 +22,10 @@ public:
     typedef unsigned char byte;
     typedef std::vector<byte> buffer;
     
+    ~Socket() {
+        Shutdown();
+    }
+    
     static socket_ptr Create(service_ptr service) {
         return Create(service, nullptr);
     }
@@ -38,6 +42,10 @@ public:
     
     std::size_t Send(const buffer& b) {
         return socket_->send(boost::asio::const_buffers_1(static_cast<const void*>(&b[0]), b.size()));
+    }
+    
+    void Shutdown() {
+        socket_->shutdown(boost::asio::socket_base::shutdown_type::shutdown_both);
     }
     
     service_ptr getService() { return service_; }
