@@ -15,14 +15,11 @@ int main(int argc, char** argv) {
         if (!!err) {
             cout << "Error: " << err.message() << endl;
         } else {        
-            cout << "hello from: " << socket->getRemoteEndpoint().port() << std::endl; 
-            
-            socket->Send("HTTP/1.0 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n<html><body>hello</body></html>");
+            socket->Send("HTTP/1.0 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n<html><body>hello from libhttpserver</body></html>");
         }
     };
-    
-    auto socket = rs::httpwebserver::Socket::Create(service);
-    socket->Listen("0.0.0.0", 10024, func);
+
+    service->Listen("0.0.0.0", 10024, func);
     
     service->Run();
     

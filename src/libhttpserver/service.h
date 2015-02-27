@@ -4,7 +4,6 @@
 #include <string>
 
 #include <boost/shared_ptr.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/function.hpp>
@@ -19,18 +18,25 @@ namespace httpwebserver {
     
 class Service final : public boost::enable_shared_from_this<Service>, private boost::noncopyable {
 public:
+    typedef boost::function<void (socket_ptr, const boost::system::error_code &)> listen_callback;
+    
     static service_ptr Create(int threads) {
         return service_ptr(new Service(threads));
-    }
-    
-    operator boost::asio::io_service&() { return *service_; }
+    }       
    
     void Run() { service_->run(); }        
+    
+    void Listen(const std::string& host, int port, listen_callback func);
     
 private:
     Service(int threads) : service_(new boost::asio::io_service(threads)) {}
     
-    boost::scoped_ptr<boost::asio::io_service> service_;
+    operator boost::asio::io_service&() { return *service_; }
+    
+    static void StartAccept(socket_ptr socket, listen_callback func);
+    static void HandleAccept(socket_ptr socket, listen_callback func, const boost::system::error_code& error);
+    
+    asio_io_service_ptr service_;
 };
     
 }}

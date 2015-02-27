@@ -5,7 +5,6 @@
 #include <functional>
 
 #include <boost/shared_ptr.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <boost/function.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/enable_shared_from_this.hpp>
@@ -27,7 +26,7 @@ public:
         return Create(service, nullptr);
     }
     
-    void Listen(const std::string& host, int port, boost::function<void (socket_ptr, const boost::system::error_code &)> func);
+    static socket_ptr Create(service_ptr service, asio_acceptor_ptr acceptor);
        
     std::size_t Read(buffer& b) {
         return socket_->receive(boost::asio::mutable_buffers_1(static_cast<void*>(&b[0]), b.size()));
@@ -41,23 +40,21 @@ public:
         return socket_->send(boost::asio::const_buffers_1(static_cast<const void*>(&b[0]), b.size()));
     }
     
+    service_ptr getService() { return service_; }
+    asio_socket_ptr getAsioSocket() { return socket_; }
+    asio_acceptor_ptr getAsioAcceptor() { return acceptor_; }
+    
     boost::asio::ip::tcp::endpoint getLocalEndpoint() { return socket_->local_endpoint(); }
     boost::asio::ip::tcp::endpoint getRemoteEndpoint() { return socket_->remote_endpoint(); }
     
 private:
     
-    Socket(service_ptr service, boost::shared_ptr<boost::asio::ip::tcp::socket> socket, std::shared_ptr<boost::asio::ip::tcp::acceptor> acceptor = nullptr) : 
-        service_(service), socket_(socket), acceptor_(acceptor) {}
-        
-    static socket_ptr Create(service_ptr service, std::shared_ptr<boost::asio::ip::tcp::acceptor> acceptor);
-        
-    void StartAccept(boost::function<void (socket_ptr, const boost::system::error_code &)> func);
-    static void HandleAccept(socket_ptr socket, boost::function<void (socket_ptr, const boost::system::error_code &)> func, const boost::system::error_code& error);
+    Socket(service_ptr service, asio_socket_ptr socket, asio_acceptor_ptr acceptor = nullptr) : 
+        service_(service), socket_(socket), acceptor_(acceptor) {}                       
             
     service_ptr service_;
-    boost::shared_ptr<boost::asio::ip::tcp::socket> socket_;
-    std::shared_ptr<boost::asio::ip::tcp::acceptor> acceptor_;
-    
+    asio_socket_ptr socket_;
+    asio_acceptor_ptr acceptor_;    
 };
     
 }}

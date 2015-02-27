@@ -16,6 +16,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>service.cpp</itemPath>
       <itemPath>socket.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -46,6 +47,8 @@
         </archiverTool>
       </compileType>
       <item path="libhttpserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="service.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="service.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -80,6 +83,8 @@
         </archiverTool>
       </compileType>
       <item path="libhttpserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="service.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="service.h" ex="false" tool="3" flavor2="0">
       </item>
