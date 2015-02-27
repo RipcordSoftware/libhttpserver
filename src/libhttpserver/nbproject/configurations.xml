@@ -44,6 +44,7 @@
           <standard>8</standard>
         </ccTool>
         <archiverTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a</output>
         </archiverTool>
       </compileType>
       <item path="libhttpserver.h" ex="false" tool="3" flavor2="0">
@@ -80,6 +81,7 @@
           <developmentMode>5</developmentMode>
         </asmTool>
         <archiverTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a</output>
         </archiverTool>
       </compileType>
       <item path="libhttpserver.h" ex="false" tool="3" flavor2="0">

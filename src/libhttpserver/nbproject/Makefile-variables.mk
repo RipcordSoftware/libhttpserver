@@ -9,16 +9,16 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux-x86
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86
-CND_ARTIFACT_NAME_Debug=liblibhttpserver.a
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/liblibhttpserver.a
+CND_ARTIFACT_NAME_Debug=libhttpserver.a
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/libhttpserver.a
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
 CND_PACKAGE_NAME_Debug=libhttpserver.tar
 CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/libhttpserver.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux-x86
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
-CND_ARTIFACT_NAME_Release=liblibhttpserver.a
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/liblibhttpserver.a
+CND_ARTIFACT_NAME_Release=libhttpserver.a
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/libhttpserver.a
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
 CND_PACKAGE_NAME_Release=libhttpserver.tar
 CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/libhttpserver.tar

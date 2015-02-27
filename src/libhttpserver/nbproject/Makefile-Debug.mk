@@ -57,13 +57,13 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibhttpserver.a
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibhttpserver.a: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibhttpserver.a
-	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibhttpserver.a ${OBJECTFILES} 
-	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibhttpserver.a
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a
+	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a ${OBJECTFILES} 
+	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a
 
 ${OBJECTDIR}/service.o: service.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -81,7 +81,7 @@ ${OBJECTDIR}/socket.o: socket.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibhttpserver.a
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a
 
 # Subprojects
 .clean-subprojects:

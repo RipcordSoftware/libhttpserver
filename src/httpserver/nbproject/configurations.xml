@@ -40,6 +40,8 @@
         </ccTool>
         <linkerTool>
           <linkerLibItems>
+            <linkerLibLibItem>boost_system</linkerLibLibItem>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../libhttpserver"
                             CT="3"
@@ -49,11 +51,9 @@
                             WD="../libhttpserver"
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibhttpserver.a">
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerLibLibItem>boost_system</linkerLibLibItem>
-            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -85,13 +85,13 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../libhttpserver"
                             CT="3"
-                            CN="Debug"
-                            AC="true"
+                            CN="Release"
+                            AC="false"
                             BL="true"
                             WD="../libhttpserver"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblibhttpserver.a">
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>

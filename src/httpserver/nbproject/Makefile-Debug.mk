@@ -52,13 +52,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../libhttpserver/dist/Debug/GNU-Linux-x86/liblibhttpserver.a -lboost_system -lpthread
+LDLIBSOPTIONS=-lboost_system -lpthread ../libhttpserver/dist/Debug/GNU-Linux-x86/libhttpserver.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/httpserver
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/httpserver: ../libhttpserver/dist/Debug/GNU-Linux-x86/liblibhttpserver.a
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/httpserver: ../libhttpserver/dist/Debug/GNU-Linux-x86/libhttpserver.a
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/httpserver: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}

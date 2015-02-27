@@ -52,13 +52,13 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../libhttpserver/dist/Debug/GNU-Linux-x86/liblibhttpserver.a -lboost_system -lpthread
+LDLIBSOPTIONS=../libhttpserver/dist/Release/GNU-Linux-x86/libhttpserver.a -lboost_system -lpthread
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/httpserver
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/httpserver: ../libhttpserver/dist/Debug/GNU-Linux-x86/liblibhttpserver.a
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/httpserver: ../libhttpserver/dist/Release/GNU-Linux-x86/libhttpserver.a
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/httpserver: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
@@ -71,7 +71,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../libhttpserver && ${MAKE}  -f Makefile CONF=Debug
+	cd ../libhttpserver && ${MAKE}  -f Makefile CONF=Release
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -80,7 +80,7 @@ ${OBJECTDIR}/main.o: main.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd ../libhttpserver && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../libhttpserver && ${MAKE}  -f Makefile CONF=Release clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
