@@ -10,14 +10,14 @@ void rs::httpwebserver::Service::Listen(const std::string& host, int port, liste
 }
 
 void rs::httpwebserver::Service::StartAccept(socket_ptr socket, listen_callback func) {
-    socket->getAsioAcceptor()->async_accept(*socket->getAsioSocket(),
-            boost::bind((void (*)(socket_ptr, listen_callback, const boost::system::error_code&))&Service::HandleAccept, 
-            socket, func, boost::asio::placeholders::error));
+    socket->getAsioAcceptor()->async_accept(
+        *socket->getAsioSocket(),
+        boost::bind((void (*)(socket_ptr, listen_callback, const boost::system::error_code&))&Service::HandleAccept, socket, func, boost::asio::placeholders::error));
 }
 
 void rs::httpwebserver::Service::HandleAccept(socket_ptr socket, listen_callback func, const boost::system::error_code& error) {
-    socket->getAsioAcceptor()->async_accept(*socket->getAsioSocket(), boost::bind(func, socket, error));
-    
     auto new_socket = Socket::Create(socket->getService(), socket->getAsioAcceptor());    
     Service::StartAccept(new_socket, func);
+    
+    func(socket, error);
 }
