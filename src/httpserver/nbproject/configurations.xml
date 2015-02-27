@@ -40,8 +40,6 @@
         </ccTool>
         <linkerTool>
           <linkerLibItems>
-            <linkerLibLibItem>boost_system</linkerLibLibItem>
-            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../libhttpserver"
                             CT="3"
@@ -54,6 +52,8 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibLibItem>boost_system</linkerLibLibItem>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
