@@ -14,8 +14,13 @@ int main(int argc, char** argv) {
     auto func = [](rs::httpwebserver::socket_ptr socket, const boost::system::error_code & err) { 
         if (!!err) {
             cout << "Error: " << err.message() << endl;
-        } else {        
-            socket->Send("HTTP/1.0 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n<html><body>hello from libhttpserver</body></html>");
+        } else {
+            auto remote = socket->getRemoteEndpoint();
+            
+            stringstream html;
+            html << "HTTP/1.0 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n<html><body>hello to " << remote.address().to_string() << ":" << remote.port() << "</body></html>";
+            
+            socket->Send(html.str());
         }
     };
 
