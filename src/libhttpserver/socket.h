@@ -2,14 +2,12 @@
 #define	RS_LIBHTTPSERVER_SOCKET_H
 
 #include <vector>
-#include <functional>
 
 #include <boost/shared_ptr.hpp>
 #include <boost/function.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/enable_shared_from_this.hpp>
 
-#include <boost/bind.hpp>
 #include <boost/asio.hpp>
 
 #include "types.h"

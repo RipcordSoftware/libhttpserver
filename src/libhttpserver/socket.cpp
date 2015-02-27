@@ -1,3 +1,5 @@
+#include <boost/bind.hpp>
+
 #include "socket.h"
 #include "service.h"
 
