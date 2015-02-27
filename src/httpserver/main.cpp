@@ -11,10 +11,15 @@ int main(int argc, char** argv) {
     
     auto service = rs::httpwebserver::Service::Create(8);
     
-    auto func = [](rs::httpwebserver::socket_ptr socket, const boost::system::error_code & err) { 
+    auto func = [](rs::httpwebserver::socket_ptr socket, const boost::system::error_code & err) {
         if (!!err) {
             cout << "Error: " << err.message() << endl;
         } else {
+            rs::httpwebserver::Socket::buffer b(1024);
+            auto bytes = socket->Receive(5, b);
+            
+            std::cout << "got bytes: " << bytes << std::endl;
+            
             auto remote = socket->getRemoteEndpoint();
             
             stringstream html;

@@ -32,12 +32,12 @@ public:
     
     static socket_ptr Create(service_ptr service, asio_acceptor_ptr acceptor);
        
-    std::size_t Read(buffer& b) {
-        return socket_->receive(boost::asio::mutable_buffers_1(static_cast<void*>(&b[0]), b.size()));
-    }
+    std::size_t Receive(buffer& b);
+    
+    std::size_t Receive(int timeout, buffer& b);
     
     std::size_t Send(const std::string& s) {
-        return socket_->send(boost::asio::const_buffers_1(static_cast<const std::string::value_type*>(&s[0]), s.size() * sizeof(std::string::value_type)));
+        return socket_->send(boost::asio::const_buffers_1(static_cast<const void*>(&s[0]), s.size() * sizeof(std::string::value_type)));
     }
     
     std::size_t Send(const buffer& b) {
@@ -58,11 +58,21 @@ public:
 private:
     
     Socket(service_ptr service, asio_socket_ptr socket, asio_acceptor_ptr acceptor = nullptr) : 
-        service_(service), socket_(socket), acceptor_(acceptor) {}                       
+        service_(service), socket_(socket), acceptor_(acceptor) {
+    }
+        
+    static int getReceiveTimeout(asio_socket_ptr socket);
+    static bool setReceiveTimeout(asio_socket_ptr socket, int seconds);
+
+    void setDefaultReceiveTimeout();
+    void setCustomReceiveTimeout(int seconds);
             
     service_ptr service_;
     asio_socket_ptr socket_;
-    asio_acceptor_ptr acceptor_;    
+    asio_acceptor_ptr acceptor_;
+    
+    int defaultReceiveTimeout = -1;
+    int currentReceiveTimeout = -1;
 };
     
 }}
