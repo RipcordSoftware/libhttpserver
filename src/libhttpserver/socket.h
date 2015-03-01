@@ -13,7 +13,7 @@
 #include "types.h"
 
 namespace rs {
-namespace httpwebserver {
+namespace httpserver {
     
 class Socket final : public boost::enable_shared_from_this<Socket>, private boost::noncopyable {
 public:
@@ -24,18 +24,14 @@ public:
         Shutdown();
     }
     
-    static socket_ptr Create(service_ptr service) {
-        return Create(service, nullptr);
-    }
-    
-    static socket_ptr Create(service_ptr service, asio_acceptor_ptr acceptor);
+    static socket_ptr Create(server_ptr server, asio_socket_ptr socket);
        
     std::size_t Receive(buffer& b);
     
     std::size_t Receive(int timeout, buffer& b);
     
     std::size_t Send(const std::string& s) {
-        return socket_->send(boost::asio::const_buffers_1(static_cast<const void*>(&s[0]), s.size() * sizeof(std::string::value_type)));
+        return socket_->send(boost::asio::const_buffers_1(static_cast<const void*>(&s[0]), s.length()));
     }
     
     std::size_t Send(const buffer& b) {
@@ -46,17 +42,15 @@ public:
         socket_->shutdown(boost::asio::socket_base::shutdown_type::shutdown_both);
     }
     
-    service_ptr getService() { return service_; }
-    asio_socket_ptr getAsioSocket() { return socket_; }
-    asio_acceptor_ptr getAsioAcceptor() { return acceptor_; }
+    asio_socket_ptr getAsioSocket() { return socket_; }    
     
     boost::asio::ip::tcp::endpoint getLocalEndpoint() { return socket_->local_endpoint(); }
     boost::asio::ip::tcp::endpoint getRemoteEndpoint() { return socket_->remote_endpoint(); }
     
 private:
     
-    Socket(service_ptr service, asio_socket_ptr socket, asio_acceptor_ptr acceptor = nullptr) : 
-        service_(service), socket_(socket), acceptor_(acceptor) {
+    Socket(server_ptr server, asio_socket_ptr socket) : 
+        server_(server), socket_(socket) {
     }
         
     static int getReceiveTimeout(asio_socket_ptr socket);
@@ -65,9 +59,8 @@ private:
     void setDefaultReceiveTimeout();
     void setCustomReceiveTimeout(int seconds);
             
-    service_ptr service_;
+    server_ptr server_;
     asio_socket_ptr socket_;
-    asio_acceptor_ptr acceptor_;
     
     int defaultReceiveTimeout = -1;
     int currentReceiveTimeout = -1;

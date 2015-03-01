@@ -4,8 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>httpserver.h</itemPath>
       <itemPath>libhttpserver.h</itemPath>
-      <itemPath>service.h</itemPath>
       <itemPath>socket.h</itemPath>
       <itemPath>types.h</itemPath>
     </logicalFolder>
@@ -16,7 +16,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>service.cpp</itemPath>
+      <itemPath>httpserver.cpp</itemPath>
       <itemPath>socket.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -47,11 +47,11 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a</output>
         </archiverTool>
       </compileType>
+      <item path="httpserver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="httpserver.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="libhttpserver.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="service.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="service.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="socket.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -84,11 +84,11 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a</output>
         </archiverTool>
       </compileType>
+      <item path="httpserver.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="httpserver.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="libhttpserver.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="service.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="service.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="socket.cpp" ex="false" tool="1" flavor2="0">
       </item>

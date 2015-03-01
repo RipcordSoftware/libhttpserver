@@ -5,8 +5,11 @@
 #include <boost/asio.hpp>
 
 namespace rs {
-namespace httpwebserver {
+namespace httpserver {
 
+class HttpServer;
+typedef boost::shared_ptr<HttpServer> server_ptr;
+    
 class Service;
 typedef boost::shared_ptr<Service> service_ptr;
 

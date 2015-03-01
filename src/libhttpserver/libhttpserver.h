@@ -9,9 +9,8 @@
 #define	RS_LIBHTTPSERVER_LIBHTTPSERVER_H
 
 #include "types.h"
-#include "service.h"
+#include "httpserver.h"
 #include "socket.h"
-
 
 #endif	/* RS_LIBHTTPSERVER_LIBHTTPSERVER_H */
 
