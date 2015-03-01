@@ -1,7 +1,6 @@
 #include <boost/bind.hpp>
 
 #include "socket.h"
-#include "service.h"
 
 rs::httpserver::socket_ptr rs::httpserver::Socket::Create(server_ptr server, asio_socket_ptr asio_socket) {
     auto socket = new Socket(server, asio_socket);
