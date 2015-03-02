@@ -7,16 +7,22 @@ rs::httpserver::socket_ptr rs::httpserver::Socket::Create(server_ptr server, asi
     return socket_ptr(socket);
 }
 
-std::size_t rs::httpserver::Socket::Receive(buffer& b) {
+std::size_t rs::httpserver::Socket::Receive(Buffer& b) {
     if (socket_->available() <= 0 ) {
         setDefaultReceiveTimeout();
+    }    
+    
+    auto bytes = socket_->receive(boost::asio::mutable_buffers_1(b.getData() + b.getDataLength(), b.getLength() - b.getDataLength()));
+    if (bytes > 0) {
+        b.setDataLength(bytes);
     }
     
-    return socket_->receive(boost::asio::mutable_buffers_1(static_cast<void*>(&b[0]), b.size()));
+    return bytes;
 }
 
-std::size_t rs::httpserver::Socket::Receive(int timeout, buffer& b) {
+std::size_t rs::httpserver::Socket::Receive(int timeout, Buffer& b) {
     bool timed_out = false;
+    int bytes = 0;
     
     if (socket_->available() <= 0 ) {
         setCustomReceiveTimeout(timeout);        
@@ -25,7 +31,14 @@ std::size_t rs::httpserver::Socket::Receive(int timeout, buffer& b) {
         timed_out = ::recv(socket_->native_handle(), &canary, 1, MSG_PEEK) <= 0;    
     }
     
-    return !timed_out ? socket_->receive(boost::asio::mutable_buffers_1(static_cast<void*>(&b[0]), b.size())) : 0;
+    if (!timed_out) {
+        bytes = socket_->receive(boost::asio::mutable_buffers_1(b.getData() + b.getDataLength(), b.getLength() - b.getDataLength()));
+        if (bytes > 0) {
+            b.setDataLength(bytes);
+        }
+    }
+    
+    return bytes;
 }
 
 int rs::httpserver::Socket::getReceiveTimeout(asio_socket_ptr socket) {

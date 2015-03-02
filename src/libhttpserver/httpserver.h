@@ -10,6 +10,7 @@
 #include <boost/asio.hpp>
 
 #include "types.h"
+#include "config.h"
 
 namespace rs {
 namespace httpserver {
@@ -33,6 +34,8 @@ private:
     
     void StartAccept(socket_ptr socket);
     void HandleAccept(socket_ptr socket, const boost::system::error_code& error);
+    
+    void HandleRequest(socket_ptr socket);
     
     const std::string host_;
     const int port_;

@@ -4,6 +4,7 @@
 
 #include "httpserver.h"
 #include "socket.h"
+#include "exceptions.h"
 
 rs::httpserver::HttpServer::HttpServer(const std::string& host, int port, int threads) : 
     host_(host), port_(port), service_(threads), acceptor_(service_) {
@@ -48,6 +49,32 @@ void rs::httpserver::HttpServer::HandleAccept(socket_ptr socket, const boost::sy
         auto new_socket = Socket::Create(shared_from_this(), new_asio_socket);    
         StartAccept(new_socket);    
 
-        request_callback_(socket);
+        HandleRequest(socket);
+    }
+}
+
+void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
+    Buffer buffer(4096);
+    auto responseCount = 0;
+    
+    try {    
+        if (socket->Connected() && responseCount < Config::MaxResponseCount) {
+            auto responseBytes = socket->Receive(Config::ReceiveTimeoutPeriod, buffer);
+            if (responseBytes <= 0) {
+                throw HeaderTimeoutException();
+            }
+            
+            request_callback_(socket);
+        }
+    } catch (const HttpServerException& e) {
+        // TODO: do something more useful with this
+        std::cout << "ERROR: " << e.what() << std::endl;
+    } catch (const std::exception& e) {
+        // TODO: do something more useful with this
+        std::cout << "ERROR: " << e.what() << std::endl;
+    } catch (...) {
+        // TODO: do something more useful with this
+        std::cout << "ERROR: something bad happened!" << std::endl;
+        throw;
     }
 }

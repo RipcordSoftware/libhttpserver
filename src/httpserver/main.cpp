@@ -12,11 +12,6 @@ int main(int argc, char** argv) {
     auto server = rs::httpserver::HttpServer::Create("0.0.0.0", 10024, 8);
     
     auto func = [](rs::httpserver::socket_ptr socket) {
-        rs::httpserver::Socket::buffer b(1024);
-        auto bytes = socket->Receive(5, b);
-
-        std::cout << "got bytes: " << bytes << std::endl;
-
         auto remote = socket->getRemoteEndpoint();
 
         stringstream html;

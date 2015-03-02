@@ -13,6 +13,9 @@ typedef boost::shared_ptr<HttpServer> server_ptr;
 class Service;
 typedef boost::shared_ptr<Service> service_ptr;
 
+class Buffer;
+typedef boost::shared_ptr<Buffer> buffer_ptr;
+
 class Socket;
 typedef boost::shared_ptr<Socket> socket_ptr;
 
