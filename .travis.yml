@@ -11,5 +11,5 @@ install:
 # g++4.8.1
 - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
 - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8"; fi
-- sudo mv /usr/bin/g++ /usr/bin/g++-4.6
+- sudo rm -f /usr/bin/g++
 - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
