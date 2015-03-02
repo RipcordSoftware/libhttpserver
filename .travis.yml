@@ -16,4 +16,8 @@ install:
 - sudo rm -f /usr/bin/gcc
 - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
 - sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
-- sudo apt-get install libboost-all-dev
+- curl http://heanet.dl.sourceforge.net/project/boost/boost/1.57.0/boost_1_57_0.tar.bz2 -O
+- tar xvfj boost_1_57_0.tar.bz2
+- cd boost_1_57_0
+- ./bootstrap.sh
+- ./b2 install --prefix=/usr link=static
