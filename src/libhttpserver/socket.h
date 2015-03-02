@@ -11,7 +11,7 @@
 #include <boost/asio.hpp>
 
 #include "types.h"
-#include "buffer.h"
+#include "header_buffer.h"
 
 namespace rs {
 namespace httpserver {
@@ -27,9 +27,9 @@ public:
     
     static socket_ptr Create(server_ptr server, asio_socket_ptr socket);
        
-    std::size_t Receive(Buffer& b);
+    std::size_t Receive(HeaderBuffer& b);
     
-    std::size_t Receive(int timeout, Buffer& b);
+    std::size_t Receive(int timeout, HeaderBuffer& b);
     
     std::size_t Send(const std::string& s) {
         return socket_->send(boost::asio::const_buffers_1(static_cast<const void*>(&s[0]), s.length()));

@@ -7,7 +7,7 @@ rs::httpserver::socket_ptr rs::httpserver::Socket::Create(server_ptr server, asi
     return socket_ptr(socket);
 }
 
-std::size_t rs::httpserver::Socket::Receive(Buffer& b) {
+std::size_t rs::httpserver::Socket::Receive(HeaderBuffer& b) {
     if (socket_->available() <= 0 ) {
         setDefaultReceiveTimeout();
     }    
@@ -20,7 +20,7 @@ std::size_t rs::httpserver::Socket::Receive(Buffer& b) {
     return bytes;
 }
 
-std::size_t rs::httpserver::Socket::Receive(int timeout, Buffer& b) {
+std::size_t rs::httpserver::Socket::Receive(int timeout, HeaderBuffer& b) {
     bool timed_out = false;
     int bytes = 0;
     

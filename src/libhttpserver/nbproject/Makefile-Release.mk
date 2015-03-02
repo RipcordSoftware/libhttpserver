@@ -35,7 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/buffer.o \
+	${OBJECTDIR}/header_buffer.o \
 	${OBJECTDIR}/httpserver.o \
 	${OBJECTDIR}/request_headers.o \
 	${OBJECTDIR}/socket.o
@@ -67,10 +67,10 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a
 
-${OBJECTDIR}/buffer.o: buffer.cpp 
+${OBJECTDIR}/header_buffer.o: header_buffer.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/buffer.o buffer.cpp
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/header_buffer.o header_buffer.cpp
 
 ${OBJECTDIR}/httpserver.o: httpserver.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -4,9 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>buffer.h</itemPath>
       <itemPath>config.h</itemPath>
       <itemPath>exceptions.h</itemPath>
+      <itemPath>header_buffer.h</itemPath>
       <itemPath>httpserver.h</itemPath>
       <itemPath>libhttpserver.h</itemPath>
       <itemPath>request_headers.h</itemPath>
@@ -20,7 +20,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>buffer.cpp</itemPath>
+      <itemPath>header_buffer.cpp</itemPath>
       <itemPath>httpserver.cpp</itemPath>
       <itemPath>request_headers.cpp</itemPath>
       <itemPath>socket.cpp</itemPath>
@@ -53,13 +53,13 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a</output>
         </archiverTool>
       </compileType>
-      <item path="buffer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="buffer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="exceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="header_buffer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="header_buffer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="httpserver.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -102,13 +102,13 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a</output>
         </archiverTool>
       </compileType>
-      <item path="buffer.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="buffer.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="exceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="header_buffer.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="header_buffer.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="httpserver.cpp" ex="false" tool="1" flavor2="0">
       </item>

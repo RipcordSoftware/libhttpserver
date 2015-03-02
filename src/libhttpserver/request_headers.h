@@ -8,7 +8,7 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/shared_ptr.hpp>
 
-#include "buffer.h"
+#include "header_buffer.h"
 #include "types.h"
 
 namespace rs {
@@ -17,14 +17,14 @@ namespace httpserver {
 class RequestHeaders final : public boost::enable_shared_from_this<RequestHeaders>, private boost::noncopyable {
 public:    
     
-    static request_headers_ptr Create(const Buffer& buffer);
+    static request_headers_ptr Create(const HeaderBuffer& buffer);
     
 private:            
     typedef std::map<std::string, std::string> headers;    
     
     RequestHeaders() {}
     
-    void GetHeaders(const Buffer& buffer, int headersLength);    
+    void GetHeaders(const HeaderBuffer& buffer, int headersLength);    
     
     std::string method_;
     std::string version_;

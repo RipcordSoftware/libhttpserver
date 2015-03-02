@@ -55,7 +55,7 @@ void rs::httpserver::HttpServer::HandleAccept(socket_ptr socket, const boost::sy
 }
 
 void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
-    Buffer buffer(Config::MaxRequestHeaderSize);
+    HeaderBuffer buffer(Config::MaxRequestHeaderSize);
     auto responseCount = 0;
     
     try {    

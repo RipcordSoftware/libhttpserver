@@ -1,5 +1,5 @@
-#ifndef RS_LIBHTTPSERVER_BUFFER_H
-#define	RS_LIBHTTPSERVER_BUFFER_H
+#ifndef RS_LIBHTTPSERVER_HEADER_BUFFER_H
+#define	RS_LIBHTTPSERVER_HEADER_BUFFER_H
 
 #include <vector>
 
@@ -11,9 +11,9 @@
 namespace rs {
 namespace httpserver {
 
-class Buffer final : private boost::noncopyable {
+class HeaderBuffer final : private boost::noncopyable {
 public:
-    Buffer(int size) : data_(size), dataLength_(0) {}
+    HeaderBuffer(int size) : data_(size), dataLength_(0) {}
     
     int getLength() const {
         return data_.size();
@@ -58,5 +58,5 @@ private:
 
 }}
 
-#endif	/* RS_LIBHTTPSERVER_BUFFER_H */
+#endif	/* RS_LIBHTTPSERVER_HEADER_BUFFER_H */
 
