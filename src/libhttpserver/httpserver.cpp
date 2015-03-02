@@ -1,5 +1,7 @@
 #include <boost/bind.hpp>
 
+#include <iostream>
+
 #include "httpserver.h"
 #include "socket.h"
 
