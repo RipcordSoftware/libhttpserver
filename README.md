@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/RipcordSoftware/libhttpserver.svg?branch=master)](https://travis-ci.org/RipcordSoftware/libhttpserver)
+
 # libhttpserver
 An HTTP web server implemented in C++ 11 and based on Boost::Asio.
 
