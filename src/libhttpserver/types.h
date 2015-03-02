@@ -19,9 +19,10 @@ typedef boost::shared_ptr<Buffer> buffer_ptr;
 class Socket;
 typedef boost::shared_ptr<Socket> socket_ptr;
 
-typedef boost::shared_ptr<boost::asio::io_service> asio_io_service_ptr;
+class RequestHeaders;
+typedef boost::shared_ptr<RequestHeaders> request_headers_ptr;
+
 typedef boost::shared_ptr<boost::asio::ip::tcp::socket> asio_socket_ptr;
-typedef boost::shared_ptr<boost::asio::ip::tcp::acceptor> asio_acceptor_ptr;
 
 }}
 

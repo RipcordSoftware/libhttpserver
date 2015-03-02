@@ -15,6 +15,8 @@ public:
     const static int KeepAliveTimeoutGrace = 2;
     const static int KeepAliveTimeoutTotal = KeepAliveTimeout + KeepAliveTimeoutGrace;
     
+    const static int MaxRequestHeaderSize = 16384;
+    
 private:
     Config() = delete;
 };

@@ -9,6 +9,7 @@
       <itemPath>exceptions.h</itemPath>
       <itemPath>httpserver.h</itemPath>
       <itemPath>libhttpserver.h</itemPath>
+      <itemPath>request_headers.h</itemPath>
       <itemPath>socket.h</itemPath>
       <itemPath>types.h</itemPath>
     </logicalFolder>
@@ -21,6 +22,7 @@
                    projectFiles="true">
       <itemPath>buffer.cpp</itemPath>
       <itemPath>httpserver.cpp</itemPath>
+      <itemPath>request_headers.cpp</itemPath>
       <itemPath>socket.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -64,6 +66,10 @@
       <item path="httpserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="libhttpserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="request_headers.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="request_headers.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="socket.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -109,6 +115,10 @@
       <item path="httpserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="libhttpserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="request_headers.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="request_headers.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="socket.cpp" ex="false" tool="1" flavor2="0">
       </item>

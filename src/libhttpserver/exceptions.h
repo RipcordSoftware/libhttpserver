@@ -27,6 +27,24 @@ private:
     const char* what_ = "Timed out waiting for request headers";
 };
 
+class HeaderSizeException : public HttpServerException {
+public:
+    virtual const char* what() const noexcept override {
+        return what_;
+    }    
+private:
+    const char* what_ = "The request header was too large";
+};
+
+class HeaderMalformedException : public HttpServerException {
+public:
+    virtual const char* what() const noexcept override {
+        return what_;
+    }    
+private:
+    const char* what_ = "The request header was malformed";
+};
+
 }}
 
 #endif	/* RS_LIBHTTPSERVER_EXCEPTIONS_H */

@@ -11,7 +11,7 @@
 namespace rs {
 namespace httpserver {
 
-class Buffer final : boost::noncopyable {
+class Buffer final : private boost::noncopyable {
 public:
     Buffer(int size) : data_(size), dataLength_(0) {}
     
@@ -31,16 +31,28 @@ public:
         dataLength_ = length;        
     }
     
-    unsigned char* getData() {
+    char* getData() {
         return &data_[0];
     }
     
     bool IsFull () {
         return dataLength_ == data_.size();
     }
+        
+    const char* const cbegin() const {
+        return &data_[0];
+    }
+    
+    const char* const cend() const {
+        return cbegin() + dataLength_;
+    }
+    
+    void Reset() {
+        dataLength_ = 0;
+    }
     
 private:        
-    std::vector<unsigned char> data_;
+    std::vector<char> data_;
     int dataLength_;
 };
 

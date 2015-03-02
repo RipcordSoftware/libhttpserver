@@ -4,6 +4,7 @@
 
 #include "httpserver.h"
 #include "socket.h"
+#include "request_headers.h"
 #include "exceptions.h"
 
 rs::httpserver::HttpServer::HttpServer(const std::string& host, int port, int threads) : 
@@ -54,7 +55,7 @@ void rs::httpserver::HttpServer::HandleAccept(socket_ptr socket, const boost::sy
 }
 
 void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
-    Buffer buffer(4096);
+    Buffer buffer(Config::MaxRequestHeaderSize);
     auto responseCount = 0;
     
     try {    
@@ -64,7 +65,14 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
                 throw HeaderTimeoutException();
             }
             
-            request_callback_(socket);
+            auto requestHeaders = RequestHeaders::Create(buffer);            
+            if (!!requestHeaders) {
+                request_callback_(socket);
+                
+                buffer.Reset();
+            } else if (buffer.IsFull()) {
+                throw HeaderSizeException();
+            }
         }
     } catch (const HttpServerException& e) {
         // TODO: do something more useful with this
