@@ -16,8 +16,7 @@ install:
 - tar xfj boost_1_57_0.tar.bz2
 - cd boost_1_57_0
 - ./bootstrap.sh
-- ./b2 --prefix=/usr -d0 link=static
-- sudo ./b2 -d0 install
+- sudo ./b2 --prefix=/usr -d0 install link=static
 - sudo rm -f /usr/bin/g++
 - sudo rm -f /usr/bin/gcc
 - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
