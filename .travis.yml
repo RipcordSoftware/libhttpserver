@@ -13,3 +13,4 @@ install:
 - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8"; fi
 - sudo rm -f /usr/bin/g++
 - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
+- sudo apt-get install libboost-all-dev
