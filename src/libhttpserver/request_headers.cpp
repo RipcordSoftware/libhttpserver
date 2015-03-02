@@ -2,6 +2,8 @@
 
 const char rs::httpserver::RequestHeaders::endOfLine_[4] = { '\r', '\n', '\r', '\n' };
 
+const std::string rs::httpserver::RequestHeaders::emptyValue_;
+
 rs::httpserver::request_headers_ptr rs::httpserver::RequestHeaders::Create(const HeaderBuffer& buffer) {
     auto headersEnd = std::search(buffer.cbegin(), buffer.cend(), endOfLine_, endOfLine_ + sizeof(endOfLine_));
     
@@ -73,5 +75,5 @@ void rs::httpserver::RequestHeaders::GetHeaders(const HeaderBuffer& buffer, int 
         headers_[std::move(field)] = std::move(value);
         
         lineStart = valueEnd + 2;
-    }        
+    }    
 }
