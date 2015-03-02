@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
         return true;
     };
 
-    server->Start(func, [](rs::httpserver::socket_ptr){ return true; });    
+    server->Start(func);
     
     return 0;
 }

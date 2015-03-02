@@ -12,6 +12,10 @@ rs::httpserver::HttpServer::HttpServer(const std::string& host, int port, int th
 rs::httpserver::HttpServer::~HttpServer() {
 }
 
+void rs::httpserver::HttpServer::Start(RequestCallback request_callback) {
+    Start(request_callback, [](rs::httpserver::socket_ptr){ return true; });
+}
+
 void rs::httpserver::HttpServer::Start(RequestCallback request_callback, Request100ContinueCallback request_continue_callback) {
     auto addr = boost::asio::ip::address::from_string(host_);
     boost::asio::ip::tcp::endpoint ep(addr, port_);
@@ -36,6 +40,7 @@ void rs::httpserver::HttpServer::StartAccept(socket_ptr socket) {
 
 void rs::httpserver::HttpServer::HandleAccept(socket_ptr socket, const boost::system::error_code& error) {
     if (error) {
+        // TODO: do something more useful with this
         std::cout << error.message() << std::endl;
     }
     else {

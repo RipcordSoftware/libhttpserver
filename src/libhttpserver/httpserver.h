@@ -25,6 +25,7 @@ public:
     
     ~HttpServer();
     
+    void Start(RequestCallback request_callback);
     void Start(RequestCallback request_callback, Request100ContinueCallback request_continue_callback);
     
 private:
