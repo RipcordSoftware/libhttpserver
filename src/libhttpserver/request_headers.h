@@ -28,6 +28,14 @@ public:
         return uri_;
     }
     
+    const std::string& getRawUri() {
+        return rawUri_;
+    }
+    
+    const std::string& getQueryString() {
+        return queryString_;
+    }
+    
     const std::string& getVersion() {
         return version_;
     }
@@ -108,7 +116,7 @@ private:
     std::string method_;
     std::string version_;
     std::string uri_;
-    std::string rawUrl_;    
+    std::string rawUri_;    
     std::string queryString_;
     int contentLength_;        
     
