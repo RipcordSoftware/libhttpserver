@@ -18,6 +18,15 @@ private:
     const char* what_ = "Invalid buffer data length specified";
 };
 
+class InvalidBufferPositionException : public HttpServerException {
+public:
+    virtual const char* what() const noexcept override {
+        return what_;
+    }    
+private:
+    const char* what_ = "Invalid buffer position specified";
+};
+
 class HeaderTimeoutException : public HttpServerException {
 public:
     virtual const char* what() const noexcept override {
@@ -43,6 +52,15 @@ public:
     }    
 private:
     const char* what_ = "The request header was malformed";
+};
+
+class InvalidStreamOperationException : public HttpServerException {
+public:
+    virtual const char* what() const noexcept override {
+        return what_;
+    }    
+private:
+    const char* what_ = "The stream operation was invalid";
 };
 
 }}

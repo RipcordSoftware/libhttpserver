@@ -13,7 +13,9 @@ namespace httpserver {
 
 class HeaderBuffer final : private boost::noncopyable {
 public:
-    HeaderBuffer(int size) : data_(size), dataLength_(0) {}
+    typedef char value_type;
+    
+    HeaderBuffer(int size) : data_(size), dataLength_(0), position_(0) {}
     
     int getLength() const {
         return data_.size();
@@ -21,6 +23,10 @@ public:
         
     int getDataLength() const {
         return dataLength_;
+    }
+    
+    int getPosition() const {
+        return position_;
     }
     
     void setDataLength(int length) {
@@ -31,29 +37,48 @@ public:
         dataLength_ = length;        
     }
     
-    char* getData() {
+    void setPosition(int pos) {
+        if (pos > dataLength_) {
+            throw InvalidBufferPositionException();
+        }
+        
+        position_ = pos;
+    }
+    
+    value_type* getData() {
         return &data_[0];
     }
     
-    bool IsFull () {
+    bool IsFull() {
         return dataLength_ == data_.size();
     }
+    
+    bool HasData() {
+        return position_ < dataLength_;
+    }
         
-    const char* const cbegin() const {
+    const value_type* const cbegin() const {
         return &data_[0];
     }
     
-    const char* const cend() const {
+    const value_type* const cend() const {
         return cbegin() + dataLength_;
     }
     
     void Reset() {
         dataLength_ = 0;
+        position_ = 0;
     }
     
+    std::size_t Receive(rs::httpserver::socket_ptr socket);
+    std::size_t Receive(rs::httpserver::socket_ptr socket, int timeout);
+    
+    int Copy(value_type* buffer, int count);
+    
 private:        
-    std::vector<char> data_;
+    std::vector<value_type> data_;
     int dataLength_;
+    int position_;
 };
 
 }}

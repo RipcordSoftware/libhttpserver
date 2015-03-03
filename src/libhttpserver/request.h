@@ -9,14 +9,15 @@
 #include "types.h"
 #include "request_headers.h"
 #include "query_string.h"
+#include "request_stream.h"
 
 namespace rs {
 namespace httpserver {
 
 class Request final : public boost::enable_shared_from_this<Request>, private boost::noncopyable {
 public:
-    static request_ptr Create(request_headers_ptr request_headers) {
-        return request_ptr(new Request(request_headers));
+    static request_ptr Create(socket_ptr socket, request_headers_ptr request_headers, HeaderBuffer& headerBuffer) {
+        return request_ptr(new Request(socket, request_headers, headerBuffer));
     }
     
     request_headers_ptr getHeaders() {
@@ -66,11 +67,20 @@ public:
         }
     }
     
-private:
-    Request(request_headers_ptr request_headers) : request_headers_(request_headers), queryString_(request_headers->getQueryString()) {}
+    RequestStream& getRequestStream() {
+        return requestStream_;
+    }
     
+private:
+    Request(socket_ptr socket, request_headers_ptr request_headers, HeaderBuffer& headerBuffer) : 
+        socket_(socket), request_headers_(request_headers),
+        queryString_(request_headers->getQueryString()),
+        requestStream_(socket, headerBuffer) {}
+    
+    const socket_ptr socket_;
     const request_headers_ptr request_headers_;
     const QueryString queryString_;
+    RequestStream requestStream_;
 
 };
 

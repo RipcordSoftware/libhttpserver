@@ -12,7 +12,9 @@
       <itemPath>query_string.h</itemPath>
       <itemPath>request.h</itemPath>
       <itemPath>request_headers.h</itemPath>
+      <itemPath>request_stream.h</itemPath>
       <itemPath>socket.h</itemPath>
+      <itemPath>stream.h</itemPath>
       <itemPath>types.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -27,6 +29,7 @@
       <itemPath>query_string.cpp</itemPath>
       <itemPath>request.cpp</itemPath>
       <itemPath>request_headers.cpp</itemPath>
+      <itemPath>request_stream.cpp</itemPath>
       <itemPath>socket.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -83,9 +86,15 @@
       </item>
       <item path="request_headers.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="request_stream.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="request_stream.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="socket.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="socket.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="types.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -140,9 +149,15 @@
       </item>
       <item path="request_headers.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="request_stream.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="request_stream.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="socket.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="socket.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="types.h" ex="false" tool="3" flavor2="0">
       </item>

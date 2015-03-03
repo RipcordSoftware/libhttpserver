@@ -18,7 +18,7 @@ namespace httpserver {
 class RequestHeaders final : public boost::enable_shared_from_this<RequestHeaders>, private boost::noncopyable {
 public:    
     
-    static request_headers_ptr Create(const HeaderBuffer& buffer);
+    static request_headers_ptr Create(HeaderBuffer& buffer);
     
     const std::string& getMethod() {
         return method_;

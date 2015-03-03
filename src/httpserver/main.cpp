@@ -38,6 +38,9 @@ int main(int argc, char** argv) {
 
         socket->Send(html.str());
         
+        // TODO: remove the close when we have a proper response object
+        socket->Close();
+        
         return true;
     };
 

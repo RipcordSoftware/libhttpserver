@@ -19,7 +19,6 @@ namespace httpserver {
 class Socket final : public boost::enable_shared_from_this<Socket>, private boost::noncopyable {
 public:
     typedef unsigned char byte;
-    typedef std::vector<byte> buffer;
     
     ~Socket() {
         Shutdown();
@@ -27,16 +26,16 @@ public:
     
     static socket_ptr Create(server_ptr server, asio_socket_ptr socket);
        
-    std::size_t Receive(HeaderBuffer& b);
+    std::size_t Receive(byte* buffer, int length, bool peek = false);
     
-    std::size_t Receive(int timeout, HeaderBuffer& b);
+    std::size_t Receive(int timeout, byte* buffer, int length, bool peek = false);
     
     std::size_t Send(const std::string& s) {
         return socket_->send(boost::asio::const_buffers_1(static_cast<const void*>(&s[0]), s.length()));
     }
     
-    std::size_t Send(const buffer& b) {
-        return socket_->send(boost::asio::const_buffers_1(static_cast<const void*>(&b[0]), b.size()));
+    std::size_t Send(const byte* buffer, int length) {
+        return socket_->send(boost::asio::const_buffers_1(static_cast<const void*>(buffer), length));
     }
     
     void Shutdown() {
@@ -54,6 +53,10 @@ public:
     
     bool Connected() {
         return socket_->is_open();
+    }
+    
+    bool Available() {
+        return socket_->available() > 0;
     }
     
     asio_socket_ptr getAsioSocket() { return socket_; }    

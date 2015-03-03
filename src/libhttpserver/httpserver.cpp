@@ -65,28 +65,28 @@ void rs::httpserver::HttpServer::HandleAccept(socket_ptr socket, const boost::sy
 }
 
 void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
-    HeaderBuffer buffer(Config::MaxRequestHeaderSize);
+    HeaderBuffer headerBuffer(Config::MaxRequestHeaderSize);
     auto responseCount = 0;
     
     try {    
         while (socket->Connected() && responseCount < Config::MaxResponseCount) {
-            auto responseBytes = socket->Receive(Config::ReceiveTimeoutPeriod, buffer);
+            auto responseBytes = headerBuffer.Receive(socket, Config::HeaderReceiveTimeoutPeriod);
             if (responseBytes <= 0) {
                 throw HeaderTimeoutException();
             }
             
-            auto requestHeaders = RequestHeaders::Create(buffer);            
+            auto requestHeaders = RequestHeaders::Create(headerBuffer);            
             if (!!requestHeaders) {
-                auto request = Request::Create(requestHeaders);
+                auto request = Request::Create(socket, requestHeaders, headerBuffer);
                 request_callback_(socket, request);
                 
-                buffer.Reset();
+                headerBuffer.Reset();
                 ++responseCount;
                 
                 if (request->ShouldClose()) {
                     socket->Close();
                 }
-            } else if (buffer.IsFull()) {
+            } else if (headerBuffer.IsFull()) {
                 throw HeaderSizeException();
             }
         }
