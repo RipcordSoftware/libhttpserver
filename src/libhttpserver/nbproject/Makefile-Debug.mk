@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/header_buffer.o \
 	${OBJECTDIR}/httpserver.o \
+	${OBJECTDIR}/request.o \
 	${OBJECTDIR}/request_headers.o \
 	${OBJECTDIR}/socket.o
 
@@ -76,6 +77,11 @@ ${OBJECTDIR}/httpserver.o: httpserver.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/httpserver.o httpserver.cpp
+
+${OBJECTDIR}/request.o: request.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request.o request.cpp
 
 ${OBJECTDIR}/request_headers.o: request_headers.cpp 
 	${MKDIR} -p ${OBJECTDIR}

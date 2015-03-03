@@ -5,6 +5,7 @@
 #include "httpserver.h"
 #include "socket.h"
 #include "request_headers.h"
+#include "request.h"
 #include "exceptions.h"
 
 rs::httpserver::HttpServer::HttpServer(const std::string& host, int port, int threads) : 
@@ -15,7 +16,7 @@ rs::httpserver::HttpServer::~HttpServer() {
 }
 
 void rs::httpserver::HttpServer::Start(RequestCallback request_callback) {
-    Start(request_callback, [](rs::httpserver::socket_ptr){ return true; });
+    Start(request_callback, [](socket_ptr, request_ptr){ return true; });
 }
 
 void rs::httpserver::HttpServer::Start(RequestCallback request_callback, Request100ContinueCallback request_continue_callback) {
@@ -67,7 +68,8 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
             
             auto requestHeaders = RequestHeaders::Create(buffer);            
             if (!!requestHeaders) {
-                request_callback_(socket);
+                auto request = Request::Create(requestHeaders);
+                request_callback_(socket, request);
                 
                 buffer.Reset();
             } else if (buffer.IsFull()) {

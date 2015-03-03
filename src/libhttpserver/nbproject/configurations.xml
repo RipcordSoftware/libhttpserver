@@ -9,6 +9,7 @@
       <itemPath>header_buffer.h</itemPath>
       <itemPath>httpserver.h</itemPath>
       <itemPath>libhttpserver.h</itemPath>
+      <itemPath>request.h</itemPath>
       <itemPath>request_headers.h</itemPath>
       <itemPath>socket.h</itemPath>
       <itemPath>types.h</itemPath>
@@ -22,6 +23,7 @@
                    projectFiles="true">
       <itemPath>header_buffer.cpp</itemPath>
       <itemPath>httpserver.cpp</itemPath>
+      <itemPath>request.cpp</itemPath>
       <itemPath>request_headers.cpp</itemPath>
       <itemPath>socket.cpp</itemPath>
     </logicalFolder>
@@ -66,6 +68,10 @@
       <item path="httpserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="libhttpserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="request.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="request.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="request_headers.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -115,6 +121,10 @@
       <item path="httpserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="libhttpserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="request.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="request.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="request_headers.cpp" ex="false" tool="1" flavor2="0">
       </item>
