@@ -17,7 +17,7 @@ namespace httpserver {
 
 class HttpServer final : public boost::enable_shared_from_this<HttpServer>, private boost::noncopyable {
 public:
-    typedef boost::function<bool (socket_ptr, request_ptr)> RequestCallback;
+    typedef boost::function<bool (socket_ptr, request_ptr, response_ptr)> RequestCallback;
     typedef boost::function<bool (socket_ptr, request_ptr)> Request100ContinueCallback;
     
     static server_ptr Create(const std::string& host, int port, int threads) {

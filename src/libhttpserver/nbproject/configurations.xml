@@ -13,6 +13,7 @@
       <itemPath>request.h</itemPath>
       <itemPath>request_headers.h</itemPath>
       <itemPath>request_stream.h</itemPath>
+      <itemPath>response.h</itemPath>
       <itemPath>socket.h</itemPath>
       <itemPath>stream.h</itemPath>
       <itemPath>types.h</itemPath>
@@ -30,6 +31,7 @@
       <itemPath>request.cpp</itemPath>
       <itemPath>request_headers.cpp</itemPath>
       <itemPath>request_stream.cpp</itemPath>
+      <itemPath>response.cpp</itemPath>
       <itemPath>socket.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -89,6 +91,10 @@
       <item path="request_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="request_stream.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="response.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="response.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="socket.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -152,6 +158,10 @@
       <item path="request_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="request_stream.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="response.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="response.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="socket.cpp" ex="false" tool="1" flavor2="0">
       </item>

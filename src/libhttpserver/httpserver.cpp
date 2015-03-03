@@ -6,6 +6,7 @@
 #include "socket.h"
 #include "request_headers.h"
 #include "request.h"
+#include "response.h"
 #include "exceptions.h"
 
 rs::httpserver::HttpServer::HttpServer(const std::string& host, int port, int threads) : 
@@ -78,7 +79,8 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
             auto requestHeaders = RequestHeaders::Create(headerBuffer);            
             if (!!requestHeaders) {
                 auto request = Request::Create(socket, requestHeaders, headerBuffer);
-                request_callback_(socket, request);
+                auto response = Response::Create(socket);
+                request_callback_(socket, request, response);
                 
                 headerBuffer.Reset();
                 ++responseCount;

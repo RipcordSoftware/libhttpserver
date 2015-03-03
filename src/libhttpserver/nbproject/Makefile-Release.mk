@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/request.o \
 	${OBJECTDIR}/request_headers.o \
 	${OBJECTDIR}/request_stream.o \
+	${OBJECTDIR}/response.o \
 	${OBJECTDIR}/socket.o
 
 
@@ -99,6 +100,11 @@ ${OBJECTDIR}/request_stream.o: request_stream.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_stream.o request_stream.cpp
+
+${OBJECTDIR}/response.o: response.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/response.o response.cpp
 
 ${OBJECTDIR}/socket.o: socket.cpp 
 	${MKDIR} -p ${OBJECTDIR}

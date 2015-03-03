@@ -25,6 +25,9 @@ typedef boost::shared_ptr<RequestHeaders> request_headers_ptr;
 class Request;
 typedef boost::shared_ptr<Request> request_ptr;
 
+class Response;
+typedef boost::shared_ptr<Response> response_ptr;
+
 typedef boost::shared_ptr<boost::asio::ip::tcp::socket> asio_socket_ptr;
 
 }}
