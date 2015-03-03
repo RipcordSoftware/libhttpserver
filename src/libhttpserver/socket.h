@@ -40,7 +40,16 @@ public:
     }
     
     void Shutdown() {
-        socket_->shutdown(boost::asio::socket_base::shutdown_type::shutdown_both);
+        if (Connected()) {
+            socket_->shutdown(boost::asio::socket_base::shutdown_type::shutdown_both);
+        }
+    }
+    
+    void Close() {
+        if (Connected()) {
+            Shutdown();
+            socket_->close();
+        }
     }
     
     bool Connected() {

@@ -32,9 +32,10 @@ std::size_t rs::httpserver::Socket::Receive(int timeout, HeaderBuffer& b) {
     }
     
     if (!timed_out) {
-        bytes = socket_->receive(boost::asio::mutable_buffers_1(b.getData() + b.getDataLength(), b.getLength() - b.getDataLength()));
+        auto dataLength = b.getDataLength();
+        bytes = socket_->receive(boost::asio::mutable_buffers_1(b.getData() + dataLength, b.getLength() - b.getDataLength()));
         if (bytes > 0) {
-            b.setDataLength(bytes);
+            b.setDataLength(dataLength + bytes);
         }
     }
     

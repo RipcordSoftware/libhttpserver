@@ -4,6 +4,7 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include "types.h"
 #include "request_headers.h"
@@ -24,6 +25,45 @@ public:
     
     const QueryString& getQueryString() {
         return queryString_;
+    }
+    
+    bool IsHttp10() {
+        return request_headers_->getVersion() == "HTTP/1.0";
+    }
+    
+    const std::string& getUri() {
+        return request_headers_->getUri();
+    }
+    
+    const std::string& getMethod() {
+        return request_headers_->getMethod();
+    }        
+    
+    const std::string& getConnection() {
+        return request_headers_->getConnection();
+    }
+    
+    const std::string& getContentType() {
+        return request_headers_->getContentType();
+    }
+    
+    const std::string& getAcceptEncoding() {
+        return request_headers_->getAcceptEncoding();
+    }
+    
+    int getContentLength() {
+        return request_headers_->getContentLength();
+    }
+    
+    bool ShouldClose() {
+        auto connection = getConnection();
+        if (boost::iequals(connection, "close")) {
+            return true;
+        } else if (IsHttp10() && connection.length() == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
 private:

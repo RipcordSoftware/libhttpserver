@@ -58,7 +58,7 @@ void rs::httpserver::HttpServer::HandleAccept(socket_ptr socket, const boost::sy
     else {
         asio_socket_ptr new_asio_socket(new boost::asio::ip::tcp::socket(service_));
         auto new_socket = Socket::Create(shared_from_this(), new_asio_socket);    
-        StartAccept(new_socket);    
+        StartAccept(std::move(new_socket));    
 
         HandleRequest(socket);
     }
@@ -69,7 +69,7 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
     auto responseCount = 0;
     
     try {    
-        if (socket->Connected() && responseCount < Config::MaxResponseCount) {
+        while (socket->Connected() && responseCount < Config::MaxResponseCount) {
             auto responseBytes = socket->Receive(Config::ReceiveTimeoutPeriod, buffer);
             if (responseBytes <= 0) {
                 throw HeaderTimeoutException();
@@ -82,6 +82,10 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
                 
                 buffer.Reset();
                 ++responseCount;
+                
+                if (request->ShouldClose()) {
+                    socket->Close();
+                }
             } else if (buffer.IsFull()) {
                 throw HeaderSizeException();
             }
