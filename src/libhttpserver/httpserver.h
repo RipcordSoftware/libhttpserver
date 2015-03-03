@@ -33,14 +33,15 @@ private:
     HttpServer(const std::string& host, int port, int threads);
     
     void StartAccept(socket_ptr socket);
-    void HandleAccept(socket_ptr socket, const boost::system::error_code& error);
-    
+    void HandleAccept(socket_ptr socket, const boost::system::error_code& error);    
     void HandleRequest(socket_ptr socket);
+    void HandleStop();
     
     const std::string host_;
     const int port_;
     
     boost::asio::io_service service_;
+    boost::asio::signal_set signals_;
     boost::asio::ip::tcp::acceptor acceptor_;
     
     RequestCallback request_callback_;

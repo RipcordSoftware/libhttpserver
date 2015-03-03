@@ -9,10 +9,18 @@
 #include "exceptions.h"
 
 rs::httpserver::HttpServer::HttpServer(const std::string& host, int port, int threads) : 
-    host_(host), port_(port), service_(threads), acceptor_(service_) {
+    host_(host), port_(port), service_(threads), acceptor_(service_), signals_(service_) {
+    signals_.add(SIGINT);
+    signals_.add(SIGTERM);
+    signals_.add(SIGQUIT);
+    signals_.async_wait(boost::bind(&HttpServer::HandleStop, this));
 }
 
 rs::httpserver::HttpServer::~HttpServer() {
+}
+
+void rs::httpserver::HttpServer::HandleStop() {        
+    service_.stop();
 }
 
 void rs::httpserver::HttpServer::Start(RequestCallback request_callback) {
@@ -30,6 +38,7 @@ void rs::httpserver::HttpServer::Start(RequestCallback request_callback, Request
     request_continue_callback_ = request_continue_callback;
     
     acceptor_.open(ep.protocol());
+    acceptor_.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
     acceptor_.bind(ep);
     acceptor_.listen();
     StartAccept(std::move(socket));
@@ -72,6 +81,7 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
                 request_callback_(socket, request);
                 
                 buffer.Reset();
+                ++responseCount;
             } else if (buffer.IsFull()) {
                 throw HeaderSizeException();
             }
