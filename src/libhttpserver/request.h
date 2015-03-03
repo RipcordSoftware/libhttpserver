@@ -7,6 +7,7 @@
 
 #include "types.h"
 #include "request_headers.h"
+#include "query_string.h"
 
 namespace rs {
 namespace httpserver {
@@ -21,10 +22,15 @@ public:
         return request_headers_;
     }
     
+    const QueryString& getQueryString() {
+        return queryString_;
+    }
+    
 private:
-    Request(request_headers_ptr request_headers) : request_headers_(request_headers) {}
+    Request(request_headers_ptr request_headers) : request_headers_(request_headers), queryString_(request_headers->getQueryString()) {}
     
     const request_headers_ptr request_headers_;
+    const QueryString queryString_;
 
 };
 
