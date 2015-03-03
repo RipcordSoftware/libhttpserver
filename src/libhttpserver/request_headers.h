@@ -85,12 +85,25 @@ public:
         return contentLength_;
     }
     
-private:            
-    typedef std::map<std::string, std::string> headers;    
+private:
+    struct HeaderKeyComparer {
+        bool operator()(const std::string& x, const std::string& y) {
+            auto diff = 0;
+            auto px = x.c_str();
+            auto py = y.c_str();
+            do {
+                diff = (*px | 0x20) - (*py | 0x20);
+            } while (diff == 0 && *px++ != '\0' && *py++ != '\0');
+            
+            return diff < 0;
+        }
+    };
+    
+    typedef std::map<std::string, std::string, HeaderKeyComparer> headers;
     
     RequestHeaders() : contentLength_(-1) {}
-    
-    void GetHeaders(const HeaderBuffer& buffer, int headersLength);    
+
+    void GetHeaders(const HeaderBuffer& buffer, int headersLength);
     
     std::string method_;
     std::string version_;
