@@ -66,12 +66,15 @@ void rs::httpserver::HttpServer::HandleAccept(socket_ptr socket, const boost::sy
 }
 
 void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
+    Socket::ScopedClose close(socket);
     HeaderBuffer headerBuffer(Config::MaxRequestHeaderSize);
     auto responseCount = 0;
     
     try {    
         while (socket->Connected() && responseCount < Config::MaxResponseCount) {
-            auto responseBytes = headerBuffer.Receive(socket, Config::HeaderReceiveTimeoutPeriod);
+            auto headerReceiveTimeout = headerBuffer.getDataLength() > 0 ? Config::HeaderReceiveTimeoutPeriod : Config::KeepAliveTimeoutTotal;
+
+            auto responseBytes = headerBuffer.Receive(socket, headerReceiveTimeout);
             if (responseBytes <= 0) {
                 throw HeaderTimeoutException();
             }

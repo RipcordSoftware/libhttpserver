@@ -20,6 +20,15 @@ class Socket final : public boost::enable_shared_from_this<Socket>, private boos
 public:
     typedef unsigned char byte;
     
+    class ScopedClose {
+    public:
+        ScopedClose(socket_ptr socket) : socket_(socket) {}
+        ~ScopedClose() { socket_->Close(); }
+        
+    private:
+        socket_ptr socket_;
+    };
+    
     ~Socket() {
         Shutdown();
     }
