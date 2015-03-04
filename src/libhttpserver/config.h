@@ -8,15 +8,15 @@ namespace httpserver {
 
 class Config final : private boost::noncopyable {
 public:
-    const static int MaxResponseCount = 100;
+    const static int MaxResponseCount;
     
-    const static int HeaderReceiveTimeoutPeriod = 30;
-    const static int BodyReceiveTimeoutPeriod = 60;    
-    const static int KeepAliveTimeout = 10;
-    const static int KeepAliveTimeoutGrace = 2;
-    const static int KeepAliveTimeoutTotal = KeepAliveTimeout + KeepAliveTimeoutGrace;
+    const static int HeaderReceiveTimeoutPeriod;
+    const static int BodyReceiveTimeoutPeriod;
+    const static int KeepAliveTimeout;
+    const static int KeepAliveTimeoutGrace;
+    const static int KeepAliveTimeoutTotal;
     
-    const static int MaxRequestHeaderSize = 16384;
+    const static int MaxRequestHeaderSize;
     
 private:
     Config() = delete;

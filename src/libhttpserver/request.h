@@ -33,6 +33,23 @@ public:
         return request_headers_->getVersion() == Headers::Http10;
     }
     
+    bool IsKeepAlive() {
+        auto keepAlive = true;
+        auto connection = request_headers_->getConnection();
+        
+        if (IsHttp10()) {
+            keepAlive = boost::iequals(connection, "keep-alive");
+        } else {
+            keepAlive = !boost::iequals(connection, "close");
+        }
+        
+        return keepAlive;
+    }
+    
+    bool IsHead() {
+        return request_headers_->getMethod() == Headers::Head;
+    }
+
     const std::string& getUri() {
         return request_headers_->getUri();
     }

@@ -85,7 +85,7 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
                 headerBuffer.Reset();
                 ++responseCount;
                 
-                if (request->ShouldClose()) {
+                if (response->ShouldClose()) {
                     socket->Close();
                 }
             } else if (headerBuffer.IsFull()) {

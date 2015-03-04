@@ -5,6 +5,7 @@
 #include "httpserver.h"
 #include "socket.h"
 #include "request.h"
+#include "response.h"
 
 #endif	/* RS_LIBHTTPSERVER_LIBHTTPSERVER_H */
 

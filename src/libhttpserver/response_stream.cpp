@@ -14,10 +14,9 @@ int rs::httpserver::ResponseStream::Write(const Stream::byte* buffer, int offset
         }
         
         written += sentBytes;
+        position_ += sentBytes;
+        length_ += sentBytes;
     }
-    
-    position_ += written;
-    length_ += written;
     
     return written;
 }

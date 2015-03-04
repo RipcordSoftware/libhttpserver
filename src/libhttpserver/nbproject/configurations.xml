@@ -19,6 +19,7 @@
       <itemPath>response_stream.h</itemPath>
       <itemPath>socket.h</itemPath>
       <itemPath>stream.h</itemPath>
+      <itemPath>string_stream.h</itemPath>
       <itemPath>types.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -28,6 +29,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>config.cpp</itemPath>
       <itemPath>header_buffer.cpp</itemPath>
       <itemPath>headers.cpp</itemPath>
       <itemPath>httpserver.cpp</itemPath>
@@ -67,6 +69,8 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a</output>
         </archiverTool>
       </compileType>
+      <item path="config.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="exceptions.h" ex="false" tool="3" flavor2="0">
@@ -116,6 +120,8 @@
       <item path="socket.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="stream.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="string_stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="types.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -144,6 +150,8 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a</output>
         </archiverTool>
       </compileType>
+      <item path="config.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="exceptions.h" ex="false" tool="3" flavor2="0">
@@ -193,6 +201,8 @@
       <item path="socket.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="stream.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="string_stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="types.h" ex="false" tool="3" flavor2="0">
       </item>

@@ -8,6 +8,12 @@ namespace httpserver {
 
 class Headers final {
 public:
+    static const std::string Get;
+    static const std::string Post;
+    static const std::string Put;
+    static const std::string Head;
+    static const std::string Delete;
+    
     static const std::string Http10;
     static const std::string Http11;
     
@@ -22,6 +28,7 @@ public:
     static const std::string Host;
     static const std::string Connection;
     static const std::string KeepAlive;
+    static const std::string Location;
 };
 
 }}

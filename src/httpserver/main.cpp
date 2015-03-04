@@ -29,17 +29,15 @@ int main(int argc, char** argv) {
         auto remote = socket->getRemoteEndpoint();
 
         stringstream html;
-        html << "HTTP/1.0 200 OK\r\nContent-Type: text/html\r\nConnection: close\r\n\r\n<html><body>" <<
+        html << 
+            "<html><body>" <<
             "<div>hello to " << remote.address().to_string() << ":" << remote.port() <<
             " from " << request->getHeaders()->getHost() << 
             " at uri " << request->getHeaders()->getUri() << "</div>" <<
             "<div>Query string: " << request->getQueryString().getKeys() << "</div>" <<
             "</body></html>";
 
-        socket->Send(html.str());
-        
-        // TODO: remove the close when we have a proper response object
-        socket->Close();
+        response->setContentType("text/html").Send(html.str());
         
         return true;
     };

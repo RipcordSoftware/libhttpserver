@@ -3,16 +3,19 @@
 
 #include <string>
 #include <map>
+#include <iostream>
 
 #include <boost/noncopyable.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include "types.h"
 #include "response_stream.h"
 #include "header_key_comparer.h"
 #include "headers.h"
+#include "request.h"
 
 namespace rs {
 namespace httpserver {
@@ -35,12 +38,7 @@ public:
     Response& setStatusDescription(const std::string& statusDescription) {
         statusDescription_ = statusDescription;
         return *this;
-    }
-    
-    Response& setHttp10() {
-        version_ = Headers::Http10;
-        return *this;
-    }
+    }    
     
     Response& setContentType(const std::string& contentType) {
         headers_[Headers::ContentType] = contentType;
@@ -62,14 +60,24 @@ public:
         return *this;
     }
     
-    ResponseStream& getResponseStream() {
-        return responseStream_;
+    bool ShouldClose() {
+        auto connection = headers_.find(Headers::Connection);
+        return connection != headers_.cend() ? boost::iequals(connection->second, "close") : false;
     }
+    
+    void Send(const std::string& data);
+    void Send(Stream& stream);
     
 private:
     Response(socket_ptr socket, request_ptr request) : socket_(socket), request_(request),
-        responseStream_(socket_), statusCode_(200), statusDescription_("OK"), 
-        version_(Headers::Http11), headers_({{Headers::ContentType, "text/plain"}}) {}
+        responseStream_(socket_), statusCode_(200), version_(Headers::Http11), 
+        headers_({{Headers::ContentType, "text/plain"}}) {}
+        
+    void SerializeHeaders(std::stringstream& sout);
+    
+    bool HasContentLength() {
+        return headers_.find(Headers::ContentLength) != headers_.cend();
+    }
     
     socket_ptr socket_;
     request_ptr request_;
@@ -79,6 +87,8 @@ private:
     int statusCode_;
     std::string statusDescription_;
     std::string version_;
+    
+    const static std::string keepAliveHeaderValue_;
 };
 
 }}
