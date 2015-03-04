@@ -2,7 +2,7 @@
 #include "config.h"
 #include "string_stream.h"
 
-const std::string rs::httpserver::Response::keepAliveHeaderValue_ = std::string("timeout=") + boost::lexical_cast<std::string>(Config::KeepAliveTimeoutTotal);
+const std::string rs::httpserver::Response::keepAliveHeaderValue_ = std::string("timeout=") + boost::lexical_cast<std::string>(Config::KeepAliveTimeout);
 
 void rs::httpserver::Response::Send(const std::string& data) {
     StringStream stream(data);
