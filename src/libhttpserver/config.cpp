@@ -1,5 +1,8 @@
 #include "config.h"
 
+const unsigned rs::httpserver::Config::MinThreadCount = 32;
+const unsigned rs::httpserver::Config::ThreadCoreMultiplier = 32;
+
 const int rs::httpserver::Config::MaxResponseCount = 100;
 
 const int rs::httpserver::Config::HeaderReceiveTimeoutPeriod = 30;

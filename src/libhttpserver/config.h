@@ -8,6 +8,9 @@ namespace httpserver {
 
 class Config final : private boost::noncopyable {
 public:
+    const static unsigned MinThreadCount;
+    const static unsigned ThreadCoreMultiplier;
+    
     const static int MaxResponseCount;
     
     const static int HeaderReceiveTimeoutPeriod;

@@ -23,7 +23,7 @@ ostream& operator<<(ostream& os, const vector<TElem>& vec) {
  */
 int main(int argc, char** argv) {
     
-    auto server = rs::httpserver::HttpServer::Create("0.0.0.0", 10024, 8);
+    auto server = rs::httpserver::HttpServer::Create("0.0.0.0", 10024);
     
     auto func = [](rs::httpserver::socket_ptr socket, rs::httpserver::request_ptr request, rs::httpserver::response_ptr response) {
         auto remote = socket->getRemoteEndpoint();

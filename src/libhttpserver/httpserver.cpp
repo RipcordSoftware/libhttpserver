@@ -1,6 +1,7 @@
-#include <boost/bind.hpp>
-
 #include <iostream>
+
+#include <boost/bind.hpp>
+#include <boost/thread.hpp>
 
 #include "httpserver.h"
 #include "socket.h"
@@ -10,7 +11,8 @@
 #include "exceptions.h"
 
 rs::httpserver::HttpServer::HttpServer(const std::string& host, int port, int threads) : 
-    host_(host), port_(port), service_(threads), acceptor_(service_), signals_(service_) {
+        host_(host), port_(port), threads_(threads), service_(),
+        acceptor_(service_), signals_(service_) {
     signals_.add(SIGINT);
     signals_.add(SIGTERM);
     signals_.add(SIGQUIT);
@@ -44,7 +46,11 @@ void rs::httpserver::HttpServer::Start(RequestCallback request_callback, Request
     acceptor_.listen();
     StartAccept(std::move(socket));
     
-    service_.run();
+    boost::thread_group workers;
+    for (auto i = 0; i < threads_; ++i) {
+        workers.create_thread(boost::bind(&boost::asio::io_service::run, &service_));
+    }
+    workers.join_all();
 }
 
 void rs::httpserver::HttpServer::StartAccept(socket_ptr socket) {

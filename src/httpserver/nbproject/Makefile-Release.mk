@@ -52,7 +52,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../libhttpserver/dist/Release/GNU-Linux-x86/libhttpserver.a -lboost_system -lpthread
+LDLIBSOPTIONS=../libhttpserver/dist/Release/GNU-Linux-x86/libhttpserver.a -lboost_thread -lboost_system -lpthread
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
