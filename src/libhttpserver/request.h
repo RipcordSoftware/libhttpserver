@@ -10,6 +10,7 @@
 #include "request_headers.h"
 #include "query_string.h"
 #include "request_stream.h"
+#include "headers.h"
 
 namespace rs {
 namespace httpserver {
@@ -29,7 +30,7 @@ public:
     }
     
     bool IsHttp10() {
-        return request_headers_->getVersion() == "HTTP/1.0";
+        return request_headers_->getVersion() == Headers::Http10;
     }
     
     const std::string& getUri() {

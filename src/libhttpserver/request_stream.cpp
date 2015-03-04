@@ -17,8 +17,10 @@ int rs::httpserver::RequestStream::Read(Stream::byte* buffer, int offset, int co
         }
     }
     
-    position_ += bytes;
-    length_ += bytes;
+    if (!peek) {
+        position_ += bytes;
+        length_ += bytes;
+    }
 
     return bytes;
 }

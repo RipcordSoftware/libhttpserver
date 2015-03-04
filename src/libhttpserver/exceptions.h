@@ -63,6 +63,15 @@ private:
     const char* what_ = "The stream operation was invalid";
 };
 
+class SocketWriteException : public HttpServerException {
+public:
+    virtual const char* what() const noexcept override {
+        return what_;
+    }    
+private:
+    const char* what_ = "Unable to write data to the socket";
+};
+
 }}
 
 #endif	/* RS_LIBHTTPSERVER_EXCEPTIONS_H */

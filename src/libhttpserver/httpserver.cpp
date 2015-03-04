@@ -79,7 +79,7 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
             auto requestHeaders = RequestHeaders::Create(headerBuffer);            
             if (!!requestHeaders) {
                 auto request = Request::Create(socket, requestHeaders, headerBuffer);
-                auto response = Response::Create(socket);
+                auto response = Response::Create(socket, request);
                 request_callback_(socket, request, response);
                 
                 headerBuffer.Reset();

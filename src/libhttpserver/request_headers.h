@@ -11,6 +11,8 @@
 
 #include "header_buffer.h"
 #include "types.h"
+#include "header_key_comparer.h"
+#include "headers.h"
 
 namespace rs {
 namespace httpserver {
@@ -46,46 +48,46 @@ public:
     }
     
     const std::string& getContentType() {
-        return getHeader("Content-Type");
+        return getHeader(Headers::ContentType);
     }
     
     const std::string& getAcceptEncoding() {
-        return getHeader("Accept-Encoding");
+        return getHeader(Headers::AcceptEncoding);
     }
     
     const std::string& getAccept() {
-        return getHeader("Accept");
+        return getHeader(Headers::Accept);
     }
     
     const std::string& getHost() {
-        return getHeader("Host");
+        return getHeader(Headers::Host);
     }
     
     const std::string& getTransferEncoding() {
-        return getHeader("Transfer-Encoding");
+        return getHeader(Headers::TransferEncoding);
     }
     
     const std::string& getContentEncoding() {
-        return getHeader("Content-Encoding");
+        return getHeader(Headers::ContentEncoding);
     }
     
     const std::string& getExpect() {
-        return getHeader("Expect");
+        return getHeader(Headers::Expect);
     }
     
     const std::string& getUserAgent() {
-        return getHeader("User-Agent");
+        return getHeader(Headers::UserAgent);
     }
     
     const std::string& getConnection() {
-        return getHeader("Connection");
+        return getHeader(Headers::Connection);
     }
     
     int getContentLength() {
         if (contentLength_ < 0) {
             contentLength_ = 0;
             
-            auto contentLengthValue = getHeader("Content-Length");
+            auto contentLengthValue = getHeader(Headers::ContentLength);
             if (contentLengthValue.length() > 0) {
                 contentLength_ = boost::lexical_cast<int>(contentLengthValue);
             }
@@ -94,19 +96,6 @@ public:
     }
     
 private:
-    struct HeaderKeyComparer {
-        bool operator()(const std::string& x, const std::string& y) {
-            auto diff = 0;
-            auto px = x.c_str();
-            auto py = y.c_str();
-            do {
-                diff = (*px | 0x20) - (*py | 0x20);
-            } while (diff == 0 && *px++ != '\0' && *py++ != '\0');
-            
-            return diff < 0;
-        }
-    };
-    
     typedef std::map<std::string, std::string, HeaderKeyComparer> headers;
     
     RequestHeaders() : contentLength_(-1) {}

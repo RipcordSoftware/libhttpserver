@@ -7,6 +7,8 @@
       <itemPath>config.h</itemPath>
       <itemPath>exceptions.h</itemPath>
       <itemPath>header_buffer.h</itemPath>
+      <itemPath>header_key_comparer.h</itemPath>
+      <itemPath>headers.h</itemPath>
       <itemPath>httpserver.h</itemPath>
       <itemPath>libhttpserver.h</itemPath>
       <itemPath>query_string.h</itemPath>
@@ -14,6 +16,7 @@
       <itemPath>request_headers.h</itemPath>
       <itemPath>request_stream.h</itemPath>
       <itemPath>response.h</itemPath>
+      <itemPath>response_stream.h</itemPath>
       <itemPath>socket.h</itemPath>
       <itemPath>stream.h</itemPath>
       <itemPath>types.h</itemPath>
@@ -26,12 +29,14 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>header_buffer.cpp</itemPath>
+      <itemPath>headers.cpp</itemPath>
       <itemPath>httpserver.cpp</itemPath>
       <itemPath>query_string.cpp</itemPath>
       <itemPath>request.cpp</itemPath>
       <itemPath>request_headers.cpp</itemPath>
       <itemPath>request_stream.cpp</itemPath>
       <itemPath>response.cpp</itemPath>
+      <itemPath>response_stream.cpp</itemPath>
       <itemPath>socket.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -70,6 +75,12 @@
       </item>
       <item path="header_buffer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="header_key_comparer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="headers.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="headers.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="httpserver.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="httpserver.h" ex="false" tool="3" flavor2="0">
@@ -95,6 +106,10 @@
       <item path="response.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="response.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="response_stream.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="response_stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="socket.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -137,6 +152,12 @@
       </item>
       <item path="header_buffer.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="header_key_comparer.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="headers.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="headers.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="httpserver.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="httpserver.h" ex="false" tool="3" flavor2="0">
@@ -162,6 +183,10 @@
       <item path="response.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="response.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="response_stream.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="response_stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="socket.cpp" ex="false" tool="1" flavor2="0">
       </item>

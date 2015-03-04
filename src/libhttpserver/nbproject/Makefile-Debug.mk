@@ -36,12 +36,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/header_buffer.o \
+	${OBJECTDIR}/headers.o \
 	${OBJECTDIR}/httpserver.o \
 	${OBJECTDIR}/query_string.o \
 	${OBJECTDIR}/request.o \
 	${OBJECTDIR}/request_headers.o \
 	${OBJECTDIR}/request_stream.o \
 	${OBJECTDIR}/response.o \
+	${OBJECTDIR}/response_stream.o \
 	${OBJECTDIR}/socket.o
 
 
@@ -76,6 +78,11 @@ ${OBJECTDIR}/header_buffer.o: header_buffer.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/header_buffer.o header_buffer.cpp
 
+${OBJECTDIR}/headers.o: headers.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/headers.o headers.cpp
+
 ${OBJECTDIR}/httpserver.o: httpserver.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -105,6 +112,11 @@ ${OBJECTDIR}/response.o: response.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/response.o response.cpp
+
+${OBJECTDIR}/response_stream.o: response_stream.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/response_stream.o response_stream.cpp
 
 ${OBJECTDIR}/socket.o: socket.cpp 
 	${MKDIR} -p ${OBJECTDIR}
