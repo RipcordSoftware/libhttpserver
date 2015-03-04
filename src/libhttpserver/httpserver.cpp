@@ -26,19 +26,19 @@ void rs::httpserver::HttpServer::HandleStop() {
     service_.stop();
 }
 
-void rs::httpserver::HttpServer::Start(RequestCallback request_callback) {
-    Start(request_callback, [](socket_ptr, request_ptr){ return true; });
+void rs::httpserver::HttpServer::Start(RequestCallback requestCallback) {
+    Start(requestCallback, [](socket_ptr, request_ptr){ return true; });
 }
 
-void rs::httpserver::HttpServer::Start(RequestCallback request_callback, Request100ContinueCallback request_continue_callback) {
+void rs::httpserver::HttpServer::Start(RequestCallback requestCallback, Request100ContinueCallback request_continue_callback) {
     auto addr = boost::asio::ip::address::from_string(host_);
     boost::asio::ip::tcp::endpoint ep(addr, port_);
     
     asio_socket_ptr asio_socket(new boost::asio::ip::tcp::socket(service_));    
     auto socket = Socket::Create(shared_from_this(), asio_socket);
     
-    request_callback_ = request_callback;
-    request_continue_callback_ = request_continue_callback;
+    requestCallback_ = requestCallback;
+    requestContinueCallback_ = request_continue_callback;
     
     acceptor_.open(ep.protocol());
     acceptor_.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
@@ -89,7 +89,7 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
             if (!!requestHeaders) {
                 auto request = Request::Create(socket, requestHeaders, headerBuffer);
                 auto response = Response::Create(socket, request);
-                request_callback_(socket, request, response);
+                requestCallback_(socket, request, response);
                 
                 headerBuffer.Reset();
                 ++responseCount;

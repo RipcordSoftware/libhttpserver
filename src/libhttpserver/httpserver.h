@@ -33,7 +33,8 @@ public:
     
     static int EstimateThreadPoolSize() {
         auto cores = boost::thread::hardware_concurrency();
-        return cores > 0 ? std::max(cores * Config::ThreadCoreMultiplier, Config::MinThreadCount) : Config::MinThreadCount;
+        auto threads = cores > 0 ? std::max(cores * Config::ThreadCoreMultiplier, Config::MinThreadCount) : Config::MinThreadCount;
+        return std::min(threads, Config::MaxThreadCount);
     }
     
 private:
@@ -52,8 +53,8 @@ private:
     boost::asio::signal_set signals_;
     boost::asio::ip::tcp::acceptor acceptor_;
     
-    RequestCallback request_callback_;
-    Request100ContinueCallback request_continue_callback_;
+    RequestCallback requestCallback_;
+    Request100ContinueCallback requestContinueCallback_;
 };
 
 }}

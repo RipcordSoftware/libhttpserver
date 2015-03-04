@@ -1,7 +1,8 @@
 #include "config.h"
 
-const unsigned rs::httpserver::Config::MinThreadCount = 32;
-const unsigned rs::httpserver::Config::ThreadCoreMultiplier = 32;
+const unsigned rs::httpserver::Config::MinThreadCount = 20;
+const unsigned rs::httpserver::Config::MaxThreadCount = 200;
+const unsigned rs::httpserver::Config::ThreadCoreMultiplier = 16;
 
 const int rs::httpserver::Config::MaxResponseCount = 100;
 
