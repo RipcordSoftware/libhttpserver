@@ -52,6 +52,7 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
             <linkerLibLibItem>boost_thread</linkerLibLibItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
@@ -95,6 +96,7 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
             <linkerLibLibItem>boost_thread</linkerLibLibItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>

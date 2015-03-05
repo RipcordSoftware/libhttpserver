@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>config.h</itemPath>
       <itemPath>exceptions.h</itemPath>
+      <itemPath>file_stream.h</itemPath>
       <itemPath>header_buffer.h</itemPath>
       <itemPath>header_key_comparer.h</itemPath>
       <itemPath>headers.h</itemPath>
@@ -74,6 +75,8 @@
       <item path="config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="exceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="file_stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="header_buffer.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -155,6 +158,8 @@
       <item path="config.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="exceptions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="file_stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="header_buffer.cpp" ex="false" tool="1" flavor2="0">
       </item>

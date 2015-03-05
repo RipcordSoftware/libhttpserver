@@ -57,7 +57,9 @@ build: .build-post
 # Add your pre 'build' code here...
 
 .build-post: .build-impl
-# Add your post 'build' code here...
+# Add your post 'build' code here...    
+# Copy web files into the build directory
+	mkdir -p ${CND_DISTDIR}/${CONF}/${CND_PLATFORM_${CONF}}/www && rsync -ruv www/* ${CND_DISTDIR}/${CONF}/${CND_PLATFORM_${CONF}}/www
 
 
 # clean

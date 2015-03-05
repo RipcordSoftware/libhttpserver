@@ -6,6 +6,7 @@
 #include "socket.h"
 #include "request.h"
 #include "response.h"
+#include "file_stream.h"
 
 #endif	/* RS_LIBHTTPSERVER_LIBHTTPSERVER_H */
 

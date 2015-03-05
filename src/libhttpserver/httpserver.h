@@ -33,7 +33,7 @@ public:
     
     static int EstimateThreadPoolSize() {
         auto cores = boost::thread::hardware_concurrency();
-        auto threads = cores > 0 ? std::max(cores * Config::ThreadCoreMultiplier, Config::MinThreadCount) : Config::MinThreadCount;
+        auto threads = std::max(cores * Config::ThreadCoreMultiplier, Config::MinThreadCount);
         return std::min(threads, Config::MaxThreadCount);
     }
     
