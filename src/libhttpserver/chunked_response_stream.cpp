@@ -40,7 +40,7 @@ std::vector<rs::httpserver::Stream::byte> rs::httpserver::ChunkedResponseStream:
         for (auto i = 0; i < chars; ++i) {
             auto index = chars - 1 - i;
             buffer[index] = (blockSize >> (4 * i)) & 0x0f;
-            buffer[index] |= buffer[index] > 9 ? ('a' - 10) : '0';
+            buffer[index] += buffer[index] > 9 ? ('a' - 10) : '0';
         }
 
         buffer[chars] = '\r';
