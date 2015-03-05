@@ -2,6 +2,7 @@
 #include "config.h"
 #include "string_stream.h"
 #include "chunked_response_stream.h"
+#include "gzip_response_stream.h"
 
 const std::string rs::httpserver::Response::emptyValue_;
 const std::string rs::httpserver::Response::keepAliveHeaderValue_ = std::string("timeout=") + boost::lexical_cast<std::string>(Config::KeepAliveTimeout);
@@ -11,9 +12,17 @@ void rs::httpserver::Response::Send(const std::string& data) {
     setContentLength(data.length()).Send(stream);
 }
 
-void rs::httpserver::Response::Send(Stream& stream) {
+void rs::httpserver::Response::Send(Stream& inStream) {
     if (HasResponded()) {
         throw MultipleResponseException();
+    }
+    
+    if (!request_->IsHttp10() && !HasContentLength()) {
+        headers_[Headers::TransferEncoding] = "chunked";
+        
+        if (request_->ClientAcceptsGzip()) {
+            headers_[Headers::ContentEncoding] = "gzip";
+        }
     }
     
     std::stringstream headers;
@@ -22,12 +31,19 @@ void rs::httpserver::Response::Send(Stream& stream) {
     socket_->Send(headers.str());
     
     if (!request_->IsHead()) {
-        if (IsChunkEncoded()) { 
-            ChunkedResponseStream chunkedStream(responseStream_);
-            Stream::Copy(stream, chunkedStream);
-            chunkedStream.Flush();
+        if (IsChunkEncoded()) {
+            if (request_->ClientAcceptsGzip()) {
+                ChunkedResponseStream chunkedStream(responseStream_);
+                GzipResponseStream zStream(chunkedStream);
+                Stream::Copy(inStream, zStream);
+                zStream.Flush();
+            } else {
+                ChunkedResponseStream chunkedStream(responseStream_);
+                Stream::Copy(inStream, chunkedStream);
+                chunkedStream.Flush();
+            }
         } else {
-            Stream::Copy(stream, responseStream_);
+            Stream::Copy(inStream, responseStream_);
             responseStream_.Flush();
         }
     }        
@@ -42,9 +58,7 @@ void rs::httpserver::Response::Redirect(const std::string& location) {
 }
 
 void rs::httpserver::Response::SerializeHeaders(std::stringstream& sout) {
-    const auto isHttp10 = request_->IsHttp10();
-    
-    if (isHttp10) {
+    if (request_->IsHttp10()) {
         version_ = Headers::Http10;
         headers_[Headers::Connection] = "close";
         headers_.erase(Headers::KeepAlive);
@@ -55,10 +69,6 @@ void rs::httpserver::Response::SerializeHeaders(std::stringstream& sout) {
     } else {
         headers_[Headers::Connection] = "close";
         headers_.erase(Headers::KeepAlive);
-    }
-        
-    if (!isHttp10 && !HasContentLength()) {
-        headers_[Headers::TransferEncoding] = "chunked";
     }
     
     if (statusCode_ == 200) {

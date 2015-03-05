@@ -8,6 +8,7 @@
       <itemPath>config.h</itemPath>
       <itemPath>exceptions.h</itemPath>
       <itemPath>file_stream.h</itemPath>
+      <itemPath>gzip_response_stream.h</itemPath>
       <itemPath>header_buffer.h</itemPath>
       <itemPath>header_key_comparer.h</itemPath>
       <itemPath>headers.h</itemPath>
@@ -33,6 +34,7 @@
                    projectFiles="true">
       <itemPath>chunked_response_stream.cpp</itemPath>
       <itemPath>config.cpp</itemPath>
+      <itemPath>gzip_response_stream.cpp</itemPath>
       <itemPath>header_buffer.cpp</itemPath>
       <itemPath>headers.cpp</itemPath>
       <itemPath>httpserver.cpp</itemPath>
@@ -83,6 +85,10 @@
       <item path="exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="file_stream.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="gzip_response_stream.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="gzip_response_stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="header_buffer.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -170,6 +176,10 @@
       <item path="exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="file_stream.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="gzip_response_stream.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="gzip_response_stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="header_buffer.cpp" ex="false" tool="1" flavor2="0">
       </item>

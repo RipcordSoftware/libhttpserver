@@ -49,6 +49,11 @@ public:
     bool IsHead() {
         return request_headers_->getMethod() == Headers::Head;
     }
+    
+    bool ClientAcceptsGzip() {
+        auto acceptEncoding = request_headers_->getAcceptEncoding();
+        return acceptEncoding.length() > 0 && acceptEncoding.find("gzip") != std::string::npos;
+    }
 
     const std::string& getUri() {
         return request_headers_->getUri();

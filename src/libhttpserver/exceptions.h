@@ -81,6 +81,15 @@ private:
     const char* what_ = "The response can only be sent to the client once";
 };
 
+class GzipCompressionException : public HttpServerException {
+public:
+    virtual const char* what() const noexcept override {
+        return what_;
+    }    
+private:
+    const char* what_ = "There was an error in the gzip compressor";
+};
+
 }}
 
 #endif	/* RS_LIBHTTPSERVER_EXCEPTIONS_H */

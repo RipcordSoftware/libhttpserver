@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/chunked_response_stream.o \
 	${OBJECTDIR}/config.o \
+	${OBJECTDIR}/gzip_response_stream.o \
 	${OBJECTDIR}/header_buffer.o \
 	${OBJECTDIR}/headers.o \
 	${OBJECTDIR}/httpserver.o \
@@ -84,6 +85,11 @@ ${OBJECTDIR}/config.o: config.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/config.o config.cpp
+
+${OBJECTDIR}/gzip_response_stream.o: gzip_response_stream.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/gzip_response_stream.o gzip_response_stream.cpp
 
 ${OBJECTDIR}/header_buffer.o: header_buffer.cpp 
 	${MKDIR} -p ${OBJECTDIR}
