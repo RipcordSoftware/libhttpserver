@@ -8,14 +8,18 @@ namespace httpserver {
 
 class Headers final {
 public:
+    static const std::string Http10;
+    static const std::string Http11;
+    
+    static const int DefaultStatusCode;
+    static const std::string DefaultStatusDescription;
+    static const std::string DefaultVersion;
+    
     static const std::string Get;
     static const std::string Post;
     static const std::string Put;
     static const std::string Head;
-    static const std::string Delete;
-    
-    static const std::string Http10;
-    static const std::string Http11;
+    static const std::string Delete;        
     
     static const std::string ContentLength;
     static const std::string ContentType;    

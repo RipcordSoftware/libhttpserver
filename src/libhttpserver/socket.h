@@ -40,11 +40,15 @@ public:
     std::size_t Receive(int timeout, byte* buffer, int length, bool peek = false);
     
     std::size_t Send(const std::string& s) {
-        return socket_->send(boost::asio::const_buffers_1(static_cast<const void*>(&s[0]), s.length()));
+        auto bytesSent = socket_->send(boost::asio::const_buffers_1(static_cast<const void*>(&s[0]), s.length()));
+        totalBytesSent_ += bytesSent;
+        return bytesSent;
     }
     
     std::size_t Send(const byte* buffer, int length) {
-        return socket_->send(boost::asio::const_buffers_1(static_cast<const void*>(buffer), length));
+        auto bytesSent = socket_->send(boost::asio::const_buffers_1(static_cast<const void*>(buffer), length));
+        totalBytesSent_ += bytesSent;
+        return bytesSent;
     }
     
     void Shutdown() {
@@ -80,10 +84,19 @@ public:
     boost::asio::ip::tcp::endpoint getLocalEndpoint() { return socket_->local_endpoint(); }
     boost::asio::ip::tcp::endpoint getRemoteEndpoint() { return socket_->remote_endpoint(); }
     
+    long getTotalBytesSent() {
+        return totalBytesSent_;
+    }
+    
+    long getTotalBytesReceived() {
+        return totalBytesReceived_;
+    }
+    
 private:
     
     Socket(server_ptr server, asio_socket_ptr socket) : 
-        server_(server), socket_(socket) {
+        server_(server), socket_(socket), defaultReceiveTimeout(-1), currentReceiveTimeout(-1),
+        totalBytesSent_(0), totalBytesReceived_(0) {
     }
         
     static int getReceiveTimeout(asio_socket_ptr socket);
@@ -95,8 +108,11 @@ private:
     server_ptr server_;
     asio_socket_ptr socket_;
     
-    int defaultReceiveTimeout = -1;
-    int currentReceiveTimeout = -1;
+    int defaultReceiveTimeout;
+    int currentReceiveTimeout;
+    
+    long totalBytesSent_;
+    long totalBytesReceived_;
 };
     
 }}

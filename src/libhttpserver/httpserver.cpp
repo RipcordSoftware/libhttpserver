@@ -89,7 +89,15 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
             if (!!requestHeaders) {
                 auto request = Request::Create(socket, requestHeaders, headerBuffer);
                 auto response = Response::Create(socket, request);
+                
+                // TODO: implement 100-continue logic
+                //requestContinueCallback_(socket, request);
+                
                 requestCallback_(socket, request, response);
+                
+                if (!response->HasResponded()) {
+                    response->ResetHeaders().setStatusCode(404).setStatusDescription("Not found").Send();
+                }
                 
                 headerBuffer.Reset();
                 ++responseCount;

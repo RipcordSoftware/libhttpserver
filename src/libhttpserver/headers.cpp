@@ -1,13 +1,17 @@
 #include "headers.h"
 
+const std::string rs::httpserver::Headers::Http10 = "HTTP/1.0";
+const std::string rs::httpserver::Headers::Http11 = "HTTP/1.1";
+
+const int rs::httpserver::Headers::DefaultStatusCode = 200;
+const std::string rs::httpserver::Headers::DefaultStatusDescription = "";
+const std::string rs::httpserver::Headers::DefaultVersion = rs::httpserver::Headers::Http11;
+
 const std::string rs::httpserver::Headers::Get = "GET";
 const std::string rs::httpserver::Headers::Post = "POST";
 const std::string rs::httpserver::Headers::Put = "PUT";
 const std::string rs::httpserver::Headers::Head = "HEAD";
 const std::string rs::httpserver::Headers::Delete = "DELETE";
-
-const std::string rs::httpserver::Headers::Http10 = "HTTP/1.0";
-const std::string rs::httpserver::Headers::Http11 = "HTTP/1.1";
 
 const std::string rs::httpserver::Headers::ContentLength = "Content-Length";
 const std::string rs::httpserver::Headers::ContentType = "Content-Type";

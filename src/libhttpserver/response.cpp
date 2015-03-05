@@ -2,6 +2,7 @@
 #include "config.h"
 #include "string_stream.h"
 
+const std::string rs::httpserver::Response::emptyValue_;
 const std::string rs::httpserver::Response::keepAliveHeaderValue_ = std::string("timeout=") + boost::lexical_cast<std::string>(Config::KeepAliveTimeout);
 
 void rs::httpserver::Response::Send(const std::string& data) {
@@ -10,6 +11,10 @@ void rs::httpserver::Response::Send(const std::string& data) {
 }
 
 void rs::httpserver::Response::Send(Stream& stream) {
+    if (HasResponded()) {
+        throw MultipleResponseException();
+    }
+    
     std::stringstream headers;
     SerializeHeaders(headers);
     
@@ -25,6 +30,14 @@ void rs::httpserver::Response::Send(Stream& stream) {
     }
     
     responseStream_.Flush();
+}
+
+void rs::httpserver::Response::Redirect(const std::string& location) {
+    ResetHeaders();
+    setStatusCode(307);
+    setStatusDescription("Moved");
+    setHeader(Headers::Location, location);
+    Send();
 }
 
 void rs::httpserver::Response::SerializeHeaders(std::stringstream& sout) {

@@ -72,6 +72,15 @@ private:
     const char* what_ = "Unable to write data to the socket";
 };
 
+class MultipleResponseException : public HttpServerException {
+public:
+    virtual const char* what() const noexcept override {
+        return what_;
+    }    
+private:
+    const char* what_ = "The response can only be sent to the client once";
+};
+
 }}
 
 #endif	/* RS_LIBHTTPSERVER_EXCEPTIONS_H */
