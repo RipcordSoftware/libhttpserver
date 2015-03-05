@@ -13,6 +13,14 @@ public:
     virtual int Write(const byte* buffer, int offset, int count) = 0;
     virtual long getPosition() = 0;
     virtual long getLength() = 0;
+    
+    static void Copy(Stream& inStream, Stream& outStream) {
+        int bytesRead = 0;
+        byte buffer[2048];
+        while ((bytesRead = inStream.Read(buffer, 0, sizeof(buffer))) > 0) {
+            outStream.Write(buffer, 0, bytesRead);
+        }
+    }
 };
 
 }}

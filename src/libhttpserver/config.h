@@ -21,6 +21,7 @@ public:
     const static int KeepAliveTimeoutTotal;
     
     const static int MaxRequestHeaderSize;
+    const static int MaxResponseChunkSize;
     
 private:
     Config() = delete;

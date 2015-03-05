@@ -96,6 +96,11 @@ private:
         return headers_.find(Headers::ContentLength) != headers_.cend();
     }
     
+    bool IsChunkEncoded() {
+        auto encoding = headers_.find(Headers::TransferEncoding);
+        return encoding != headers_.cend() ? boost::iequals(encoding->second, "chunked") : false;
+    }
+    
     socket_ptr socket_;
     request_ptr request_;
     headers headers_;

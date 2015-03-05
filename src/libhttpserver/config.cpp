@@ -13,3 +13,4 @@ const int rs::httpserver::Config::KeepAliveTimeoutGrace = 2;
 const int rs::httpserver::Config::KeepAliveTimeoutTotal = KeepAliveTimeout + KeepAliveTimeoutGrace;
 
 const int rs::httpserver::Config::MaxRequestHeaderSize = 16384;
+const int rs::httpserver::Config::MaxResponseChunkSize = 2048;
