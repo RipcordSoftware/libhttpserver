@@ -53,14 +53,17 @@ public:
     
     void Shutdown() {
         if (Connected()) {
-            socket_->shutdown(boost::asio::socket_base::shutdown_type::shutdown_both);
+            boost::system::error_code err;
+            socket_->shutdown(boost::asio::socket_base::shutdown_type::shutdown_both, err);
         }
     }
     
     void Close() {
         if (Connected()) {
             Shutdown();
-            socket_->close();
+
+            boost::system::error_code err;
+            socket_->close(err);
         }
     }
     
@@ -69,7 +72,8 @@ public:
     }
     
     bool Available() {
-        return socket_->available() > 0;
+        boost::system::error_code err;
+        return socket_->available(err) > 0;
     }
     
     void Flush() {
