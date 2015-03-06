@@ -5,6 +5,9 @@
 
 #include <boost/noncopyable.hpp>
 
+#include "stream.h"
+#include "exceptions.h"
+
 namespace rs {
 namespace httpserver {
     
@@ -42,7 +45,7 @@ public:
     virtual long getLength() override { return data_.length(); }
     
 private:
-    const std::string& data_;
+    const std::string data_;
     int position_;
 };
 
