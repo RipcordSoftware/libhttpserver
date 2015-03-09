@@ -20,7 +20,7 @@ void rs::httpserver::Response::Send(Stream& inStream) {
     if (!request_->IsHttp10() && !HasContentLength()) {
         headers_[Headers::TransferEncoding] = "chunked";
         
-        if (request_->ClientAcceptsGzip()) {
+        if (compress_) {
             headers_[Headers::ContentEncoding] = "gzip";
         }
     }
@@ -32,7 +32,7 @@ void rs::httpserver::Response::Send(Stream& inStream) {
     
     if (!request_->IsHead()) {
         if (IsChunkEncoded()) {
-            if (request_->ClientAcceptsGzip()) {
+            if (compress_) {
                 ChunkedResponseStream chunkedStream(responseStream_);
                 GzipResponseStream zStream(chunkedStream);
                 Stream::Copy(inStream, zStream);

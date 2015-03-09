@@ -14,6 +14,12 @@
                    projectFiles="true">
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
+    <logicalFolder name="www" displayName="www" projectFiles="true">
+      <itemPath>www/bootstrap.html</itemPath>
+      <itemPath>www/index.html</itemPath>
+      <itemPath>www/rfc2616.txt</itemPath>
+      <itemPath>www/test.html</itemPath>
+    </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
                    projectFiles="false"
@@ -26,6 +32,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>www</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
@@ -61,6 +70,14 @@
         </linkerTool>
       </compileType>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="www/bootstrap.html" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/index.html" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/rfc2616.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/test.html" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -106,6 +123,14 @@
         </linkerTool>
       </compileType>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="www/bootstrap.html" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/index.html" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/rfc2616.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/test.html" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

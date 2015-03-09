@@ -10,18 +10,18 @@
 namespace rs {
 namespace httpserver {
 
-class MimeTypes {
+class MimeTypes final {
 public:
     class Item {
     public:
         Item(const std::string& type, bool compress = true) : type_(type), compress_(compress) {            
         }
 
-        const std::string& getType() {
+        const std::string& getType() const {
             return type_;
         }
         
-        const bool getCompressible() {
+        const bool getCompressible() const {
             return compress_;
         }
         

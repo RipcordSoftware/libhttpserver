@@ -16,6 +16,7 @@
 #include "header_key_comparer.h"
 #include "headers.h"
 #include "request.h"
+#include "mime_types.h"
 
 namespace rs {
 namespace httpserver {
@@ -40,7 +41,12 @@ public:
         return *this;
     }    
     
-    Response& setContentType(const std::string& contentType = emptyValue_) {
+    Response& setContentType(const MimeTypes::Item& item) {
+        return setContentType(item.getType(), item.getCompressible());
+    }
+    
+    Response& setContentType(const std::string& contentType = emptyValue_, bool compress = false) {
+        compress_ = compress & request_->ClientAcceptsGzip();
         return setHeader(Headers::ContentType, contentType);
     }
     
@@ -88,7 +94,8 @@ private:
     Response(socket_ptr socket, request_ptr request) : socket_(socket), request_(request),
         responseStream_(socket_), statusCode_(Headers::DefaultStatusCode), version_(Headers::DefaultVersion), 
         statusDescription_(Headers::DefaultStatusDescription), headers_(),
-        socketBytesSentWatermark_(socket->getTotalBytesSent()) {}
+        socketBytesSentWatermark_(socket->getTotalBytesSent()),
+        compress_(false) {}
         
     void SerializeHeaders(std::stringstream& sout);
     
@@ -109,6 +116,8 @@ private:
     int statusCode_;
     std::string statusDescription_;
     std::string version_;
+    
+    bool compress_;
     
     const std::size_t socketBytesSentWatermark_;
 

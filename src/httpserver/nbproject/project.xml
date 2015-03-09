@@ -11,7 +11,9 @@
             <make-dep-projects>
                 <make-dep-project>../libhttpserver</make-dep-project>
             </make-dep-projects>
-            <sourceRootList/>
+            <sourceRootList>
+                <sourceRootElem>www</sourceRootElem>
+            </sourceRootList>
             <confList>
                 <confElem>
                     <name>Debug</name>

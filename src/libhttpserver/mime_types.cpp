@@ -4,17 +4,23 @@ std::unordered_map<std::string, rs::httpserver::MimeTypes::Item> rs::httpserver:
     { ".txt", { "text/plain" } },
     { ".htm", { "text/html" } },
     { ".html", { "text/html" } },
-    { ".css", { "text/stylesheet" } },
+    { ".css", { "text/css" } },
     { ".js", { "text/javascript" } },
+    { ".csv", { "text/csv" } },
+    { ".rtf", { "text/rtf" } },
     { ".xml", { "text/xml" } },
     { ".png", { "image/png", false } },
-    { ".jpg", { "image/jpg", false } },
+    { ".jpg", { "image/jpeg", false } },
     { ".jpeg", { "image/jpg", false } },
     { ".gif", { "image/gif", false } },
     { ".ico", { "image/ico" } },    
     { ".woff", { "application/font-woff", false } },
     { ".svg", { "image/svg+xml" } },
-    { ".json", { "application/json" } }
+    { ".json", { "application/json" } },
+    { ".pdf", { "application/pdf", false } },
+    { ".ps", { "application/postscript" } },
+    { ".zip", { "application/zip", false } },
+    { ".gz", { "application/gzip", false } }
 };
 
 boost::optional<rs::httpserver::MimeTypes::Item> rs::httpserver::MimeTypes::GetType(const char* extn) {
