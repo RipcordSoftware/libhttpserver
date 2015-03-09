@@ -10,5 +10,8 @@ clean: force_true
 	cd src/libhttpserver && $(MAKE) $(MFLAGS) $(MAKEOVERRIDES) clean
 	cd src/httpserver && $(MAKE) $(MFLAGS) $(MAKEOVERRIDES) clean
 
+test: force_true
+	cd src/libhttpserver && $(MAKE) $(MFLAGS) $(MAKEOVERRIDES) test
+
 force_true:
 	true
