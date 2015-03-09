@@ -59,7 +59,7 @@ TEST_F(MimeTypeTests, lookupTest5) {
     ASSERT_EQ(rs::httpserver::MimeTypes::GetType(path).get().getType(), "image/png");
     
     path = "image.jpg";
-    ASSERT_EQ(rs::httpserver::MimeTypes::GetType(path).get().getType(), "image/jpg");
+    ASSERT_EQ(rs::httpserver::MimeTypes::GetType(path).get().getType(), "image/jpeg");
     
     path = "image.xyz";
     ASSERT_EQ(!!rs::httpserver::MimeTypes::GetType(path), false);
