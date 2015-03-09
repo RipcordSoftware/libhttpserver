@@ -42,6 +42,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/header_buffer.o \
 	${OBJECTDIR}/headers.o \
 	${OBJECTDIR}/httpserver.o \
+	${OBJECTDIR}/mime_types.o \
 	${OBJECTDIR}/query_string.o \
 	${OBJECTDIR}/request.o \
 	${OBJECTDIR}/request_headers.o \
@@ -56,6 +57,7 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 # Test Files
 TESTFILES= \
 	${TESTDIR}/TestFiles/f1 \
+	${TESTDIR}/TestFiles/f3 \
 	${TESTDIR}/TestFiles/f2
 
 # C Compiler Flags
@@ -119,6 +121,11 @@ ${OBJECTDIR}/httpserver.o: httpserver.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/httpserver.o httpserver.cpp
 
+${OBJECTDIR}/mime_types.o: mime_types.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mime_types.o mime_types.cpp
+
 ${OBJECTDIR}/query_string.o: query_string.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -159,37 +166,35 @@ ${OBJECTDIR}/socket.o: socket.cpp
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
-${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/ChunkedRequestStreamTests.o ${TESTDIR}/tests/ChunkedRequestStreamTestsRunner.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/ChunkedRequestStreamTests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}   -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_system `pkg-config --libs zlib`   `cppunit-config --libs`   
+	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_system `pkg-config --libs zlib`   
 
-${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/StringStreamTests.o ${TESTDIR}/tests/StringStreamTestsRunner.o ${OBJECTFILES:%.o=%_nomain.o}
+${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/mime_type_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}   -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_system `pkg-config --libs zlib`   `cppunit-config --libs`   
+	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_system `pkg-config --libs zlib`   
+
+${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/StringStreamTests.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_system `pkg-config --libs zlib`   
 
 
 ${TESTDIR}/tests/ChunkedRequestStreamTests.o: tests/ChunkedRequestStreamTests.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/ChunkedRequestStreamTests.o tests/ChunkedRequestStreamTests.cpp
+	$(COMPILE.cc) -O2 -Iexternals/gtest-1.7.0/include -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/ChunkedRequestStreamTests.o tests/ChunkedRequestStreamTests.cpp
 
 
-${TESTDIR}/tests/ChunkedRequestStreamTestsRunner.o: tests/ChunkedRequestStreamTestsRunner.cpp 
+${TESTDIR}/tests/mime_type_tests.o: tests/mime_type_tests.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/ChunkedRequestStreamTestsRunner.o tests/ChunkedRequestStreamTestsRunner.cpp
+	$(COMPILE.cc) -O2 -Iexternals/gtest-1.7.0/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/mime_type_tests.o tests/mime_type_tests.cpp
 
 
 ${TESTDIR}/tests/StringStreamTests.o: tests/StringStreamTests.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/StringStreamTests.o tests/StringStreamTests.cpp
-
-
-${TESTDIR}/tests/StringStreamTestsRunner.o: tests/StringStreamTestsRunner.cpp 
-	${MKDIR} -p ${TESTDIR}/tests
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/StringStreamTestsRunner.o tests/StringStreamTestsRunner.cpp
+	$(COMPILE.cc) -O2 -Iexternals/gtest-1.7.0/include -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/StringStreamTests.o tests/StringStreamTests.cpp
 
 
 ${OBJECTDIR}/chunked_request_stream_nomain.o: ${OBJECTDIR}/chunked_request_stream.o chunked_request_stream.cpp 
@@ -281,6 +286,19 @@ ${OBJECTDIR}/httpserver_nomain.o: ${OBJECTDIR}/httpserver.o httpserver.cpp
 	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/httpserver_nomain.o httpserver.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/httpserver.o ${OBJECTDIR}/httpserver_nomain.o;\
+	fi
+
+${OBJECTDIR}/mime_types_nomain.o: ${OBJECTDIR}/mime_types.o mime_types.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/mime_types.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mime_types_nomain.o mime_types.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/mime_types.o ${OBJECTDIR}/mime_types_nomain.o;\
 	fi
 
 ${OBJECTDIR}/query_string_nomain.o: ${OBJECTDIR}/query_string.o query_string.cpp 
@@ -379,6 +397,7 @@ ${OBJECTDIR}/socket_nomain.o: ${OBJECTDIR}/socket.o socket.cpp
 	@if [ "${TEST}" = "" ]; \
 	then  \
 	    ${TESTDIR}/TestFiles/f1 || true; \
+	    ${TESTDIR}/TestFiles/f3 || true; \
 	    ${TESTDIR}/TestFiles/f2 || true; \
 	else  \
 	    ./${TEST} || true; \

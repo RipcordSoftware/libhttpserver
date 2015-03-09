@@ -15,6 +15,7 @@
       <itemPath>headers.h</itemPath>
       <itemPath>httpserver.h</itemPath>
       <itemPath>libhttpserver.h</itemPath>
+      <itemPath>mime_types.h</itemPath>
       <itemPath>query_string.h</itemPath>
       <itemPath>request.h</itemPath>
       <itemPath>request_headers.h</itemPath>
@@ -40,6 +41,7 @@
       <itemPath>header_buffer.cpp</itemPath>
       <itemPath>headers.cpp</itemPath>
       <itemPath>httpserver.cpp</itemPath>
+      <itemPath>mime_types.cpp</itemPath>
       <itemPath>query_string.cpp</itemPath>
       <itemPath>request.cpp</itemPath>
       <itemPath>request_headers.cpp</itemPath>
@@ -57,16 +59,18 @@
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/ChunkedRequestStreamTests.cpp</itemPath>
-        <itemPath>tests/ChunkedRequestStreamTests.h</itemPath>
-        <itemPath>tests/ChunkedRequestStreamTestsRunner.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3"
+                     displayName="MIME Type Tests"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/mime_type_tests.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2"
                      displayName="String Stream Tests"
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/StringStreamTests.cpp</itemPath>
-        <itemPath>tests/StringStreamTests.h</itemPath>
-        <itemPath>tests/StringStreamTestsRunner.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -107,40 +111,44 @@
       <item path="exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles">
+        <ccTool>
+          <incDir>
+            <pElem>externals/gtest-1.7.0/include</pElem>
+          </incDir>
+        </ccTool>
         <linkerTool>
           <linkerLibItems>
             <linkerLibLibItem>boost_thread</linkerLibLibItem>
+            <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>
             <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
           </linkerLibItems>
+          <commandLine>externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f1">
-        <cTool>
-          <commandLine>`cppunit-config --cflags`</commandLine>
-        </cTool>
-        <ccTool>
-          <commandLine>`cppunit-config --cflags`</commandLine>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
-          <linkerLibItems>
-            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
-          </linkerLibItems>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
-        <cTool>
-          <commandLine>`cppunit-config --cflags`</commandLine>
-        </cTool>
-        <ccTool>
-          <commandLine>`cppunit-config --cflags`</commandLine>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
-          <linkerLibItems>
-            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
-          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
       <item path="file_stream.h" ex="false" tool="3" flavor2="0">
@@ -164,6 +172,10 @@
       <item path="httpserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="libhttpserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mime_types.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mime_types.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="query_string.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -202,18 +214,9 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="tests/ChunkedRequestStreamTests.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/ChunkedRequestStreamTestsRunner.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="tests/StringStreamTests.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/StringStreamTests.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/StringStreamTestsRunner.cpp" ex="false" tool="1" flavor2="0">
+      <item path="tests/mime_type_tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="types.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -257,40 +260,43 @@
       <item path="exceptions.h" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles">
+        <ccTool>
+          <incDir>
+            <pElem>externals/gtest-1.7.0/include</pElem>
+          </incDir>
+        </ccTool>
         <linkerTool>
           <linkerLibItems>
             <linkerLibLibItem>boost_thread</linkerLibLibItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>
             <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
           </linkerLibItems>
+          <commandLine>externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f1">
-        <cTool>
-          <commandLine>`cppunit-config --cflags`</commandLine>
-        </cTool>
-        <ccTool>
-          <commandLine>`cppunit-config --cflags`</commandLine>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
-          <linkerLibItems>
-            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
-          </linkerLibItems>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
-        <cTool>
-          <commandLine>`cppunit-config --cflags`</commandLine>
-        </cTool>
-        <ccTool>
-          <commandLine>`cppunit-config --cflags`</commandLine>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
-          <linkerLibItems>
-            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
-          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
       <item path="file_stream.h" ex="false" tool="3" flavor2="0">
@@ -314,6 +320,10 @@
       <item path="httpserver.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="libhttpserver.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mime_types.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="mime_types.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="query_string.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -352,18 +362,9 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="tests/ChunkedRequestStreamTests.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/ChunkedRequestStreamTestsRunner.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
       <item path="tests/StringStreamTests.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="tests/StringStreamTests.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/StringStreamTestsRunner.cpp" ex="false" tool="1" flavor2="0">
+      <item path="tests/mime_type_tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="types.h" ex="false" tool="3" flavor2="0">
       </item>
