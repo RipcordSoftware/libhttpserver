@@ -11,7 +11,7 @@
 namespace rs {
 namespace httpserver {
 
-class RequestStream : public Stream, private boost::noncopyable {
+class RequestStream final : public Stream, private boost::noncopyable {
 public:
     RequestStream(socket_ptr socket, HeaderBuffer& headerBuffer) : socket_(socket), position_(0), length_(0), headerBuffer_(headerBuffer) {}
     
