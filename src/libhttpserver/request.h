@@ -10,6 +10,7 @@
 #include "request_headers.h"
 #include "query_string.h"
 #include "request_stream.h"
+#include "chunked_request_stream.h"
 #include "headers.h"
 
 namespace rs {
@@ -90,20 +91,25 @@ public:
         }
     }
     
-    RequestStream& getRequestStream() {
-        return requestStream_;
+    Stream& getRequestStream() {
+        if (request_headers_->IsChunked()) {
+            return chunkedRequestStream_;
+        } else {
+            return requestStream_;
+        }
     }
     
 private:
     Request(socket_ptr socket, request_headers_ptr request_headers, HeaderBuffer& headerBuffer) : 
         socket_(socket), request_headers_(request_headers),
         queryString_(request_headers->getQueryString()),
-        requestStream_(socket, headerBuffer) {}
+        requestStream_(socket, headerBuffer), chunkedRequestStream_(requestStream_) {}
     
     const socket_ptr socket_;
     const request_headers_ptr request_headers_;
     const QueryString queryString_;
     RequestStream requestStream_;
+    ChunkedRequestStream chunkedRequestStream_;
 
 };
 

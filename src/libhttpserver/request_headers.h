@@ -8,6 +8,7 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include "header_buffer.h"
 #include "types.h"
@@ -93,6 +94,11 @@ public:
             }
         }
         return contentLength_;
+    }
+    
+    bool IsChunked() {
+        auto& encoding = getTransferEncoding();
+        return encoding.length() > 0 ? boost::iequals(encoding, "chunked") : false;
     }
     
 private:
