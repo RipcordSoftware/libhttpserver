@@ -90,6 +90,15 @@ private:
     const char* what_ = "There was an error in the gzip compressor";
 };
 
+class ChunkedRequestHeaderException : public HttpServerException {
+public:
+    virtual const char* what() const noexcept override {
+        return what_;
+    }    
+private:
+    const char* what_ = "There was an error reading the chunked request data";
+};
+
 }}
 
 #endif	/* RS_LIBHTTPSERVER_EXCEPTIONS_H */

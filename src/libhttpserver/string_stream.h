@@ -44,8 +44,12 @@ public:
     
     virtual long getLength() override { return data_.length(); }
     
+    void AppendData(const std::string& data) {
+        data_ += data;
+    }
+    
 private:
-    const std::string data_;
+    std::string data_;
     int position_;
 };
 
