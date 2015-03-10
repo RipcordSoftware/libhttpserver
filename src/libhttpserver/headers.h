@@ -33,6 +33,9 @@ public:
     static const std::string Connection;
     static const std::string KeepAlive;
     static const std::string Location;
+    static const std::string LastModified;
+    static const std::string ETag;
+    static const std::string IfNoneMatch;
 };
 
 }}

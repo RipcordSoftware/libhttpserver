@@ -25,3 +25,6 @@ const std::string rs::httpserver::Headers::Host = "Host";
 const std::string rs::httpserver::Headers::Connection = "Connection";
 const std::string rs::httpserver::Headers::KeepAlive = "Keep-Alive";
 const std::string rs::httpserver::Headers::Location = "Location";
+const std::string rs::httpserver::Headers::LastModified = "Last-Modified";
+const std::string rs::httpserver::Headers::ETag = "ETag";
+const std::string rs::httpserver::Headers::IfNoneMatch = "If-None-Match";

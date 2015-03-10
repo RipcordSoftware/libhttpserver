@@ -5,6 +5,7 @@
 
 #include <boost/noncopyable.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/optional.hpp>
 
 #include "stream.h"
 #include "exceptions.h"
@@ -28,6 +29,12 @@ public:
     
     operator bool() {
         return Exists();
+    }
+    
+    boost::optional<std::time_t> getLastModifiedTime() {
+        boost::system::error_code err;
+        auto time = boost::filesystem::last_write_time(path_, err);
+        return !err ? time : 0;
     }
     
     virtual void Flush() override {};

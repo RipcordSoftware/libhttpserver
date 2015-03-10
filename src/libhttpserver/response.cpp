@@ -1,3 +1,6 @@
+#include <boost/date_time.hpp>
+#include <boost/format.hpp>
+
 #include "response.h"
 #include "config.h"
 #include "string_stream.h"
@@ -47,6 +50,27 @@ void rs::httpserver::Response::Send(Stream& inStream) {
             responseStream_.Flush();
         }
     }        
+}
+
+rs::httpserver::Response& rs::httpserver::Response::setETag(const std::string& etag) {
+    if (etag.length() > 1 && etag[0] == '"' && etag[etag.length() - 1] == '"') {
+        std::string value = '"' + etag + '"';
+        return setHeader(Headers::ETag, value);
+    } else {
+        return setHeader(Headers::ETag, etag);
+    }
+}
+
+rs::httpserver::Response& rs::httpserver::Response::setLastModified(std::time_t lastModifiedTime) {
+    auto ptime = boost::posix_time::from_time_t(lastModifiedTime);
+    auto date = ptime.date();
+    auto time = ptime.time_of_day();
+    auto formattedTime = boost::format("%1%, %2% %3% %4% %|5$02d|:%|6$02d|:%|7$02d| GMT") %
+        date.day_of_week().as_short_string() %
+        date.day() % date.month().as_short_string() % date.year() %
+        time.hours() % time.minutes() % time.seconds();
+    
+    return setHeader(Headers::LastModified, formattedTime.str());
 }
 
 void rs::httpserver::Response::Redirect(const std::string& location) {

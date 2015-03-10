@@ -76,6 +76,17 @@ public:
         return request_headers_->getAcceptEncoding();
     }
     
+    const std::string getIfNoneMatch(bool trimQuotes = true) {
+        auto etag = request_headers_->getIfNoneMatch();
+        
+        // trim off the quotes
+        if (trimQuotes && etag.length() > 1 && etag[0] == '"' && etag[etag.length() - 1] == '"') {
+            etag = etag.substr(1, etag.length() - 2);
+        }
+        
+        return etag;
+    }
+    
     int getContentLength() {
         return request_headers_->getContentLength();
     }

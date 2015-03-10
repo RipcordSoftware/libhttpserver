@@ -58,6 +58,10 @@ public:
         return setHeader(Headers::ContentLength, boost::lexical_cast<std::string>(contentLength));
     }
     
+    Response& setLastModified(std::time_t lastModifiedTime);
+    
+    Response& setETag(const std::string& etag);
+    
     Response& setHeader(const std::string& key, const std::string& value = emptyValue_) {
         if (value.length() > 0) {
             headers_[key] = value;
