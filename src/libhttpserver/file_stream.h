@@ -15,14 +15,15 @@ namespace httpserver {
 class FileStream final : public Stream, private boost::noncopyable {
 public:
     
-    FileStream(const std::string& filename) : path_(filename), stream_(filename, std::ifstream::binary), position_(0), length_(-1) {}
+    FileStream(const std::string& filename, bool validatePath = true) : path_(filename), stream_(filename, std::ifstream::binary), 
+            position_(0), length_(-1), validatePath_(validatePath) {}
 
-    static bool Exists(const std::string& filename) {
-        return boost::filesystem::exists(boost::filesystem::path(filename));
+    static bool Exists(const std::string& filename, bool validatePath) {
+        return boost::filesystem::exists(boost::filesystem::path(filename)) && (!validatePath || ValidatePath(filename));
     }
     
     bool Exists() {
-        return boost::filesystem::exists(path_);
+        return boost::filesystem::exists(path_) && (!validatePath_ || ValidatePath(path_.c_str()));
     }
     
     operator bool() {
@@ -59,6 +60,8 @@ private:
     std::ifstream stream_;
     long position_;
     long length_;
+    
+    const bool validatePath_;
 };
     
 }}
