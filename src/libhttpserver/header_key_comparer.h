@@ -7,7 +7,7 @@ namespace rs {
 namespace httpserver {
  
 struct HeaderKeyComparer {
-    bool operator()(const std::string& x, const std::string& y) {
+    bool operator()(const std::string& x, const std::string& y) const {
         auto diff = 0;
         auto px = x.c_str();
         auto py = y.c_str();

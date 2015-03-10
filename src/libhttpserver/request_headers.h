@@ -23,68 +23,72 @@ public:
     
     static request_headers_ptr Create(HeaderBuffer& buffer);
     
-    const std::string& getMethod() {
+    const std::string& getMethod() const {
         return method_;
     }
     
-    const std::string& getUri() {
+    const std::string& getUri() const {
         return uri_;
     }
     
-    const std::string& getRawUri() {
+    const std::string& getRawUri() const {
         return rawUri_;
     }
     
-    const std::string& getQueryString() {
+    const std::string& getQueryString() const {
         return queryString_;
     }
     
-    const std::string& getVersion() {
+    const std::string& getVersion() const {
         return version_;
     }
     
-    const std::string& getHeader(const std::string& field) {
+    const std::string& getHeader(const std::string& field) const {
         auto value = headers_.find(field);
         return value != headers_.cend() ? value->second : emptyValue_;
     }
     
-    const std::string& getContentType() {
+    const std::string& getContentType() const {
         return getHeader(Headers::ContentType);
     }
     
-    const std::string& getAcceptEncoding() {
+    const std::string& getAcceptEncoding() const {
         return getHeader(Headers::AcceptEncoding);
     }
     
-    const std::string& getAccept() {
+    const std::string& getAccept() const {
         return getHeader(Headers::Accept);
     }
     
-    const std::string& getHost() {
+    const std::string& getHost() const {
         return getHeader(Headers::Host);
     }
     
-    const std::string& getTransferEncoding() {
+    const std::string& getTransferEncoding() const {
         return getHeader(Headers::TransferEncoding);
     }
     
-    const std::string& getContentEncoding() {
+    const std::string& getContentEncoding() const {
         return getHeader(Headers::ContentEncoding);
     }
     
-    const std::string& getExpect() {
+    const std::string& getExpect() const {
         return getHeader(Headers::Expect);
     }
     
-    const std::string& getUserAgent() {
+    const std::string& getUserAgent() const {
         return getHeader(Headers::UserAgent);
     }
     
-    const std::string& getConnection() {
+    const std::string& getConnection() const {
         return getHeader(Headers::Connection);
     }
     
-    int getContentLength() {
+    const std::string& getIfNoneMatch() const {
+        return getHeader(Headers::IfNoneMatch);
+    }
+
+    int getContentLength() const {
         if (contentLength_ < 0) {
             contentLength_ = 0;
             
@@ -96,7 +100,7 @@ public:
         return contentLength_;
     }
     
-    bool IsChunked() {
+    bool IsChunked() const {
         auto& encoding = getTransferEncoding();
         return encoding.length() > 0 ? boost::iequals(encoding, "chunked") : false;
     }
@@ -113,7 +117,7 @@ private:
     std::string uri_;
     std::string rawUri_;    
     std::string queryString_;
-    int contentLength_;        
+    mutable int contentLength_;        
     
     headers headers_;
     
