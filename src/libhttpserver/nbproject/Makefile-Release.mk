@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/chunked_request_stream.o \
 	${OBJECTDIR}/chunked_response_stream.o \
 	${OBJECTDIR}/config.o \
+	${OBJECTDIR}/file_stream.o \
 	${OBJECTDIR}/gzip_response_stream.o \
 	${OBJECTDIR}/header_buffer.o \
 	${OBJECTDIR}/headers.o \
@@ -57,6 +58,7 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 # Test Files
 TESTFILES= \
 	${TESTDIR}/TestFiles/f1 \
+	${TESTDIR}/TestFiles/f4 \
 	${TESTDIR}/TestFiles/f3 \
 	${TESTDIR}/TestFiles/f2
 
@@ -100,6 +102,11 @@ ${OBJECTDIR}/config.o: config.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/config.o config.cpp
+
+${OBJECTDIR}/file_stream.o: file_stream.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/file_stream.o file_stream.cpp
 
 ${OBJECTDIR}/gzip_response_stream.o: gzip_response_stream.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -170,6 +177,10 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/ChunkedRequestStreamTests.o ${OBJECTFI
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_system `pkg-config --libs zlib`   
 
+${TESTDIR}/TestFiles/f4: ${TESTDIR}/tests/file_stream_tests.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_system `pkg-config --libs zlib`   
+
 ${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/mime_type_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_system `pkg-config --libs zlib`   
@@ -183,6 +194,12 @@ ${TESTDIR}/tests/ChunkedRequestStreamTests.o: tests/ChunkedRequestStreamTests.cp
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -Iexternals/gtest-1.7.0/include -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/ChunkedRequestStreamTests.o tests/ChunkedRequestStreamTests.cpp
+
+
+${TESTDIR}/tests/file_stream_tests.o: tests/file_stream_tests.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -Iexternals/gtest-1.7.0/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/file_stream_tests.o tests/file_stream_tests.cpp
 
 
 ${TESTDIR}/tests/mime_type_tests.o: tests/mime_type_tests.cpp 
@@ -234,6 +251,19 @@ ${OBJECTDIR}/config_nomain.o: ${OBJECTDIR}/config.o config.cpp
 	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/config_nomain.o config.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/config.o ${OBJECTDIR}/config_nomain.o;\
+	fi
+
+${OBJECTDIR}/file_stream_nomain.o: ${OBJECTDIR}/file_stream.o file_stream.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/file_stream.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/file_stream_nomain.o file_stream.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/file_stream.o ${OBJECTDIR}/file_stream_nomain.o;\
 	fi
 
 ${OBJECTDIR}/gzip_response_stream_nomain.o: ${OBJECTDIR}/gzip_response_stream.o gzip_response_stream.cpp 
@@ -397,6 +427,7 @@ ${OBJECTDIR}/socket_nomain.o: ${OBJECTDIR}/socket.o socket.cpp
 	@if [ "${TEST}" = "" ]; \
 	then  \
 	    ${TESTDIR}/TestFiles/f1 || true; \
+	    ${TESTDIR}/TestFiles/f4 || true; \
 	    ${TESTDIR}/TestFiles/f3 || true; \
 	    ${TESTDIR}/TestFiles/f2 || true; \
 	else  \

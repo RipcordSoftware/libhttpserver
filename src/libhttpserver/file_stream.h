@@ -7,6 +7,7 @@
 #include <boost/filesystem.hpp>
 
 #include "stream.h"
+#include "exceptions.h"
 
 namespace rs {
 namespace httpserver {
@@ -30,24 +31,7 @@ public:
     
     virtual void Flush() override {};
     
-    virtual int Read(byte* buffer, int offset, int count, bool peek = false) override {
-        int bytes = 0;
-        
-        if (stream_) {
-            stream_.read(reinterpret_cast<std::ifstream::char_type*>(buffer + offset), count);
-            
-            bytes = stream_ ? count : stream_.gcount();
-            if (bytes > 0) {
-                if (peek) {
-                    stream_.seekg(-bytes, std::ios_base::cur);
-                } else {
-                    position_ += bytes;
-                }
-            }
-        }
-        
-        return bytes;
-    }
+    virtual int Read(byte* buffer, int offset, int count, bool peek = false) override;
     
     virtual int Write(const byte* buffer, int offset, int count) override {
         throw InvalidStreamOperationException();
@@ -65,7 +49,11 @@ public:
         return length_;
     }
     
+    static bool ValidatePath(const std::string& path);        
+    
 private:
+    
+    static bool ValidatePathDepth(const std::string& path);
     
     const boost::filesystem::path path_;
     std::ifstream stream_;
