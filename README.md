@@ -72,6 +72,8 @@ You can extend the Content/MIME type mapping as follows:
 rs::httpserver::MimeTypes::AddType(".bz2", "application/x-bzip2", false);
 ```
 
+See `src/httpserver/main.cpp` for a working file based web server impl with last-modified/etag support.
+
 ## Building
 You will need:
 * GCC 4.8 or higher
@@ -88,3 +90,5 @@ To build and run the tests:
 ```
  $ make test
 ```
+
+Alternately open and build with NetBeans C++.
