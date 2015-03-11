@@ -7,7 +7,7 @@ int main() {
     auto func = [](rs::httpserver::socket_ptr socket, rs::httpserver::request_ptr request, rs::httpserver::response_ptr response) {
         auto uri = request->getUri();
         if (uri == "/") {
-            response->setLocation("/index.html").setStatusCode(302).Send();
+            response->Redirect("/index.html");
         } else {
             auto contentType = rs::httpserver::MimeTypes::GetType(uri);
             if (contentType) {

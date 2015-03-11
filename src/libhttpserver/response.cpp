@@ -75,8 +75,14 @@ rs::httpserver::Response& rs::httpserver::Response::setLastModified(std::time_t 
 
 void rs::httpserver::Response::Redirect(const std::string& location) {
     ResetHeaders();
-    setStatusCode(307);
-    setStatusDescription("Moved");
+
+    if (request_->getHeaders()->getVersion() == Headers::Http10) {
+        setStatusCode(302);
+        setStatusDescription("Found");
+    } else {
+        setStatusCode(307);
+        setStatusDescription("Temporary Redirect");
+    }
     setHeader(Headers::Location, location);
     Send();
 }
