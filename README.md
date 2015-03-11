@@ -76,6 +76,7 @@ See `src/httpserver/main.cpp` for a working file based web server impl with last
 
 ## Linking
 Apart from including the `libhttpserver.h` you will need to configure your application to link against the following libraries:
+* libhttpserver (!)
 * boost_filesystem
 * boost_thread
 * boost_date_time
