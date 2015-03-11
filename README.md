@@ -42,7 +42,7 @@ int main() {
     
     if (uri == "/") {
       // the uri was just /, redirect to /index.html
-      response->setLocation("/index.html").setStatusCode(302).Send();
+      response->Redirect("/index.html");
     } else {
       // use the uri file extension to determine the content type
       auto contentType = MimeTypes::GetType(uri);
