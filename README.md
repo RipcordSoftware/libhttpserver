@@ -25,6 +25,46 @@ int main() {
   return 0;
 }
 ```
+Respond from the filesystem:
+```c++
+#include "libhttpserver.h"
+using rs::httpserver;
+
+int main() {
+  // the server will listen on all IPs on port 1080
+  auto server = rs::httpserver::HttpServer::Create("0.0.0.0", 1080);
+  
+  // a lambda function which handles the request
+  auto func = [](socket_ptr socket, request_ptr request, response_ptr response) {
+    // get the request uri
+    auto uri = request->getUri();
+    
+    if (uri == "/") {
+      // the uri was just /, redirect to /index.html
+      response->setLocation("/index.html").setStatusCode(302).Send();
+    } else {
+      // use the uri file extension to determine the content type
+      auto contentType = rs::httpserver::MimeTypes::GetType(uri);
+      
+      // we only respond if we got a content type
+      if (contentType) {
+        // the content files are in the www sub-directory
+        uri = "www" + uri;
+        
+        // open a stream on the file
+        rs::httpserver::FileStream stream(uri);
+        if (stream) {
+          // respond with the contents of the file
+          response->setContentType(contentType.get()).Send(stream);
+        }
+    }
+  };
+  
+  // starts the server and blocks
+  server->Start(func);
+  return 0;
+}
+```
 
 ## Building
 You will need:
