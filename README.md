@@ -9,7 +9,7 @@ Features:
 * Supports chunked responses
 * Support GZIP responses
 * Low memory overhead streaming response API with helpers for strings and files
-* 
+
 ## Examples
 The simplist possible web server:
 ```c++
