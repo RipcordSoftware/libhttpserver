@@ -67,7 +67,10 @@ int main() {
 ```
 The example above assumes the web content is in the sub-directory `www`. If the content type could not be found or the file does not exist then the server will respond with a `404 Not Found`.
 
-You can extend the Content/MIME type mapping as follows: `rs::httpserver::MimeTypes::AddType(".bz", "application/x-bzip2", false);
+You can extend the Content/MIME type mapping as follows: 
+```c++
+rs::httpserver::MimeTypes::AddType(".bz", "application/x-bzip2", false);
+```
 
 ## Building
 You will need:
