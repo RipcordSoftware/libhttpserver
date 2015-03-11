@@ -69,7 +69,7 @@ The example above assumes the web content is in the sub-directory `www`. If the 
 
 You can extend the Content/MIME type mapping as follows: 
 ```c++
-rs::httpserver::MimeTypes::AddType(".bz", "application/x-bzip2", false);
+rs::httpserver::MimeTypes::AddType(".bz2", "application/x-bzip2", false);
 ```
 
 ## Building
