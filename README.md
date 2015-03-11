@@ -5,10 +5,11 @@ An HTTP web server implemented in C++ 11 and based on Boost::Asio.
 
 Features:
 * Handles HTTP 1.0 and 1.1 clients
-* Supports chunked POST/PUT requests
+* Handles chunked POST/PUT requests
 * Supports chunked responses
-* Support GZIP responses
+* Supports GZIP responses
 * Low memory overhead streaming response API with helpers for strings and files
+* Utilizes HTTP keep-alive up to a configured request limit
 
 ## Examples
 The simplist possible web server:
