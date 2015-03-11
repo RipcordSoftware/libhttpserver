@@ -18,7 +18,7 @@ The simplist possible web server:
 using rs::httpserver;
 
 int main() {
-  auto server = rs::httpserver::HttpServer::Create("0.0.0.0", 1080);
+  auto server = HttpServer::Create("0.0.0.0", 1080);
   auto func = [](socket_ptr socket, request_ptr request, response_ptr response) {
     response->setContentType("text/html").Send("<html><body><h1>Hello from libhttpserver</h1></body></html>");
   };
@@ -33,7 +33,7 @@ using rs::httpserver;
 
 int main() {
   // the server will listen on all IPs on port 1080
-  auto server = rs::httpserver::HttpServer::Create("0.0.0.0", 1080);
+  auto server = HttpServer::Create("0.0.0.0", 1080);
   
   // a lambda function which handles the request
   auto func = [](socket_ptr socket, request_ptr request, response_ptr response) {
@@ -45,7 +45,7 @@ int main() {
       response->setLocation("/index.html").setStatusCode(302).Send();
     } else {
       // use the uri file extension to determine the content type
-      auto contentType = rs::httpserver::MimeTypes::GetType(uri);
+      auto contentType = MimeTypes::GetType(uri);
       
       // we only respond if we got a content type
       if (contentType) {
@@ -53,7 +53,7 @@ int main() {
         uri = "www" + uri;
         
         // open a stream on the file
-        rs::httpserver::FileStream stream(uri);
+        FileStream stream(uri);
         if (stream) {
           // respond with the contents of the file
           response->setContentType(contentType.get()).Send(stream);
