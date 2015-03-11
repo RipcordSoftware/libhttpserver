@@ -74,6 +74,15 @@ rs::httpserver::MimeTypes::AddType(".bz2", "application/x-bzip2", false);
 
 See `src/httpserver/main.cpp` for a working file based web server impl with last-modified/etag support.
 
+## Linking
+Apart from including the `libhttpserver.h` you will need to configure your application to link against the following libraries:
+* boost_filesystem
+* boost_thread
+* boost_date_time
+* boost_system
+* zlib
+* pthreads
+
 ## Building
 You will need:
 * GCC 4.8 or higher
