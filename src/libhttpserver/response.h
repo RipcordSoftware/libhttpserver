@@ -58,6 +58,10 @@ public:
         return setHeader(Headers::ContentLength, boost::lexical_cast<std::string>(contentLength));
     }
     
+    Response& setLocation(const std::string& location) {
+        return setHeader(Headers::Location, location);
+    }
+    
     Response& setLastModified(std::time_t lastModifiedTime);
     
     Response& setETag(const std::string& etag);
