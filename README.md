@@ -23,6 +23,7 @@ int main() {
   };
   server->Start(func);
   return 0;
+}
 ```
 
 ## Building
