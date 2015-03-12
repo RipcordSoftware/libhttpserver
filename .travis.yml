@@ -8,7 +8,7 @@ before_install:
 - sudo apt-get update -qq
 
 install:
-# g++4.8.1 and boost
+# g++4.8.1, boost and lcov
 - sudo apt-get install -qq g++-4.8 python-dev libbz2-dev zlib1g-dev libcppunit-dev doxygen lcov ruby rubygems
 - export CC="gcc-4.8"
 - export CXX="g++-4.8"
@@ -19,8 +19,13 @@ install:
 - tar xfj boost_1_57_0-travis-ci.tar.bz2
 - cd boost_1_57_0
 - sudo ./b2 --prefix=/usr -d0 install
+- curl http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.11.orig.tar.gz -O
+- tar xfz lcov_1.11.orig.tar.gz
+- sudo make -C lcov-1.11/ install
 - popd
 - sudo rm -f /usr/bin/g++
 - sudo rm -f /usr/bin/gcc
+- sudo rm -f /usr/bin/gcov
 - sudo ln -s /usr/bin/g++-4.8 /usr/bin/g++
 - sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
+- sudo ln -s /usr/bin/gcov-4.8 /usr/bin/gcov
