@@ -27,6 +27,10 @@
 *.out
 *.app
 
+# ignore the generated docs
+docs
+
+# ignore NetBeans related stuff
 /src/*/dist/
 /src/*/build/
 **/nbproject/private/
