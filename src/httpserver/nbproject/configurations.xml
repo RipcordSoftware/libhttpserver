@@ -46,6 +46,7 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
+          <commandLine>--coverage</commandLine>
         </ccTool>
         <linkerTool>
           <linkerLibItems>
@@ -68,6 +69,7 @@
             <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
           </linkerLibItems>
+          <commandLine>--coverage</commandLine>
         </linkerTool>
       </compileType>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">

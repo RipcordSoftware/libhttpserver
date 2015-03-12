@@ -30,8 +30,9 @@
 # ignore the generated docs
 docs
 
-# ignore the coverage output file
+# ignore the coverage output files
 coverage.info
+coverage/*
 
 # ignore NetBeans related stuff
 /src/*/dist/

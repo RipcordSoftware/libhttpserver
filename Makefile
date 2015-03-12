@@ -13,6 +13,7 @@ clean: force_true
 
 test: force_true
 	cd src/libhttpserver && $(MAKE) $(MFLAGS) $(MAKEOVERRIDES) test
+	cd src/httpserver && ./test.sh
 
 docs: force_true
 	doxygen Doxyfile
