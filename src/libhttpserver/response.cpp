@@ -53,7 +53,7 @@ void rs::httpserver::Response::Send(Stream& inStream) {
 }
 
 rs::httpserver::Response& rs::httpserver::Response::setETag(const std::string& etag) {
-    if (etag.length() > 1 && etag[0] == '"' && etag[etag.length() - 1] == '"') {
+    if (etag.length() > 1 && etag[0] != '"' && etag[etag.length() - 1] != '"') {
         std::string value = '"' + etag + '"';
         return setHeader(Headers::ETag, value);
     } else {
