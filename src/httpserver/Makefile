@@ -90,6 +90,8 @@ all: .all-post
 
 .all-post: .all-impl
 # Add your post 'all' code here...
+# Copy web files into the build directory
+	mkdir -p ${CND_DISTDIR}/${CONF}/${CND_PLATFORM_${CONF}}/www && rsync -ruv www/* ${CND_DISTDIR}/${CONF}/${CND_PLATFORM_${CONF}}/www
 
 
 # build tests
