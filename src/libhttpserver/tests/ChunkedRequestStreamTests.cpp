@@ -336,3 +336,12 @@ TEST_F(ChunkedRequestStreamTests, testMethod10) {
         stream.Read(buffer_, 0, sizeof(buffer_));                
     }, rs::httpserver::ChunkedRequestHeaderException);
 }
+
+TEST_F(ChunkedRequestStreamTests, testMethod11) {
+    rs::httpserver::StringStream requestStream("\11\r\nthis is a placebo\r\n0\r\n");
+    rs::httpserver::ChunkedRequestStream stream(requestStream);    
+    
+    ASSERT_THROW({                
+        stream.Write(buffer_, 0, sizeof(buffer_));                
+    }, rs::httpserver::InvalidStreamOperationException);
+}

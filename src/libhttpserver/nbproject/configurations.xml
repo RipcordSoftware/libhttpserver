@@ -73,6 +73,12 @@
                      kind="TEST">
         <itemPath>tests/mime_type_tests.cpp</itemPath>
       </logicalFolder>
+      <logicalFolder name="f5"
+                     displayName="Query String Tests"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/query_string_tests.cpp</itemPath>
+      </logicalFolder>
       <logicalFolder name="f2"
                      displayName="String Stream Tests"
                      projectFiles="true"
@@ -175,6 +181,21 @@
           <output>${TESTDIR}/TestFiles/f4</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f5">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f5</output>
+        </linkerTool>
+      </folder>
       <item path="file_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="file_stream.h" ex="false" tool="3" flavor2="0">
@@ -245,6 +266,8 @@
       <item path="tests/file_stream_tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/mime_type_tests.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/query_string_tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="types.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -344,6 +367,21 @@
           <output>${TESTDIR}/TestFiles/f4</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f5">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f5</output>
+        </linkerTool>
+      </folder>
       <item path="file_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="file_stream.h" ex="false" tool="3" flavor2="0">
@@ -414,6 +452,8 @@
       <item path="tests/file_stream_tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/mime_type_tests.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/query_string_tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="types.h" ex="false" tool="3" flavor2="0">
       </item>

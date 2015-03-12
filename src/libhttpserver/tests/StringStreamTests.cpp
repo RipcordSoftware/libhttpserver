@@ -267,3 +267,12 @@ TEST_F(StringStreamTests, TestShortStream5) {
     ASSERT_EQ(stream.getLength(), 24);
     ASSERT_EQ(stream.getPosition(), 24);
 }
+
+
+TEST_F(StringStreamTests, TestShortStream6) {
+    rs::httpserver::StringStream stream("this is a placebo");
+    
+    ASSERT_THROW({                
+        stream.Write(buffer_, 0, sizeof(buffer_));                
+    }, rs::httpserver::InvalidStreamOperationException);
+}
