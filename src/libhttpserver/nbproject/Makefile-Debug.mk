@@ -67,8 +67,8 @@ TESTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=--coverage
+CXXFLAGS=--coverage
 
 # Fortran Compiler Flags
 FFLAGS=

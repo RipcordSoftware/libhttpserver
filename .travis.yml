@@ -20,7 +20,7 @@ install:
 - pushd boost_1_57_0
 - sudo ./b2 --prefix=/usr -d0 install
 - popd
-- curl http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.11.orig.tar.gz -O
+- curl http://ftp.uk.debian.org/debian/pool/main/l/lcov/lcov_1.11.orig.tar.gz -O
 - tar xfz lcov_1.11.orig.tar.gz
 - sudo make -C lcov-1.11/ install
 - popd

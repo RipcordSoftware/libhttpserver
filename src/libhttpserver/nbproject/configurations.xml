@@ -104,6 +104,7 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
+          <commandLine>--coverage</commandLine>
         </ccTool>
         <archiverTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a</output>
