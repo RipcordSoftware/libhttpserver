@@ -90,7 +90,8 @@ You will need:
 * GCC 4.8 or higher
 * GNU Make
 * Boost 1.53 or higher
-* ZLib 1.2.7
+* ZLib 1.2.7 or higher
+* Doxygen (for the docs)
 
 To build the binaries:
 ```
@@ -100,6 +101,11 @@ To build the binaries:
 To build and run the tests:
 ```
  $ make test
+```
+
+To build the documentation:
+```
+ $ make docs
 ```
 
 Alternately open and build with NetBeans C++.
