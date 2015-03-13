@@ -109,6 +109,8 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
                 throw HeaderSizeException();
             }
         }
+    } catch (const HeaderTimeoutException&) {
+        ;
     } catch (const HttpServerException& e) {
         // TODO: do something more useful with this
         std::cout << "ERROR: " << e.what() << std::endl;
