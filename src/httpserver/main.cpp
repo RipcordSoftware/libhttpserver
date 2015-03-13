@@ -8,6 +8,12 @@ int main() {
         auto uri = request->getUri();
         if (uri == "/") {
             response->Redirect("/index.html");
+        } else if (uri == "/echo") {
+            if (request->HasBody()) {
+                auto& requestStream = request->getRequestStream();
+                auto contentType = request->getContentType();
+                response->setContentType(contentType).Send(requestStream);
+            }
         } else {
             auto contentType = rs::httpserver::MimeTypes::GetType(uri);
             if (contentType) {

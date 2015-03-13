@@ -345,3 +345,11 @@ TEST_F(ChunkedRequestStreamTests, testMethod11) {
         stream.Write(buffer_, 0, sizeof(buffer_));                
     }, rs::httpserver::InvalidStreamOperationException);
 }
+
+TEST_F(ChunkedRequestStreamTests, testMethod12) {    
+    rs::httpserver::StringStream requestStream("87\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc auctor erat in porta aliquam. Aliquam at semper augue, quis mattis ipsum.\r\n0\r\n\r\n");
+    rs::httpserver::ChunkedRequestStream stream(requestStream);
+    ASSERT_EQ(stream.Read(buffer_, 0, sizeof(buffer_)), 135);
+    ASSERT_EQ(stream.getPosition(), 135);
+    ASSERT_EQ(stream.getLength(), 135);
+}

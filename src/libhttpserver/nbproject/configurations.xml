@@ -16,6 +16,7 @@
       <itemPath>httpserver.h</itemPath>
       <itemPath>libhttpserver.h</itemPath>
       <itemPath>mime_types.h</itemPath>
+      <itemPath>null_stream.h</itemPath>
       <itemPath>query_string.h</itemPath>
       <itemPath>request.h</itemPath>
       <itemPath>request_headers.h</itemPath>
@@ -225,6 +226,8 @@
       </item>
       <item path="mime_types.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="null_stream.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="query_string.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="query_string.h" ex="false" tool="3" flavor2="0">
@@ -410,6 +413,8 @@
       <item path="mime_types.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="mime_types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="null_stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="query_string.cpp" ex="false" tool="1" flavor2="0">
       </item>

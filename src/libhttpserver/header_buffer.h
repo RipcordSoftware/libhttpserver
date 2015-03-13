@@ -73,7 +73,7 @@ public:
     std::size_t Receive(rs::httpserver::socket_ptr socket);
     std::size_t Receive(rs::httpserver::socket_ptr socket, int timeout);
     
-    int Copy(value_type* buffer, int count);
+    int Copy(value_type* buffer, int count, bool peek = false);
     
 private:        
     std::vector<value_type> data_;

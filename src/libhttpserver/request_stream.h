@@ -13,7 +13,9 @@ namespace httpserver {
 
 class RequestStream final : public Stream, private boost::noncopyable {
 public:
-    RequestStream(socket_ptr socket, HeaderBuffer& headerBuffer) : socket_(socket), position_(0), length_(0), headerBuffer_(headerBuffer) {}
+    RequestStream(socket_ptr socket, HeaderBuffer& headerBuffer) : 
+        socket_(socket), position_(0), length_(0), headerBuffer_(headerBuffer),
+        explictLength_(false) {}
     
     virtual void Flush() override {};
     
@@ -30,12 +32,22 @@ public:
     virtual long getLength() override {
         return length_;
     }
+    
+    void setLength(long length) {
+        if (length < position_) {
+            throw InvalidStreamOperationException();
+        }
+        
+        length_ = length;
+        explictLength_ = true;
+    }
 
 private:
     
     socket_ptr socket_;
     long position_;
     long length_;
+    bool explictLength_;
     
     HeaderBuffer& headerBuffer_;
 

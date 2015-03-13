@@ -22,10 +22,14 @@ std::size_t rs::httpserver::HeaderBuffer::Receive(rs::httpserver::socket_ptr soc
     return bytes;
 }
 
-int rs::httpserver::HeaderBuffer::Copy(value_type* buffer, int count) {
+int rs::httpserver::HeaderBuffer::Copy(value_type* buffer, int count, bool peek) {
     auto length = std::min(dataLength_ - position_, count);
     auto start = cbegin() + position_;
     std::copy(start, start + length, buffer);
-    position_ += length;
+
+    if (!peek) {
+        position_ += length;
+    }
+
     return length;
 }
