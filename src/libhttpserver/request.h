@@ -141,6 +141,14 @@ public:
     }
     
     /**
+     * Gets the If-Modified-Since request header
+     * @return The If-Modified-Since header
+     */
+    const std::string getIfModifiedSince() {
+        return request_headers_->getIfModifiedSince();
+    }
+    
+    /**
      * Gets the length of the request body
      * @return the length of the request body
      */

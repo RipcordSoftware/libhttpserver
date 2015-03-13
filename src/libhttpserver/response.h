@@ -64,6 +64,8 @@ public:
     
     Response& setLastModified(std::time_t lastModifiedTime);
     
+    Response& setLastModified(const std::string& lastModifiedTime);
+    
     Response& setETag(const std::string& etag);
     
     Response& setHeader(const std::string& key, const std::string& value = emptyValue_) {
@@ -97,6 +99,8 @@ public:
     void Send(Stream& stream);
     
     void Redirect(const std::string& location);
+    
+    static std::string FormatLastModifiedTime(std::time_t lastModifiedTime);
 
 private:
     Response(socket_ptr socket, request_ptr request) : socket_(socket), request_(request),

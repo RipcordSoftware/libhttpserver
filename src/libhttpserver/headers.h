@@ -36,6 +36,7 @@ public:
     static const std::string LastModified;
     static const std::string ETag;
     static const std::string IfNoneMatch;
+    static const std::string IfModifiedSince;
 };
 
 }}

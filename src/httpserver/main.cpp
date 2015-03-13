@@ -28,16 +28,29 @@ int main() {
 
                     // assuming we have the modified time (v likely) then we can use etag/if-none-match for client-side caching
                     if (lastModifiedTime) {
-                        // we use the timestamp as the etag
-                        auto etag = boost::lexical_cast<std::string>(lastModifiedTime.get());
-
-                        // compare the etag with the value from the client
-                        if (etag == request->getIfNoneMatch()) {
-                            // the client already has the file
-                            response->setStatusCode(304).setStatusDescription("Not Modified").Send();
+                        if (request->IsHttp10()) {
+                            auto requestLastModifiedTime = request->getIfModifiedSince();
+                            auto formattedLastModifiedTime = rs::httpserver::Response::FormatLastModifiedTime(lastModifiedTime.get());
+                            
+                            if (requestLastModifiedTime.length() > 0 && requestLastModifiedTime == formattedLastModifiedTime) {
+                                // the client already has the file
+                                response->setStatusCode(304).setStatusDescription("Not Modified").Send();
+                            } else {
+                                // the client doesn't have the file, send the last modified
+                                response->setLastModified(formattedLastModifiedTime);
+                            }
                         } else {
-                            // the client doesn't have the file, we need to return the etag
-                            response->setETag(etag);
+                            // we use the timestamp as the etag
+                            auto etag = boost::lexical_cast<std::string>(lastModifiedTime.get());
+
+                            // compare the etag with the value from the client
+                            if (etag == request->getIfNoneMatch()) {
+                                // the client already has the file
+                                response->setStatusCode(304).setStatusDescription("Not Modified").Send();
+                            } else {
+                                // the client doesn't have the file, we need to return the etag
+                                response->setETag(etag);
+                            }
                         }
                     } 
                     

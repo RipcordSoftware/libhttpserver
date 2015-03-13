@@ -3,6 +3,7 @@
 URL=http://localhost:10024
 SERVER_ROOT=${PWD}/dist/Debug/GNU-Linux-x86
 WEB_ROOT=${SERVER_ROOT}/www
+uris=(`find $WEB_ROOT -type f -printf "%P\n"`)
 
 ${SERVER_ROOT}/httpserver &
 
@@ -21,13 +22,66 @@ wget -4 -r --no-host-directories ${URL}
 if [ "$?" -ne 0 ]; then exit $?; fi
 cd ..
 
-# request the web files with curl
+echo "*******************************************************************"
+echo "* HTTP/1.0 test"
+echo "*******************************************************************"
+mkdir http10.test
+cd http10.test
+for uri in "${uris[@]}"
+do
+    echo "* requesting: ${URL}/${uri}"
+    curl -4 -0 ${URL}/${uri} -o ${uri} --create-dirs
+    if [ "$?" -ne 0 ]; then exit $?; fi
+    diff --brief ${WEB_ROOT}/${uri} ${uri} > /dev/null
+    if [ "$?" -ne 0 ]; then exit $?; fi
+done
+cd ..
+
+echo "*******************************************************************"
+echo "* HTTP/1.0 redirect test"
+echo "*******************************************************************"
+mkdir http10.redirect.test
+cd http10.redirect.test
+curl -4 -0 -L ${URL}/ -o index.html
+if [ "$?" -ne 0 ]; then exit $?; fi
+if [ ! -f "index.html" ]; then exit 1; fi
+diff --brief ${WEB_ROOT}/index.html index.html > /dev/null
+if [ "$?" -ne 0 ]; then exit $?; fi
+cd ..
+
+echo "*******************************************************************"
+echo "* HTTP/1.1 redirect test"
+echo "*******************************************************************"
+mkdir http11.redirect.test
+cd http11.redirect.test
+curl -4 -L ${URL} -o index.html
+if [ "$?" -ne 0 ]; then exit $?; fi
+if [ ! -f "index.html" ]; then exit 1; fi
+diff --brief ${WEB_ROOT}/index.html index.html > /dev/null
+if [ "$?" -ne 0 ]; then exit $?; fi
+cd ..
+
+echo "*******************************************************************"
+echo "* HTTP/1.1 close test"
+echo "*******************************************************************"
+mkdir http11.close.test
+cd http11.close.test
+for uri in "${uris[@]}"
+do
+    echo "* requesting: ${URL}/${uri}"
+    curl -4 --header "Connection: close" ${URL}/${uri} -o ${uri} --create-dirs
+    if [ "$?" -ne 0 ]; then exit $?; fi
+    diff --brief ${WEB_ROOT}/${uri} ${uri} > /dev/null
+    if [ "$?" -ne 0 ]; then exit $?; fi
+done
+cd ..
+
+# request gzipped web files with curl
 echo "*******************************************************************"
 echo "* gzip test"
 echo "*******************************************************************"
 mkdir gzip.test
 cd gzip.test
-uris=(`find $WEB_ROOT -type f -printf "%P\n"`)
 for uri in "${uris[@]}"
 do
     echo "* requesting: ${URL}/${uri}"

@@ -87,6 +87,10 @@ public:
     const std::string& getIfNoneMatch() const {
         return getHeader(Headers::IfNoneMatch);
     }
+    
+    const std::string& getIfModifiedSince() const {
+        return getHeader(Headers::IfModifiedSince);
+    }
 
     int getContentLength() const {
         if (contentLength_ < 0) {

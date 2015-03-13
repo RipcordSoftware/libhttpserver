@@ -61,7 +61,16 @@ rs::httpserver::Response& rs::httpserver::Response::setETag(const std::string& e
     }
 }
 
+rs::httpserver::Response& rs::httpserver::Response::setLastModified(const std::string& lastModifiedTime) {    
+    return setHeader(Headers::LastModified, lastModifiedTime);
+}
+
 rs::httpserver::Response& rs::httpserver::Response::setLastModified(std::time_t lastModifiedTime) {
+    auto formattedTime = Response::FormatLastModifiedTime(lastModifiedTime);    
+    return setHeader(Headers::LastModified, formattedTime);
+}
+
+std::string rs::httpserver::Response::FormatLastModifiedTime(std::time_t lastModifiedTime) {
     auto ptime = boost::posix_time::from_time_t(lastModifiedTime);
     auto date = ptime.date();
     auto time = ptime.time_of_day();
@@ -70,7 +79,7 @@ rs::httpserver::Response& rs::httpserver::Response::setLastModified(std::time_t 
         date.day() % date.month().as_short_string() % date.year() %
         time.hours() % time.minutes() % time.seconds();
     
-    return setHeader(Headers::LastModified, formattedTime.str());
+    return formattedTime.str();
 }
 
 void rs::httpserver::Response::Redirect(const std::string& location) {

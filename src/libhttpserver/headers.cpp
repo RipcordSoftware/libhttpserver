@@ -28,3 +28,4 @@ const std::string rs::httpserver::Headers::Location = "Location";
 const std::string rs::httpserver::Headers::LastModified = "Last-Modified";
 const std::string rs::httpserver::Headers::ETag = "ETag";
 const std::string rs::httpserver::Headers::IfNoneMatch = "If-None-Match";
+const std::string rs::httpserver::Headers::IfModifiedSince = "If-Modified-Since";
