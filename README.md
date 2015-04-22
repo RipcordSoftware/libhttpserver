@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/RipcordSoftware/libhttpserver.svg?branch=master)](https://travis-ci.org/RipcordSoftware/libhttpserver)
-[![Coverage Status](https://coveralls.io/repos/RipcordSoftware/libhttpserver/badge.svg)](https://coveralls.io/r/RipcordSoftware/libhttpserver)[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+[![Coverage Status](https://coveralls.io/repos/RipcordSoftware/libhttpserver/badge.svg)](https://coveralls.io/r/RipcordSoftware/libhttpserver)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
 # libhttpserver
 An HTTP web server implemented in C++ 11 and based on Boost::Asio.
