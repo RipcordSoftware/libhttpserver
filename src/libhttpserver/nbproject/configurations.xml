@@ -128,7 +128,7 @@
       <folder path="TestFiles">
         <ccTool>
           <incDir>
-            <pElem>externals/gtest-1.7.0/include</pElem>
+            <pElem>../../externals/installed/include</pElem>
           </incDir>
           <commandLine>--coverage</commandLine>
         </ccTool>
@@ -141,7 +141,7 @@
             <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
           </linkerLibItems>
-          <commandLine>externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a --coverage</commandLine>
+          <commandLine>../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f1">
@@ -318,7 +318,7 @@
       <folder path="TestFiles">
         <ccTool>
           <incDir>
-            <pElem>externals/gtest-1.7.0/include</pElem>
+            <pElem>../../externals/installed/include</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -330,7 +330,7 @@
             <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
           </linkerLibItems>
-          <commandLine>externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a</commandLine>
+          <commandLine>../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f1">

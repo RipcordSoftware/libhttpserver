@@ -39,3 +39,6 @@ coverage/*
 /src/*/build/
 **/nbproject/private/
 .dep.inc
+
+# ignore externals
+externals/**

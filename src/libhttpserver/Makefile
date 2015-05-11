@@ -54,11 +54,8 @@ GTEST_VER=1.7.0
 # build
 build: .build-post
 
-.build-pre: .googletest
+.build-pre:
 # Add your pre 'build' code here...
-
-.googletest:
-	if [ ! -d externals/gtest-${GTEST_VER}/lib/.libs ]; then mkdir -p externals && cd externals && curl https://googletest.googlecode.com/files/gtest-${GTEST_VER}.zip -O && unzip gtest-${GTEST_VER}.zip && cd gtest-${GTEST_VER} && ./configure && make; fi
 
 .build-post: .build-impl
 # Add your post 'build' code here...
