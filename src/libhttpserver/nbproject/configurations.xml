@@ -139,6 +139,7 @@
             <linkerLibLibItem>boost_date_time</linkerLibLibItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>
             <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
           </linkerLibItems>
           <commandLine>externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a --coverage</commandLine>
         </linkerTool>
@@ -327,6 +328,7 @@
             <linkerLibLibItem>boost_date_time</linkerLibLibItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>
             <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
+            <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
           </linkerLibItems>
           <commandLine>externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a</commandLine>
         </linkerTool>

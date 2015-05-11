@@ -176,23 +176,23 @@ ${OBJECTDIR}/socket.o: socket.cpp
 .build-tests-conf: .build-conf ${TESTFILES}
 ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/ChunkedRequestStreamTests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib`   
+	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
 
 ${TESTDIR}/TestFiles/f4: ${TESTDIR}/tests/file_stream_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib`   
+	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
 
 ${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/mime_type_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib`   
+	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
 
 ${TESTDIR}/TestFiles/f5: ${TESTDIR}/tests/query_string_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f5 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib`   
+	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f5 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
 
 ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/StringStreamTests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib`   
+	${LINK.cc} externals/gtest-1.7.0/lib/.libs/libgtest_main.a externals/gtest-1.7.0/lib/.libs/libgtest.a  -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
 
 
 ${TESTDIR}/tests/ChunkedRequestStreamTests.o: tests/ChunkedRequestStreamTests.cpp 
