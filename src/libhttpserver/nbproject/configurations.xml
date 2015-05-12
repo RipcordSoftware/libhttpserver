@@ -27,6 +27,7 @@
       <itemPath>socket.h</itemPath>
       <itemPath>stream.h</itemPath>
       <itemPath>types.h</itemPath>
+      <itemPath>writable_string_stream.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -85,6 +86,12 @@
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/readable_string_stream_tests.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f6"
+                     displayName="Writable String Stream Tests"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/writable_string_stream_tests.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -199,6 +206,21 @@
           <output>${TESTDIR}/TestFiles/f5</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f6">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f6</output>
+        </linkerTool>
+      </folder>
       <item path="file_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="file_stream.h" ex="false" tool="3" flavor2="0">
@@ -277,7 +299,14 @@
             tool="1"
             flavor2="0">
       </item>
+      <item path="tests/writable_string_stream_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="writable_string_stream.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="3">
@@ -391,6 +420,21 @@
           <output>${TESTDIR}/TestFiles/f5</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f6">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f6</output>
+        </linkerTool>
+      </folder>
       <item path="file_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="file_stream.h" ex="false" tool="3" flavor2="0">
@@ -469,7 +513,14 @@
             tool="1"
             flavor2="0">
       </item>
+      <item path="tests/writable_string_stream_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="writable_string_stream.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

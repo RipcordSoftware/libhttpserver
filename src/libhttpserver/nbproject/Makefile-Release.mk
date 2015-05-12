@@ -61,7 +61,8 @@ TESTFILES= \
 	${TESTDIR}/TestFiles/f4 \
 	${TESTDIR}/TestFiles/f3 \
 	${TESTDIR}/TestFiles/f5 \
-	${TESTDIR}/TestFiles/f2
+	${TESTDIR}/TestFiles/f2 \
+	${TESTDIR}/TestFiles/f6
 
 # C Compiler Flags
 CFLAGS=
@@ -194,6 +195,10 @@ ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/readable_string_stream_tests.o ${OBJEC
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a  -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
 
+${TESTDIR}/TestFiles/f6: ${TESTDIR}/tests/writable_string_stream_tests.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a  -o ${TESTDIR}/TestFiles/f6 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
+
 
 ${TESTDIR}/tests/chunked_request_stream_tests.o: tests/chunked_request_stream_tests.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
@@ -223,6 +228,12 @@ ${TESTDIR}/tests/readable_string_stream_tests.o: tests/readable_string_stream_te
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I../../externals/installed/include -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/readable_string_stream_tests.o tests/readable_string_stream_tests.cpp
+
+
+${TESTDIR}/tests/writable_string_stream_tests.o: tests/writable_string_stream_tests.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/writable_string_stream_tests.o tests/writable_string_stream_tests.cpp
 
 
 ${OBJECTDIR}/chunked_request_stream_nomain.o: ${OBJECTDIR}/chunked_request_stream.o chunked_request_stream.cpp 
@@ -442,6 +453,7 @@ ${OBJECTDIR}/socket_nomain.o: ${OBJECTDIR}/socket.o socket.cpp
 	    ${TESTDIR}/TestFiles/f3 || true; \
 	    ${TESTDIR}/TestFiles/f5 || true; \
 	    ${TESTDIR}/TestFiles/f2 || true; \
+	    ${TESTDIR}/TestFiles/f6 || true; \
 	else  \
 	    ./${TEST} || true; \
 	fi
