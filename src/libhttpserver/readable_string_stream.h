@@ -1,5 +1,5 @@
-#ifndef RS_LIBHTTPSERVER_STRING_STREAM_H
-#define	RS_LIBHTTPSERVER_STRING_STREAM_H
+#ifndef RS_LIBHTTPSERVER_READABLE_STRING_STREAM_H
+#define	RS_LIBHTTPSERVER_READABLE_STRING_STREAM_H
 
 #include <algorithm>
 
@@ -14,13 +14,13 @@ namespace httpserver {
 /**
  * A readable stream containing string data
  */
-class StringStream final : public Stream, private boost::noncopyable {
+class ReadableStringStream final : public Stream, private boost::noncopyable {
 public:
     /**
      * Constructs the stream containing the string data specified
      * @param data The string data to populate the stream with
      */
-    StringStream(const std::string& data) : data_(data), position_(0) {}
+    ReadableStringStream(const std::string& data) : data_(data), position_(0) {}
     
     /**
      * Performs no operation on a readable stream
@@ -82,5 +82,4 @@ private:
 
 }}
 
-#endif	/* RS_LIBHTTPSERVER_STRING_STREAM_H */
-
+#endif	/* RS_LIBHTTPSERVER_READABLE_STRING_STREAM_H */

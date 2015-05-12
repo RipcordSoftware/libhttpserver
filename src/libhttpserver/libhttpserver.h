@@ -7,7 +7,7 @@
 #include "request.h"
 #include "response.h"
 #include "stream.h"
-#include "string_stream.h"
+#include "readable_string_stream.h"
 #include "file_stream.h"
 #include "mime_types.h"
 

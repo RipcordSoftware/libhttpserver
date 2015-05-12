@@ -3,7 +3,7 @@
 
 #include "response.h"
 #include "config.h"
-#include "string_stream.h"
+#include "readable_string_stream.h"
 #include "chunked_response_stream.h"
 #include "gzip_response_stream.h"
 
@@ -11,7 +11,7 @@ const std::string rs::httpserver::Response::emptyValue_;
 const std::string rs::httpserver::Response::keepAliveHeaderValue_ = std::string("timeout=") + boost::lexical_cast<std::string>(Config::KeepAliveTimeout);
 
 void rs::httpserver::Response::Send(const std::string& data) {
-    StringStream stream(data);
+    ReadableStringStream stream(data);
     setContentLength(data.length()).Send(stream);
 }
 

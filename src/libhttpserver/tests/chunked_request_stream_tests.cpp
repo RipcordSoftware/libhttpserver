@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../string_stream.h"
+#include "../readable_string_stream.h"
 #include "../chunked_request_stream.h"
 #include "../exceptions.h"
 
@@ -33,7 +33,7 @@ bool ChunkedRequestStreamTests::SanityCheckWhatMessage(const char* msg) {
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod) {
-    rs::httpserver::StringStream requestStream("0\r\n\r\n");
+    rs::httpserver::ReadableStringStream requestStream("0\r\n\r\n");
     rs::httpserver::ChunkedRequestStream stream(requestStream);
     
     ASSERT_EQ(stream.Read(buffer_, 0, sizeof(buffer_)), 0);
@@ -46,7 +46,7 @@ TEST_F(ChunkedRequestStreamTests, testMethod) {
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod2) {
-    rs::httpserver::StringStream requestStream("0\r\n\r\n");
+    rs::httpserver::ReadableStringStream requestStream("0\r\n\r\n");
     rs::httpserver::ChunkedRequestStream stream(requestStream);
     
     ASSERT_EQ(stream.Read(buffer_, 0, sizeof(buffer_), true), 0);
@@ -59,7 +59,7 @@ TEST_F(ChunkedRequestStreamTests, testMethod2) {
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod3) {
-    rs::httpserver::StringStream requestStream("1\r\na\r\n0\r\n\r\n");
+    rs::httpserver::ReadableStringStream requestStream("1\r\na\r\n0\r\n\r\n");
     rs::httpserver::ChunkedRequestStream stream(requestStream);
     
     ASSERT_EQ(stream.Read(buffer_, 0, sizeof(buffer_), true), 1);
@@ -82,7 +82,7 @@ TEST_F(ChunkedRequestStreamTests, testMethod3) {
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod4) {
-    rs::httpserver::StringStream requestStream("3\r\nabc\r\n0\r\n\r\n");
+    rs::httpserver::ReadableStringStream requestStream("3\r\nabc\r\n0\r\n\r\n");
     rs::httpserver::ChunkedRequestStream stream(requestStream);
         
     ASSERT_EQ(stream.Read(buffer_, 0, sizeof(buffer_), true), 3);
@@ -111,7 +111,7 @@ TEST_F(ChunkedRequestStreamTests, testMethod4) {
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod5) {
-    rs::httpserver::StringStream requestStream("3\r\nabc\r\n3\r\npqr\r\n0\r\n\r\n");
+    rs::httpserver::ReadableStringStream requestStream("3\r\nabc\r\n3\r\npqr\r\n0\r\n\r\n");
     rs::httpserver::ChunkedRequestStream stream(requestStream);
         
     ASSERT_EQ(stream.Read(buffer_, 0, 3, true), 3);
@@ -154,7 +154,7 @@ TEST_F(ChunkedRequestStreamTests, testMethod5) {
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod6) {
-    rs::httpserver::StringStream requestStream("a\r\n0123456789\r\n0\r\n\r\n");
+    rs::httpserver::ReadableStringStream requestStream("a\r\n0123456789\r\n0\r\n\r\n");
     rs::httpserver::ChunkedRequestStream stream(requestStream);
     
     ASSERT_EQ(stream.Read(buffer_, 0, sizeof(buffer_), true), 10);
@@ -204,7 +204,7 @@ TEST_F(ChunkedRequestStreamTests, testMethod6) {
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod7) {
-    rs::httpserver::StringStream requestStream("f\r\n012345678901234\r\n0\r\n\r\n");
+    rs::httpserver::ReadableStringStream requestStream("f\r\n012345678901234\r\n0\r\n\r\n");
     rs::httpserver::ChunkedRequestStream stream(requestStream);
     
     ASSERT_EQ(stream.Read(buffer_, 0, sizeof(buffer_), true), 15);
@@ -269,7 +269,7 @@ TEST_F(ChunkedRequestStreamTests, testMethod7) {
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod8) {
-    rs::httpserver::StringStream requestStream("C\r\n012345678901\r\n0\r\n\r\n");
+    rs::httpserver::ReadableStringStream requestStream("C\r\n012345678901\r\n0\r\n\r\n");
     rs::httpserver::ChunkedRequestStream stream(requestStream);
     
     ASSERT_EQ(stream.Read(buffer_, 0, sizeof(buffer_), true), 12);
@@ -325,7 +325,7 @@ TEST_F(ChunkedRequestStreamTests, testMethod8) {
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod9) {    
-    rs::httpserver::StringStream requestStream("1;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc auctor erat in porta aliquam. Aliquam at semper augue, quis mattis ipsum.\r\na\r\n0\r\n\r\n");
+    rs::httpserver::ReadableStringStream requestStream("1;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc auctor erat in porta aliquam. Aliquam at semper augue, quis mattis ipsum.\r\na\r\n0\r\n\r\n");
     rs::httpserver::ChunkedRequestStream stream(requestStream);
     
     bool thrown = false;
@@ -340,7 +340,7 @@ TEST_F(ChunkedRequestStreamTests, testMethod9) {
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod10) {
-    rs::httpserver::StringStream requestStream("1;Lorem ipsum dolor sit amet, consectetur adipiscing elit. ");
+    rs::httpserver::ReadableStringStream requestStream("1;Lorem ipsum dolor sit amet, consectetur adipiscing elit. ");
     rs::httpserver::ChunkedRequestStream stream(requestStream);
     ASSERT_EQ(stream.Read(buffer_, 0, sizeof(buffer_)), 0);
     ASSERT_EQ(stream.getPosition(), 0);
@@ -356,7 +356,7 @@ TEST_F(ChunkedRequestStreamTests, testMethod10) {
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod11) {
-    rs::httpserver::StringStream requestStream("\11\r\nthis is a placebo\r\n0\r\n");
+    rs::httpserver::ReadableStringStream requestStream("\11\r\nthis is a placebo\r\n0\r\n");
     rs::httpserver::ChunkedRequestStream stream(requestStream);    
     
     bool thrown = false;
@@ -371,7 +371,7 @@ TEST_F(ChunkedRequestStreamTests, testMethod11) {
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod12) {    
-    rs::httpserver::StringStream requestStream("87\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc auctor erat in porta aliquam. Aliquam at semper augue, quis mattis ipsum.\r\n0\r\n\r\n");
+    rs::httpserver::ReadableStringStream requestStream("87\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc auctor erat in porta aliquam. Aliquam at semper augue, quis mattis ipsum.\r\n0\r\n\r\n");
     rs::httpserver::ChunkedRequestStream stream(requestStream);
     ASSERT_EQ(stream.Read(buffer_, 0, sizeof(buffer_)), 135);
     ASSERT_EQ(stream.getPosition(), 135);
@@ -379,7 +379,7 @@ TEST_F(ChunkedRequestStreamTests, testMethod12) {
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod13) {
-    rs::httpserver::StringStream requestStream("");
+    rs::httpserver::ReadableStringStream requestStream("");
     rs::httpserver::ChunkedRequestStream stream(requestStream);
     stream.Flush();
     ASSERT_TRUE(true);

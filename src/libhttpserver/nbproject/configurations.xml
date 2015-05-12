@@ -18,6 +18,7 @@
       <itemPath>mime_types.h</itemPath>
       <itemPath>null_stream.h</itemPath>
       <itemPath>query_string.h</itemPath>
+      <itemPath>readable_string_stream.h</itemPath>
       <itemPath>request.h</itemPath>
       <itemPath>request_headers.h</itemPath>
       <itemPath>request_stream.h</itemPath>
@@ -25,7 +26,6 @@
       <itemPath>response_stream.h</itemPath>
       <itemPath>socket.h</itemPath>
       <itemPath>stream.h</itemPath>
-      <itemPath>string_stream.h</itemPath>
       <itemPath>types.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -60,7 +60,7 @@
                      displayName="Chunked Request Stream Tests"
                      projectFiles="true"
                      kind="TEST">
-        <itemPath>tests/ChunkedRequestStreamTests.cpp</itemPath>
+        <itemPath>tests/chunked_request_stream_tests.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f4"
                      displayName="File Stream Tests"
@@ -81,10 +81,10 @@
         <itemPath>tests/query_string_tests.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2"
-                     displayName="String Stream Tests"
+                     displayName="Readable String Stream Tests"
                      projectFiles="true"
                      kind="TEST">
-        <itemPath>tests/StringStreamTests.cpp</itemPath>
+        <itemPath>tests/readable_string_stream_tests.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -233,6 +233,8 @@
       </item>
       <item path="query_string.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="readable_string_stream.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="request.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="request.h" ex="false" tool="3" flavor2="0">
@@ -259,20 +261,21 @@
       </item>
       <item path="stream.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="string_stream.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/ChunkedRequestStreamTests.cpp"
+      <item path="tests/chunked_request_stream_tests.cpp"
             ex="false"
             tool="1"
             flavor2="0">
-      </item>
-      <item path="tests/StringStreamTests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/file_stream_tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/mime_type_tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/query_string_tests.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/readable_string_stream_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="types.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -422,6 +425,8 @@
       </item>
       <item path="query_string.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="readable_string_stream.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="request.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="request.h" ex="false" tool="3" flavor2="0">
@@ -448,20 +453,21 @@
       </item>
       <item path="stream.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="string_stream.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="tests/ChunkedRequestStreamTests.cpp"
+      <item path="tests/chunked_request_stream_tests.cpp"
             ex="false"
             tool="1"
             flavor2="0">
-      </item>
-      <item path="tests/StringStreamTests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/file_stream_tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/mime_type_tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/query_string_tests.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/readable_string_stream_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
       </item>
       <item path="types.h" ex="false" tool="3" flavor2="0">
       </item>

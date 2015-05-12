@@ -2,9 +2,9 @@
 
 #include <gtest/gtest.h>
 
-#include "../string_stream.h"
+#include "../readable_string_stream.h"
 
-class StringStreamTests : public ::testing::Test {
+class ReadableStringStreamTests : public ::testing::Test {
 protected:
     virtual void SetUp() {
         ResetBuffer();
@@ -20,8 +20,8 @@ protected:
     rs::httpserver::Stream::byte buffer_[1024];
 };
 
-TEST_F(StringStreamTests, TestEmptyStream) {
-    rs::httpserver::StringStream stream("");
+TEST_F(ReadableStringStreamTests, TestEmptyStream) {
+    rs::httpserver::ReadableStringStream stream("");
     ASSERT_EQ(stream.getLength(), 0);
     ASSERT_EQ(stream.getPosition(), 0);
     
@@ -41,11 +41,11 @@ TEST_F(StringStreamTests, TestEmptyStream) {
     ASSERT_EQ(stream.getPosition(), 0);    
 }
 
-TEST_F(StringStreamTests, TestShortStream1) {
+TEST_F(ReadableStringStreamTests, TestShortStream1) {
     ASSERT_EQ(buffer_[0], resetValue_);
     
     std::string testData = "1234";
-    rs::httpserver::StringStream stream("1234");
+    rs::httpserver::ReadableStringStream stream("1234");
     ASSERT_EQ(stream.getLength(), 4);
     ASSERT_EQ(stream.getPosition(), 0);
     
@@ -83,11 +83,11 @@ TEST_F(StringStreamTests, TestShortStream1) {
     ASSERT_EQ(buffer_[4], resetValue_);
 }
 
-TEST_F(StringStreamTests, TestShortStream2) {
+TEST_F(ReadableStringStreamTests, TestShortStream2) {
     ASSERT_EQ(buffer_[0], resetValue_);
     
     std::string testData = "12345678";
-    rs::httpserver::StringStream stream(testData);
+    rs::httpserver::ReadableStringStream stream(testData);
     ASSERT_EQ(stream.getLength(), 8);
     ASSERT_EQ(stream.getPosition(), 0);
     
@@ -136,11 +136,11 @@ TEST_F(StringStreamTests, TestShortStream2) {
     ASSERT_EQ(buffer_[4], resetValue_);
 }
 
-TEST_F(StringStreamTests, TestShortStream3) {
+TEST_F(ReadableStringStreamTests, TestShortStream3) {
     ASSERT_EQ(buffer_[0], resetValue_);
     
     std::string testData = "12345678";
-    rs::httpserver::StringStream stream(testData);
+    rs::httpserver::ReadableStringStream stream(testData);
     ASSERT_EQ(stream.getLength(), 8);
     ASSERT_EQ(stream.getPosition(), 0);
     
@@ -186,11 +186,11 @@ TEST_F(StringStreamTests, TestShortStream3) {
     ASSERT_EQ(buffer_[8], resetValue_);
 }
 
-TEST_F(StringStreamTests, TestShortStream4) {
+TEST_F(ReadableStringStreamTests, TestShortStream4) {
     ASSERT_EQ(buffer_[0], resetValue_);
     
     std::string testData = "12345678";
-    rs::httpserver::StringStream stream(testData);
+    rs::httpserver::ReadableStringStream stream(testData);
     ASSERT_EQ(stream.getLength(), 8);
     ASSERT_EQ(stream.getPosition(), 0);
     
@@ -240,11 +240,11 @@ TEST_F(StringStreamTests, TestShortStream4) {
     ASSERT_EQ(buffer_[8], resetValue_);
 }
 
-TEST_F(StringStreamTests, TestShortStream5) {
+TEST_F(ReadableStringStreamTests, TestShortStream5) {
     ASSERT_EQ(buffer_[0], resetValue_);
     
     std::string testData = "12345678";
-    rs::httpserver::StringStream stream(testData);
+    rs::httpserver::ReadableStringStream stream(testData);
     ASSERT_EQ(stream.getLength(), 8);
     ASSERT_EQ(stream.getPosition(), 0);
     
@@ -269,8 +269,8 @@ TEST_F(StringStreamTests, TestShortStream5) {
 }
 
 
-TEST_F(StringStreamTests, TestShortStream6) {
-    rs::httpserver::StringStream stream("this is a placebo");
+TEST_F(ReadableStringStreamTests, TestShortStream6) {
+    rs::httpserver::ReadableStringStream stream("this is a placebo");
     
     ASSERT_THROW({                
         stream.Write(buffer_, 0, sizeof(buffer_));                
