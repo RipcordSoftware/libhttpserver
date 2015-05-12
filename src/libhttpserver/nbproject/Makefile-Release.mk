@@ -58,6 +58,7 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 # Test Files
 TESTFILES= \
 	${TESTDIR}/TestFiles/f1 \
+	${TESTDIR}/TestFiles/f7 \
 	${TESTDIR}/TestFiles/f4 \
 	${TESTDIR}/TestFiles/f3 \
 	${TESTDIR}/TestFiles/f5 \
@@ -179,6 +180,10 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/chunked_request_stream_tests.o ${OBJEC
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a  -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
 
+${TESTDIR}/TestFiles/f7: ${TESTDIR}/tests/chunked_response_stream_tests.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a  -o ${TESTDIR}/TestFiles/f7 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
+
 ${TESTDIR}/TestFiles/f4: ${TESTDIR}/tests/file_stream_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a  -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
@@ -204,6 +209,12 @@ ${TESTDIR}/tests/chunked_request_stream_tests.o: tests/chunked_request_stream_te
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I../../externals/installed/include -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/chunked_request_stream_tests.o tests/chunked_request_stream_tests.cpp
+
+
+${TESTDIR}/tests/chunked_response_stream_tests.o: tests/chunked_response_stream_tests.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/chunked_response_stream_tests.o tests/chunked_response_stream_tests.cpp
 
 
 ${TESTDIR}/tests/file_stream_tests.o: tests/file_stream_tests.cpp 
@@ -449,6 +460,7 @@ ${OBJECTDIR}/socket_nomain.o: ${OBJECTDIR}/socket.o socket.cpp
 	@if [ "${TEST}" = "" ]; \
 	then  \
 	    ${TESTDIR}/TestFiles/f1 || true; \
+	    ${TESTDIR}/TestFiles/f7 || true; \
 	    ${TESTDIR}/TestFiles/f4 || true; \
 	    ${TESTDIR}/TestFiles/f3 || true; \
 	    ${TESTDIR}/TestFiles/f5 || true; \

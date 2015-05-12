@@ -63,6 +63,12 @@
                      kind="TEST">
         <itemPath>tests/chunked_request_stream_tests.cpp</itemPath>
       </logicalFolder>
+      <logicalFolder name="f7"
+                     displayName="Chunked Response Stream Tests"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/chunked_response_stream_tests.cpp</itemPath>
+      </logicalFolder>
       <logicalFolder name="f4"
                      displayName="File Stream Tests"
                      projectFiles="true"
@@ -221,6 +227,21 @@
           <output>${TESTDIR}/TestFiles/f6</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f7">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f7</output>
+        </linkerTool>
+      </folder>
       <item path="file_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="file_stream.h" ex="false" tool="3" flavor2="0">
@@ -284,6 +305,11 @@
       <item path="stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/chunked_request_stream_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/chunked_response_stream_tests.cpp"
             ex="false"
             tool="1"
             flavor2="0">
@@ -435,6 +461,21 @@
           <output>${TESTDIR}/TestFiles/f6</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f7">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f7</output>
+        </linkerTool>
+      </folder>
       <item path="file_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="file_stream.h" ex="false" tool="3" flavor2="0">
@@ -498,6 +539,11 @@
       <item path="stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/chunked_request_stream_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="tests/chunked_response_stream_tests.cpp"
             ex="false"
             tool="1"
             flavor2="0">

@@ -12,6 +12,8 @@ int rs::httpserver::ChunkedResponseStream::Write(const byte* buffer, int offset,
         stream_.Write(buffer, offset, Config::MaxResponseChunkSize);
         stream_.Write(endOfLine_, 0, sizeof(endOfLine_));
         offset += Config::MaxResponseChunkSize;
+        position_ += Config::MaxResponseChunkSize;
+        length_ += Config::MaxResponseChunkSize;
     }
     
     if (overflow > 0) {
@@ -19,6 +21,8 @@ int rs::httpserver::ChunkedResponseStream::Write(const byte* buffer, int offset,
         stream_.Write(&header[0], 0, header.size());
         stream_.Write(buffer, offset, overflow);
         stream_.Write(endOfLine_, 0, sizeof(endOfLine_));
+        position_ += overflow;
+        length_ += overflow;
     }
         
     return count;
