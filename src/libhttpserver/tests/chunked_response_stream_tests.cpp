@@ -201,3 +201,18 @@ TEST_F(ChunkedResponseStreamTests, test8) {
     responseStream.Flush();
     ASSERT_TRUE(true);
 }
+
+TEST_F(ChunkedResponseStreamTests, test9) {
+    rs::httpserver::WritableStringStream stream;
+    rs::httpserver::ChunkedResponseStream responseStream(stream);
+    
+    bool thrown = false;
+    try {
+        responseStream.Read(nullptr, 0, 0);
+    } catch (rs::httpserver::InvalidStreamOperationException& ex) {
+        ASSERT_TRUE(SanityCheckWhatMessage(ex.what()));
+        thrown = true;
+    }
+    
+    ASSERT_TRUE(thrown);
+}
