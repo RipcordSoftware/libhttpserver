@@ -1,7 +1,7 @@
 #include "chunked_response_stream.h"
 
 const rs::httpserver::Stream::byte rs::httpserver::ChunkedResponseStream::endOfLine_[2] = { '\r', '\n' };
-const rs::httpserver::Stream::byte rs::httpserver::ChunkedResponseStream::endOfBlocks[5] = { '0', '\r', '\n', '\r', '\n' };
+const rs::httpserver::Stream::byte rs::httpserver::ChunkedResponseStream::endOfBlocks_[5] = { '0', '\r', '\n', '\r', '\n' };
 
 int rs::httpserver::ChunkedResponseStream::Write(const byte* buffer, int offset, int count) {
     auto blocks = count / Config::MaxResponseChunkSize;
@@ -25,7 +25,7 @@ int rs::httpserver::ChunkedResponseStream::Write(const byte* buffer, int offset,
 }
 
 void rs::httpserver::ChunkedResponseStream::Flush() { 
-    stream_.Write(endOfBlocks, 0, sizeof(endOfBlocks));
+    stream_.Write(endOfBlocks_, 0, sizeof(endOfBlocks_));
     stream_.Flush(); 
 }
 

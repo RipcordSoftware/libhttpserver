@@ -35,7 +35,7 @@ private:
     long length_;
     
     const std::vector<Stream::byte> maxBlockSizeHeader_;
-    static const Stream::byte endOfBlocks[5];
+    static const Stream::byte endOfBlocks_[5];
     static const Stream::byte endOfLine_[2];
   
 };
