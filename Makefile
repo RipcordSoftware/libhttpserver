@@ -15,7 +15,7 @@ clean: force_true
 
 test: force_true .googletest
 	cd src/libhttpserver && $(MAKE) $(MFLAGS) $(MAKEOVERRIDES) test
-	cd src/httpserver && ./test.sh
+	cd src/httpserver && $(MAKE) $(MFLAGS) $(MAKEOVERRIDES) build && ./test.sh
 
 docs: force_true
 	doxygen Doxyfile
