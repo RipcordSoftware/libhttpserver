@@ -14,11 +14,23 @@ protected:
         
     }
     
+    bool SanityCheckWhatMessage(const char* msg);
+    
     void ResetBuffer() { std::fill_n(buffer_, sizeof(buffer_), resetValue_); }
     
     const rs::httpserver::Stream::byte resetValue_ = 0xff;
     rs::httpserver::Stream::byte buffer_[1024];
 };
+
+bool ReadableStringStreamTests::SanityCheckWhatMessage(const char* msg) {
+    while (*msg != '\0') {
+        if (*msg < 0x0d || *msg > 0x7e) {
+            return false;
+        }
+        msg++;
+    }
+    return true;
+}
 
 TEST_F(ReadableStringStreamTests, TestEmptyStream) {
     rs::httpserver::ReadableStringStream stream("");
@@ -268,11 +280,22 @@ TEST_F(ReadableStringStreamTests, TestShortStream5) {
     ASSERT_EQ(stream.getPosition(), 24);
 }
 
-
 TEST_F(ReadableStringStreamTests, TestShortStream6) {
     rs::httpserver::ReadableStringStream stream("this is a placebo");
     
-    ASSERT_THROW({                
+    bool thrown = false;
+    try {
         stream.Write(buffer_, 0, sizeof(buffer_));                
-    }, rs::httpserver::InvalidStreamOperationException);
+    } catch (const rs::httpserver::InvalidStreamOperationException& ex) {
+        ASSERT_TRUE(SanityCheckWhatMessage(ex.what()));
+        thrown = true;
+    }
+    
+    ASSERT_TRUE(thrown);
+}
+
+TEST_F(ReadableStringStreamTests, TestShortStream7) {
+    rs::httpserver::ReadableStringStream stream("");
+    stream.Flush();
+    ASSERT_TRUE(true);
 }
