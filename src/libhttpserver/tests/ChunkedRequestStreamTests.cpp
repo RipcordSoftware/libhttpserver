@@ -14,11 +14,23 @@ protected:
         
     }
     
+    bool SanityCheckWhatMessage(const char* msg);
+    
     void ResetBuffer() { std::fill_n(buffer_, sizeof(buffer_), resetValue_); }
     
     rs::httpserver::Stream::byte buffer_[1024];
     const rs::httpserver::Stream::byte resetValue_ = 0xff;
 };
+
+bool ChunkedRequestStreamTests::SanityCheckWhatMessage(const char* msg) {
+    while (*msg != '\0') {
+        if (*msg < 0x0d || *msg > 0x7e) {
+            return false;
+        }
+        msg++;
+    }
+    return true;
+}
 
 TEST_F(ChunkedRequestStreamTests, testMethod) {
     rs::httpserver::StringStream requestStream("0\r\n\r\n");
@@ -316,9 +328,15 @@ TEST_F(ChunkedRequestStreamTests, testMethod9) {
     rs::httpserver::StringStream requestStream("1;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc auctor erat in porta aliquam. Aliquam at semper augue, quis mattis ipsum.\r\na\r\n0\r\n\r\n");
     rs::httpserver::ChunkedRequestStream stream(requestStream);
     
-    ASSERT_THROW({
+    bool thrown = false;
+    try {
         stream.Read(buffer_, 0, sizeof(buffer_));
-    }, rs::httpserver::ChunkedRequestHeaderException);
+    } catch (const rs::httpserver::ChunkedRequestHeaderException& ex) {
+        ASSERT_TRUE(SanityCheckWhatMessage(ex.what()));
+        thrown = true;
+    }
+    
+    ASSERT_TRUE(thrown);
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod10) {
@@ -341,9 +359,15 @@ TEST_F(ChunkedRequestStreamTests, testMethod11) {
     rs::httpserver::StringStream requestStream("\11\r\nthis is a placebo\r\n0\r\n");
     rs::httpserver::ChunkedRequestStream stream(requestStream);    
     
-    ASSERT_THROW({                
+    bool thrown = false;
+    try {                
         stream.Write(buffer_, 0, sizeof(buffer_));                
-    }, rs::httpserver::InvalidStreamOperationException);
+    } catch (const rs::httpserver::InvalidStreamOperationException& ex) {
+        ASSERT_TRUE(SanityCheckWhatMessage(ex.what()));
+        thrown = true;
+    }
+    
+    ASSERT_TRUE(thrown);
 }
 
 TEST_F(ChunkedRequestStreamTests, testMethod12) {    
@@ -352,4 +376,11 @@ TEST_F(ChunkedRequestStreamTests, testMethod12) {
     ASSERT_EQ(stream.Read(buffer_, 0, sizeof(buffer_)), 135);
     ASSERT_EQ(stream.getPosition(), 135);
     ASSERT_EQ(stream.getLength(), 135);
+}
+
+TEST_F(ChunkedRequestStreamTests, testMethod13) {
+    rs::httpserver::StringStream requestStream("");
+    rs::httpserver::ChunkedRequestStream stream(requestStream);
+    stream.Flush();
+    ASSERT_TRUE(true);
 }

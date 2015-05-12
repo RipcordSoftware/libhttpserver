@@ -1,7 +1,5 @@
 #include <gtest/gtest.h>
 
-#include <boost/filesystem.hpp>
-
 #include "../mime_types.h"
 
 class MimeTypeTests : public ::testing::Test {
