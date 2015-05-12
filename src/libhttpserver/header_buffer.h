@@ -4,9 +4,11 @@
 #include <vector>
 
 #include <boost/noncopyable.hpp>
+#include <boost/function.hpp>
 
 #include "types.h"
 #include "exceptions.h"
+#include "stream.h"
 
 namespace rs {
 namespace httpserver {
@@ -15,7 +17,7 @@ class HeaderBuffer final : private boost::noncopyable {
 public:
     typedef char value_type;
     
-    HeaderBuffer(int size) : data_(size), dataLength_(0), position_(0) {}
+    HeaderBuffer(int size = 4096) : data_(size), dataLength_(0), position_(0) {}
     
     int getLength() const {
         return data_.size();
@@ -70,8 +72,11 @@ public:
         position_ = 0;
     }
     
-    std::size_t Receive(rs::httpserver::socket_ptr socket);
-    std::size_t Receive(rs::httpserver::socket_ptr socket, int timeout);
+    std::size_t Receive(socket_ptr socket);
+    std::size_t Receive(boost::function<std::size_t(Stream::byte* buffer, int length, bool peek)> func);
+    
+    std::size_t Receive(socket_ptr socket, int timeout);
+    std::size_t Receive(boost::function<std::size_t(int timeout, Stream::byte* buffer, int length, bool peek)> func, int timeout);
     
     int Copy(value_type* buffer, int count, bool peek = false);
     

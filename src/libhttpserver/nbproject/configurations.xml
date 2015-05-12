@@ -93,6 +93,12 @@
                      kind="TEST">
         <itemPath>tests/readable_string_stream_tests.cpp</itemPath>
       </logicalFolder>
+      <logicalFolder name="f8"
+                     displayName="Request Header Tests"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/request_header_tests.cpp</itemPath>
+      </logicalFolder>
       <logicalFolder name="f6"
                      displayName="Writable String Stream Tests"
                      projectFiles="true"
@@ -242,6 +248,21 @@
           <output>${TESTDIR}/TestFiles/f7</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f8">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f8</output>
+        </linkerTool>
+      </folder>
       <item path="file_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="file_stream.h" ex="false" tool="3" flavor2="0">
@@ -324,6 +345,8 @@
             ex="false"
             tool="1"
             flavor2="0">
+      </item>
+      <item path="tests/request_header_tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/writable_string_stream_tests.cpp"
             ex="false"
@@ -476,6 +499,21 @@
           <output>${TESTDIR}/TestFiles/f7</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f8">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f8</output>
+        </linkerTool>
+      </folder>
       <item path="file_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="file_stream.h" ex="false" tool="3" flavor2="0">
@@ -558,6 +596,8 @@
             ex="false"
             tool="1"
             flavor2="0">
+      </item>
+      <item path="tests/request_header_tests.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="tests/writable_string_stream_tests.cpp"
             ex="false"

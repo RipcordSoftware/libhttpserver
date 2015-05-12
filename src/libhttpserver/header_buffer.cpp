@@ -1,11 +1,15 @@
 #include <algorithm>
+#include <boost/bind.hpp>
 
 #include "header_buffer.h"
 #include "socket.h"
-#include "stream.h"
 
-std::size_t rs::httpserver::HeaderBuffer::Receive(rs::httpserver::socket_ptr socket) {
-    auto bytes = socket->Receive(reinterpret_cast<rs::httpserver::Stream::byte*>(&data_[0]) + dataLength_, data_.size() - dataLength_);
+std::size_t rs::httpserver::HeaderBuffer::Receive(socket_ptr socket) {
+    return Receive(boost::bind(&Socket::Receive, socket, _1, _2, _3));
+}
+
+std::size_t rs::httpserver::HeaderBuffer::Receive(boost::function<std::size_t(Stream::byte* buffer, int length, bool peek)> func) {
+    auto bytes = func(reinterpret_cast<Stream::byte*>(&data_[0]) + dataLength_, data_.size() - dataLength_, false);
     if (bytes > 0) {
         dataLength_ += bytes;
     }
@@ -13,8 +17,12 @@ std::size_t rs::httpserver::HeaderBuffer::Receive(rs::httpserver::socket_ptr soc
     return bytes;
 }
 
-std::size_t rs::httpserver::HeaderBuffer::Receive(rs::httpserver::socket_ptr socket, int timeout) {
-    auto bytes = socket->Receive(timeout, reinterpret_cast<rs::httpserver::Stream::byte*>(&data_[0]) + dataLength_, data_.size() - dataLength_);
+std::size_t rs::httpserver::HeaderBuffer::Receive(socket_ptr socket, int timeout) {
+    return Receive(boost::bind(&Socket::Receive, socket, _1, _2, _3, _4), timeout);
+}
+
+std::size_t rs::httpserver::HeaderBuffer::Receive(boost::function<std::size_t(int timeout, Stream::byte* buffer, int length, bool peek)> func, int timeout) {
+    auto bytes = func(timeout, reinterpret_cast<Stream::byte*>(&data_[0]) + dataLength_, data_.size() - dataLength_, false);
     if (bytes > 0) {
         dataLength_ += bytes;
     }

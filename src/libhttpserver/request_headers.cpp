@@ -1,5 +1,7 @@
 #include "request_headers.h"
 
+#include <cctype>
+
 const char rs::httpserver::RequestHeaders::endOfLine_[4] = { '\r', '\n', '\r', '\n' };
 
 const std::string rs::httpserver::RequestHeaders::emptyValue_;
@@ -28,32 +30,43 @@ void rs::httpserver::RequestHeaders::GetHeaders(const HeaderBuffer& buffer, int 
         throw HeaderMalformedException();
     }
     
-    auto uriStart = methodEnd + 1;
+    method_.assign(methodStart, methodEnd);
+    
+    while (*++methodEnd == ' ');
+
+    auto uriStart = methodEnd;
     auto uriEnd = std::find(uriStart, headersEnd, ' ');
     if (methodEnd == headersEnd) {
         throw HeaderMalformedException();
     }
     
-    auto versionStart = uriEnd + 1;
-    auto versionEnd = std::find(uriStart, headersEnd, '\r');
-    if (versionEnd == headersEnd) {
-        throw HeaderMalformedException();
-    }    
+    rawUri_.assign(uriStart, uriEnd);
     
-    method_ = std::move(std::string(methodStart, methodEnd));
-    rawUri_ = std::move(std::string(uriStart, uriEnd));
-    version_ = std::move(std::string(versionStart, versionEnd));
+    while (*++uriEnd == ' ');
+    
+    auto versionStart = uriEnd;
+    auto versionEnd = std::find(versionStart, headersEnd, '\r');
+    if (versionEnd == headersEnd || versionEnd == versionStart) {
+        throw HeaderMalformedException();
+    }
     
     auto lineStart = versionEnd + 2;
-    
+            
+    while (*(versionEnd - 1) == ' ') { --versionEnd; }
+    version_.assign(versionStart, versionEnd);
+        
+    if (version_.find("HTTP/") != 0 || version_.length() != 8 || !std::isdigit(version_[5]) || version_[6] != '.' || !std::isdigit(version_[7])) {
+        throw HeaderMalformedException();
+    }        
+           
     while (lineStart < headersEnd && *lineStart != '\r') {
-        auto fieldStart = lineStart;
-        auto fieldEnd = std::find(fieldStart, headersEnd, ':');
-        if (fieldEnd == headersEnd) {
+        auto nameStart = lineStart;
+        auto nameEnd = std::find(nameStart, headersEnd, ':');
+        if (nameEnd == headersEnd) {
             throw HeaderMalformedException();
         }
 
-        auto valueStart = fieldEnd + 1;        
+        auto valueStart = nameEnd + 1;        
         while (*valueStart == ' ') {
             ++valueStart;
         }
@@ -61,22 +74,22 @@ void rs::httpserver::RequestHeaders::GetHeaders(const HeaderBuffer& buffer, int 
         auto valueEnd = std::find(valueStart, headersEnd, '\r');
         if (valueEnd == headersEnd) {
             throw HeaderMalformedException();
-        }       
-
-        while (*(fieldEnd - 1) == ' ') {
-            --fieldEnd;
         }
+        
+        lineStart = valueEnd + 2;
+
+        while (*(nameEnd - 1) == ' ') {
+            --nameEnd;
+        }                
         
         while (*(valueEnd - 1) == ' ') {
             --valueEnd;
         }
 
-        std::string field(fieldStart, fieldEnd);
+        std::string name(nameStart, nameEnd);
         std::string value(valueStart, valueEnd);
         
-        headers_[std::move(field)] = std::move(value);
-        
-        lineStart = valueEnd + 2;
+        headers_.emplace(std::move(name), std::move(value));                
     }
     
     auto queryStringStart = std::find(rawUri_.cbegin(), rawUri_.cend(), '?');
