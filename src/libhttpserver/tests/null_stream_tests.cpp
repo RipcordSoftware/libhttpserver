@@ -12,7 +12,7 @@ protected:
         
     }
     
-    rs::httpserver::Stream::byte buffer[1024];
+    rs::httpserver::Stream::byte buffer_[1024];
 };
 
 TEST_F(NullStreamTests, test1) {
@@ -30,11 +30,11 @@ TEST_F(NullStreamTests, test2) {
     ASSERT_EQ(0, stream.getPosition());
     ASSERT_EQ(0, stream.getLength());
     
-    ASSERT_EQ(0, stream.Read(buffer, 0, sizeof(buffer), true));
+    ASSERT_EQ(0, stream.Read(buffer_, 0, sizeof(buffer_), true));
     ASSERT_EQ(0, stream.getPosition());
     ASSERT_EQ(0, stream.getLength());    
         
-    ASSERT_EQ(0, stream.Read(buffer, 0, sizeof(buffer), false));
+    ASSERT_EQ(0, stream.Read(buffer_, 0, sizeof(buffer_), false));
     ASSERT_EQ(0, stream.getPosition());
     ASSERT_EQ(0, stream.getLength());    
 }
@@ -44,7 +44,7 @@ TEST_F(NullStreamTests, test3) {
     ASSERT_EQ(0, stream.getPosition());
     ASSERT_EQ(0, stream.getLength());
     
-    ASSERT_EQ(0, stream.Write(buffer, 0, sizeof(buffer)));
+    ASSERT_EQ(0, stream.Write(buffer_, 0, sizeof(buffer_)));
     ASSERT_EQ(0, stream.getPosition());
     ASSERT_EQ(0, stream.getLength());    
 }
@@ -54,11 +54,11 @@ TEST_F(NullStreamTests, test4) {
     ASSERT_EQ(0, stream.getPosition());
     ASSERT_EQ(0, stream.getLength());
     
-    ASSERT_EQ(0, stream.Write(buffer, 0, sizeof(buffer)));
+    ASSERT_EQ(0, stream.Write(buffer_, 0, sizeof(buffer_)));
     ASSERT_EQ(0, stream.getPosition());
     ASSERT_EQ(0, stream.getLength());   
     
-    ASSERT_EQ(0, stream.Read(buffer, 0, sizeof(buffer), false));
+    ASSERT_EQ(0, stream.Read(buffer_, 0, sizeof(buffer_), false));
     ASSERT_EQ(0, stream.getPosition());
     ASSERT_EQ(0, stream.getLength());    
 }

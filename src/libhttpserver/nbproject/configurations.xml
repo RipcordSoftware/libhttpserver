@@ -74,6 +74,7 @@
                      projectFiles="true"
                      kind="TEST">
         <itemPath>tests/file_stream_tests.cpp</itemPath>
+        <itemPath>rfc2616.txt</itemPath>
       </logicalFolder>
       <logicalFolder name="f3"
                      displayName="MIME Type Tests"
@@ -339,6 +340,8 @@
       <item path="response_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="response_stream.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="rfc2616.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="socket.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -607,6 +610,8 @@
       <item path="response_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="response_stream.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="rfc2616.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="socket.cpp" ex="false" tool="1" flavor2="0">
       </item>
