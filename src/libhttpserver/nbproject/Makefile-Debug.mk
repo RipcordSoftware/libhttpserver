@@ -61,6 +61,7 @@ TESTFILES= \
 	${TESTDIR}/TestFiles/f7 \
 	${TESTDIR}/TestFiles/f4 \
 	${TESTDIR}/TestFiles/f3 \
+	${TESTDIR}/TestFiles/f9 \
 	${TESTDIR}/TestFiles/f5 \
 	${TESTDIR}/TestFiles/f2 \
 	${TESTDIR}/TestFiles/f8 \
@@ -193,6 +194,10 @@ ${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/mime_type_tests.o ${OBJECTFILES:%.o=%_
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
 
+${TESTDIR}/TestFiles/f9: ${TESTDIR}/tests/null_stream_tests.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f9 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
+
 ${TESTDIR}/TestFiles/f5: ${TESTDIR}/tests/query_string_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f5 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
@@ -232,6 +237,12 @@ ${TESTDIR}/tests/mime_type_tests.o: tests/mime_type_tests.cpp
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I../../externals/installed/include -I. -std=c++11 --coverage -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/mime_type_tests.o tests/mime_type_tests.cpp
+
+
+${TESTDIR}/tests/null_stream_tests.o: tests/null_stream_tests.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I../../externals/installed/include -I. -std=c++11 --coverage -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/null_stream_tests.o tests/null_stream_tests.cpp
 
 
 ${TESTDIR}/tests/query_string_tests.o: tests/query_string_tests.cpp 
@@ -474,6 +485,7 @@ ${OBJECTDIR}/socket_nomain.o: ${OBJECTDIR}/socket.o socket.cpp
 	    ${TESTDIR}/TestFiles/f7 || true; \
 	    ${TESTDIR}/TestFiles/f4 || true; \
 	    ${TESTDIR}/TestFiles/f3 || true; \
+	    ${TESTDIR}/TestFiles/f9 || true; \
 	    ${TESTDIR}/TestFiles/f5 || true; \
 	    ${TESTDIR}/TestFiles/f2 || true; \
 	    ${TESTDIR}/TestFiles/f8 || true; \

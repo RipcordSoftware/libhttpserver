@@ -1,6 +1,8 @@
 #ifndef RS_LIBHTTPSERVER_NULL_STREAM_H
 #define	RS_LIBHTTPSERVER_NULL_STREAM_H
 
+#include "stream.h"
+
 namespace rs {
 namespace httpserver {
 
