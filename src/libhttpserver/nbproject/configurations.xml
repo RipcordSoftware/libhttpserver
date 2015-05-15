@@ -21,6 +21,7 @@
       <itemPath>readable_string_stream.h</itemPath>
       <itemPath>request.h</itemPath>
       <itemPath>request_headers.h</itemPath>
+      <itemPath>request_router.h</itemPath>
       <itemPath>request_stream.h</itemPath>
       <itemPath>response.h</itemPath>
       <itemPath>response_stream.h</itemPath>
@@ -48,6 +49,7 @@
       <itemPath>query_string.cpp</itemPath>
       <itemPath>request.cpp</itemPath>
       <itemPath>request_headers.cpp</itemPath>
+      <itemPath>request_router.cpp</itemPath>
       <itemPath>request_stream.cpp</itemPath>
       <itemPath>response.cpp</itemPath>
       <itemPath>response_stream.cpp</itemPath>
@@ -164,6 +166,7 @@
             <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
             <linkerLibLibItem>boost_date_time</linkerLibLibItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>
+            <linkerLibLibItem>boost_regex</linkerLibLibItem>
             <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
           </linkerLibItems>
@@ -173,6 +176,21 @@
       <folder path="TestFiles/f1">
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f10">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f10</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -328,6 +346,10 @@
       <item path="request_headers.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="request_headers.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="request_router.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="request_router.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="request_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -434,6 +456,7 @@
             <linkerLibLibItem>boost_filesystem</linkerLibLibItem>
             <linkerLibLibItem>boost_date_time</linkerLibLibItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>
+            <linkerLibLibItem>boost_regex</linkerLibLibItem>
             <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
           </linkerLibItems>
@@ -443,6 +466,21 @@
       <folder path="TestFiles/f1">
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f10">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f10</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -598,6 +636,10 @@
       <item path="request_headers.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="request_headers.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="request_router.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="request_router.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="request_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>

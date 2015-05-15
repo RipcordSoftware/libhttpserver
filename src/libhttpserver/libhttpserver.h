@@ -11,6 +11,7 @@
 #include "writable_string_stream.h"
 #include "file_stream.h"
 #include "mime_types.h"
+#include "request_router.h"
 
 #endif	/* RS_LIBHTTPSERVER_LIBHTTPSERVER_H */
 

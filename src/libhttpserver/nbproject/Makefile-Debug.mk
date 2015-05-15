@@ -47,6 +47,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/query_string.o \
 	${OBJECTDIR}/request.o \
 	${OBJECTDIR}/request_headers.o \
+	${OBJECTDIR}/request_router.o \
 	${OBJECTDIR}/request_stream.o \
 	${OBJECTDIR}/response.o \
 	${OBJECTDIR}/response_stream.o \
@@ -153,6 +154,11 @@ ${OBJECTDIR}/request_headers.o: request_headers.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_headers.o request_headers.cpp
 
+${OBJECTDIR}/request_router.o: request_router.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_router.o request_router.cpp
+
 ${OBJECTDIR}/request_stream.o: request_stream.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -180,39 +186,39 @@ ${OBJECTDIR}/socket.o: socket.cpp
 .build-tests-conf: .build-conf ${TESTFILES}
 ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/chunked_request_stream_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
+	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system -lboost_regex `pkg-config --libs zlib` -lpthread    
 
 ${TESTDIR}/TestFiles/f7: ${TESTDIR}/tests/chunked_response_stream_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f7 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
+	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f7 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system -lboost_regex `pkg-config --libs zlib` -lpthread    
 
 ${TESTDIR}/TestFiles/f4: ${TESTDIR}/tests/file_stream_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
+	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system -lboost_regex `pkg-config --libs zlib` -lpthread    
 
 ${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/mime_type_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
+	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system -lboost_regex `pkg-config --libs zlib` -lpthread    
 
 ${TESTDIR}/TestFiles/f9: ${TESTDIR}/tests/null_stream_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f9 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
+	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f9 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system -lboost_regex `pkg-config --libs zlib` -lpthread    
 
 ${TESTDIR}/TestFiles/f5: ${TESTDIR}/tests/query_string_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f5 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
+	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f5 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system -lboost_regex `pkg-config --libs zlib` -lpthread    
 
 ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/readable_string_stream_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
+	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system -lboost_regex `pkg-config --libs zlib` -lpthread    
 
 ${TESTDIR}/TestFiles/f8: ${TESTDIR}/tests/request_header_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f8 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
+	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f8 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system -lboost_regex `pkg-config --libs zlib` -lpthread    
 
 ${TESTDIR}/TestFiles/f6: ${TESTDIR}/tests/writable_string_stream_tests.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f6 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system `pkg-config --libs zlib` -lpthread    
+	${LINK.cc} ../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a --coverage  -o ${TESTDIR}/TestFiles/f6 $^ ${LDLIBSOPTIONS} -lboost_thread -lboost_filesystem -lboost_date_time -lboost_system -lboost_regex `pkg-config --libs zlib` -lpthread    
 
 
 ${TESTDIR}/tests/chunked_request_stream_tests.o: tests/chunked_request_stream_tests.cpp 
@@ -423,6 +429,19 @@ ${OBJECTDIR}/request_headers_nomain.o: ${OBJECTDIR}/request_headers.o request_he
 	    $(COMPILE.cc) -g -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_headers_nomain.o request_headers.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/request_headers.o ${OBJECTDIR}/request_headers_nomain.o;\
+	fi
+
+${OBJECTDIR}/request_router_nomain.o: ${OBJECTDIR}/request_router.o request_router.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/request_router.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_router_nomain.o request_router.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/request_router.o ${OBJECTDIR}/request_router_nomain.o;\
 	fi
 
 ${OBJECTDIR}/request_stream_nomain.o: ${OBJECTDIR}/request_stream.o request_stream.cpp 

@@ -16,6 +16,8 @@
 
 namespace rs {
 namespace httpserver {
+    
+class RequestRouter;
 
 class HttpServer final : public boost::enable_shared_from_this<HttpServer>, private boost::noncopyable {
 public:
@@ -28,8 +30,9 @@ public:
     
     ~HttpServer();
     
-    void Start(RequestCallback request_callback);
-    void Start(RequestCallback request_callback, Request100ContinueCallback request_continue_callback);
+    void Start(const RequestRouter& router, RequestCallback requestCallback);
+    void Start(RequestCallback requestCallback);
+    void Start(RequestCallback requestCallback, Request100ContinueCallback requestContinueCallback);
     
     static int EstimateThreadPoolSize() {
         auto cores = boost::thread::hardware_concurrency();

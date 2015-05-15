@@ -9,6 +9,7 @@
 #include "request.h"
 #include "response.h"
 #include "exceptions.h"
+#include "request_router.h"
 
 rs::httpserver::HttpServer::HttpServer(const std::string& host, int port, int threads) : 
         host_(host), port_(port), threads_(threads), service_(),
@@ -24,6 +25,14 @@ rs::httpserver::HttpServer::~HttpServer() {
 
 void rs::httpserver::HttpServer::HandleStop() {        
     service_.stop();
+}
+
+void rs::httpserver::HttpServer::Start(const RequestRouter& router, RequestCallback requestCallback) {
+    Start([&](socket_ptr socket, request_ptr request, response_ptr response) {
+        if (!router.Match(request, response) && requestCallback) {            
+            requestCallback(socket, request, response);
+        }
+    });
 }
 
 void rs::httpserver::HttpServer::Start(RequestCallback requestCallback) {
