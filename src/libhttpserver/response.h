@@ -31,6 +31,10 @@ public:
         return response_ptr(new Response(socket, request));
     }
     
+    int getStatusCode() {
+        return statusCode_;
+    }
+    
     Response& setStatusCode(int statusCode) {
         statusCode_ = statusCode;
         return *this;
