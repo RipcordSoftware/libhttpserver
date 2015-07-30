@@ -97,87 +97,87 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhttpserver.a: ${OBJECTFILES}
 ${OBJECTDIR}/chunked_request_stream.o: chunked_request_stream.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/chunked_request_stream.o chunked_request_stream.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/chunked_request_stream.o chunked_request_stream.cpp
 
 ${OBJECTDIR}/chunked_response_stream.o: chunked_response_stream.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/chunked_response_stream.o chunked_response_stream.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/chunked_response_stream.o chunked_response_stream.cpp
 
 ${OBJECTDIR}/config.o: config.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/config.o config.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/config.o config.cpp
 
 ${OBJECTDIR}/file_stream.o: file_stream.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/file_stream.o file_stream.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/file_stream.o file_stream.cpp
 
 ${OBJECTDIR}/gzip_response_stream.o: gzip_response_stream.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/gzip_response_stream.o gzip_response_stream.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/gzip_response_stream.o gzip_response_stream.cpp
 
 ${OBJECTDIR}/header_buffer.o: header_buffer.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/header_buffer.o header_buffer.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/header_buffer.o header_buffer.cpp
 
 ${OBJECTDIR}/headers.o: headers.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/headers.o headers.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/headers.o headers.cpp
 
 ${OBJECTDIR}/httpserver.o: httpserver.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/httpserver.o httpserver.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/httpserver.o httpserver.cpp
 
 ${OBJECTDIR}/mime_types.o: mime_types.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mime_types.o mime_types.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mime_types.o mime_types.cpp
 
 ${OBJECTDIR}/query_string.o: query_string.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/query_string.o query_string.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/query_string.o query_string.cpp
 
 ${OBJECTDIR}/request.o: request.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request.o request.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request.o request.cpp
 
 ${OBJECTDIR}/request_headers.o: request_headers.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_headers.o request_headers.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_headers.o request_headers.cpp
 
 ${OBJECTDIR}/request_router.o: request_router.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_router.o request_router.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_router.o request_router.cpp
 
 ${OBJECTDIR}/request_stream.o: request_stream.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_stream.o request_stream.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_stream.o request_stream.cpp
 
 ${OBJECTDIR}/response.o: response.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/response.o response.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/response.o response.cpp
 
 ${OBJECTDIR}/response_stream.o: response_stream.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/response_stream.o response_stream.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/response_stream.o response_stream.cpp
 
 ${OBJECTDIR}/socket.o: socket.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/socket.o socket.cpp
+	$(COMPILE.cc) -O2 -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/socket.o socket.cpp
 
 # Subprojects
 .build-subprojects:
@@ -224,55 +224,55 @@ ${TESTDIR}/TestFiles/f6: ${TESTDIR}/tests/writable_string_stream_tests.o ${OBJEC
 ${TESTDIR}/tests/chunked_request_stream_tests.o: tests/chunked_request_stream_tests.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I../../externals/installed/include -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/chunked_request_stream_tests.o tests/chunked_request_stream_tests.cpp
+	$(COMPILE.cc) -O2 -I. -I../../externals/installed/include -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/chunked_request_stream_tests.o tests/chunked_request_stream_tests.cpp
 
 
 ${TESTDIR}/tests/chunked_response_stream_tests.o: tests/chunked_response_stream_tests.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/chunked_response_stream_tests.o tests/chunked_response_stream_tests.cpp
+	$(COMPILE.cc) -O2 -I. -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/chunked_response_stream_tests.o tests/chunked_response_stream_tests.cpp
 
 
 ${TESTDIR}/tests/file_stream_tests.o: tests/file_stream_tests.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/file_stream_tests.o tests/file_stream_tests.cpp
+	$(COMPILE.cc) -O2 -I. -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/file_stream_tests.o tests/file_stream_tests.cpp
 
 
 ${TESTDIR}/tests/mime_type_tests.o: tests/mime_type_tests.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/mime_type_tests.o tests/mime_type_tests.cpp
+	$(COMPILE.cc) -O2 -I. -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/mime_type_tests.o tests/mime_type_tests.cpp
 
 
 ${TESTDIR}/tests/null_stream_tests.o: tests/null_stream_tests.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/null_stream_tests.o tests/null_stream_tests.cpp
+	$(COMPILE.cc) -O2 -I. -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/null_stream_tests.o tests/null_stream_tests.cpp
 
 
 ${TESTDIR}/tests/query_string_tests.o: tests/query_string_tests.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/query_string_tests.o tests/query_string_tests.cpp
+	$(COMPILE.cc) -O2 -I. -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/query_string_tests.o tests/query_string_tests.cpp
 
 
 ${TESTDIR}/tests/readable_string_stream_tests.o: tests/readable_string_stream_tests.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I../../externals/installed/include -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/readable_string_stream_tests.o tests/readable_string_stream_tests.cpp
+	$(COMPILE.cc) -O2 -I. -I../../externals/installed/include -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/readable_string_stream_tests.o tests/readable_string_stream_tests.cpp
 
 
 ${TESTDIR}/tests/request_header_tests.o: tests/request_header_tests.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/request_header_tests.o tests/request_header_tests.cpp
+	$(COMPILE.cc) -O2 -I. -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/request_header_tests.o tests/request_header_tests.cpp
 
 
 ${TESTDIR}/tests/writable_string_stream_tests.o: tests/writable_string_stream_tests.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/writable_string_stream_tests.o tests/writable_string_stream_tests.cpp
+	$(COMPILE.cc) -O2 -I. -I../../externals/installed/include -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/writable_string_stream_tests.o tests/writable_string_stream_tests.cpp
 
 
 ${OBJECTDIR}/chunked_request_stream_nomain.o: ${OBJECTDIR}/chunked_request_stream.o chunked_request_stream.cpp 
@@ -283,7 +283,7 @@ ${OBJECTDIR}/chunked_request_stream_nomain.o: ${OBJECTDIR}/chunked_request_strea
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/chunked_request_stream_nomain.o chunked_request_stream.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/chunked_request_stream_nomain.o chunked_request_stream.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/chunked_request_stream.o ${OBJECTDIR}/chunked_request_stream_nomain.o;\
 	fi
@@ -296,7 +296,7 @@ ${OBJECTDIR}/chunked_response_stream_nomain.o: ${OBJECTDIR}/chunked_response_str
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/chunked_response_stream_nomain.o chunked_response_stream.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/chunked_response_stream_nomain.o chunked_response_stream.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/chunked_response_stream.o ${OBJECTDIR}/chunked_response_stream_nomain.o;\
 	fi
@@ -309,7 +309,7 @@ ${OBJECTDIR}/config_nomain.o: ${OBJECTDIR}/config.o config.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/config_nomain.o config.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/config_nomain.o config.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/config.o ${OBJECTDIR}/config_nomain.o;\
 	fi
@@ -322,7 +322,7 @@ ${OBJECTDIR}/file_stream_nomain.o: ${OBJECTDIR}/file_stream.o file_stream.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/file_stream_nomain.o file_stream.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/file_stream_nomain.o file_stream.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/file_stream.o ${OBJECTDIR}/file_stream_nomain.o;\
 	fi
@@ -335,7 +335,7 @@ ${OBJECTDIR}/gzip_response_stream_nomain.o: ${OBJECTDIR}/gzip_response_stream.o 
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/gzip_response_stream_nomain.o gzip_response_stream.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/gzip_response_stream_nomain.o gzip_response_stream.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/gzip_response_stream.o ${OBJECTDIR}/gzip_response_stream_nomain.o;\
 	fi
@@ -348,7 +348,7 @@ ${OBJECTDIR}/header_buffer_nomain.o: ${OBJECTDIR}/header_buffer.o header_buffer.
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/header_buffer_nomain.o header_buffer.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/header_buffer_nomain.o header_buffer.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/header_buffer.o ${OBJECTDIR}/header_buffer_nomain.o;\
 	fi
@@ -361,7 +361,7 @@ ${OBJECTDIR}/headers_nomain.o: ${OBJECTDIR}/headers.o headers.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/headers_nomain.o headers.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/headers_nomain.o headers.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/headers.o ${OBJECTDIR}/headers_nomain.o;\
 	fi
@@ -374,7 +374,7 @@ ${OBJECTDIR}/httpserver_nomain.o: ${OBJECTDIR}/httpserver.o httpserver.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/httpserver_nomain.o httpserver.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/httpserver_nomain.o httpserver.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/httpserver.o ${OBJECTDIR}/httpserver_nomain.o;\
 	fi
@@ -387,7 +387,7 @@ ${OBJECTDIR}/mime_types_nomain.o: ${OBJECTDIR}/mime_types.o mime_types.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mime_types_nomain.o mime_types.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mime_types_nomain.o mime_types.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/mime_types.o ${OBJECTDIR}/mime_types_nomain.o;\
 	fi
@@ -400,7 +400,7 @@ ${OBJECTDIR}/query_string_nomain.o: ${OBJECTDIR}/query_string.o query_string.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/query_string_nomain.o query_string.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/query_string_nomain.o query_string.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/query_string.o ${OBJECTDIR}/query_string_nomain.o;\
 	fi
@@ -413,7 +413,7 @@ ${OBJECTDIR}/request_nomain.o: ${OBJECTDIR}/request.o request.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_nomain.o request.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_nomain.o request.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/request.o ${OBJECTDIR}/request_nomain.o;\
 	fi
@@ -426,7 +426,7 @@ ${OBJECTDIR}/request_headers_nomain.o: ${OBJECTDIR}/request_headers.o request_he
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_headers_nomain.o request_headers.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_headers_nomain.o request_headers.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/request_headers.o ${OBJECTDIR}/request_headers_nomain.o;\
 	fi
@@ -439,7 +439,7 @@ ${OBJECTDIR}/request_router_nomain.o: ${OBJECTDIR}/request_router.o request_rout
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_router_nomain.o request_router.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_router_nomain.o request_router.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/request_router.o ${OBJECTDIR}/request_router_nomain.o;\
 	fi
@@ -452,7 +452,7 @@ ${OBJECTDIR}/request_stream_nomain.o: ${OBJECTDIR}/request_stream.o request_stre
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_stream_nomain.o request_stream.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/request_stream_nomain.o request_stream.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/request_stream.o ${OBJECTDIR}/request_stream_nomain.o;\
 	fi
@@ -465,7 +465,7 @@ ${OBJECTDIR}/response_nomain.o: ${OBJECTDIR}/response.o response.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/response_nomain.o response.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/response_nomain.o response.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/response.o ${OBJECTDIR}/response_nomain.o;\
 	fi
@@ -478,7 +478,7 @@ ${OBJECTDIR}/response_stream_nomain.o: ${OBJECTDIR}/response_stream.o response_s
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/response_stream_nomain.o response_stream.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/response_stream_nomain.o response_stream.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/response_stream.o ${OBJECTDIR}/response_stream_nomain.o;\
 	fi
@@ -491,7 +491,7 @@ ${OBJECTDIR}/socket_nomain.o: ${OBJECTDIR}/socket.o socket.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/socket_nomain.o socket.cpp;\
+	    $(COMPILE.cc) -O2 -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/socket_nomain.o socket.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/socket.o ${OBJECTDIR}/socket_nomain.o;\
 	fi

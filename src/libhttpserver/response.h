@@ -13,6 +13,9 @@
 
 #include "types.h"
 #include "response_stream.h"
+#include "null_stream.h"
+#include "chunked_response_stream.h"
+#include "gzip_response_stream.h"
 #include "header_key_comparer.h"
 #include "headers.h"
 #include "request.h"
@@ -101,6 +104,9 @@ public:
 
     void Send(const std::string& data = emptyValue_);
     void Send(Stream& stream);
+    void Send(std::iostream& stream);
+    
+    Stream& getResponseStream();
     
     void Redirect(const std::string& location);
     
@@ -108,7 +114,8 @@ public:
 
 private:
     Response(socket_ptr socket, request_ptr request) : socket_(socket), request_(request),
-        responseStream_(socket_), statusCode_(Headers::DefaultStatusCode), version_(Headers::DefaultVersion), 
+        responseStream_(socket_), chunkedStream_(responseStream_), zStream_(chunkedStream_),
+        statusCode_(Headers::DefaultStatusCode), version_(Headers::DefaultVersion), 
         statusDescription_(Headers::DefaultStatusDescription), headers_(),
         socketBytesSentWatermark_(socket->getTotalBytesSent()),
         compress_(false) {}
@@ -127,7 +134,11 @@ private:
     socket_ptr socket_;
     request_ptr request_;
     headers headers_;
+    
+    NullStream nullStream_;
     ResponseStream responseStream_;
+    ChunkedResponseStream chunkedStream_;
+    GzipResponseStream zStream_;
     
     int statusCode_;
     std::string statusDescription_;

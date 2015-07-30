@@ -16,6 +16,18 @@ void rs::httpserver::Response::Send(const std::string& data) {
 }
 
 void rs::httpserver::Response::Send(Stream& inStream) {
+    auto& responseStream = getResponseStream();
+    Stream::Copy(inStream, responseStream);
+    responseStream.Flush();
+}
+
+void rs::httpserver::Response::Send(std::iostream& inStream) {
+    auto& responseStream = getResponseStream();
+    Stream::Copy(inStream, responseStream);
+    responseStream.Flush();
+}
+
+rs::httpserver::Stream& rs::httpserver::Response::getResponseStream() {
     if (HasResponded()) {
         throw MultipleResponseException();
     }
@@ -36,20 +48,16 @@ void rs::httpserver::Response::Send(Stream& inStream) {
     if (!request_->IsHead()) {
         if (IsChunkEncoded()) {
             if (compress_) {
-                ChunkedResponseStream chunkedStream(responseStream_);
-                GzipResponseStream zStream(chunkedStream);
-                Stream::Copy(inStream, zStream);
-                zStream.Flush();
+                return zStream_;
             } else {
-                ChunkedResponseStream chunkedStream(responseStream_);
-                Stream::Copy(inStream, chunkedStream);
-                chunkedStream.Flush();
+                return chunkedStream_;
             }
         } else {
-            Stream::Copy(inStream, responseStream_);
-            responseStream_.Flush();
+            return responseStream_;
         }
-    }        
+    } else {
+        return nullStream_;
+    }    
 }
 
 rs::httpserver::Response& rs::httpserver::Response::setETag(const std::string& etag) {

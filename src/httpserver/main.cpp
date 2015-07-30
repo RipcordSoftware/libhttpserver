@@ -1,3 +1,7 @@
+#include <sstream>
+
+#include <boost/chrono.hpp>
+
 #include "../libhttpserver/libhttpserver.h"
 
 int main() {
@@ -39,6 +43,23 @@ int main() {
     };
     router.Add("POST", "/echo", echoHandler);
     router.Add("PUT", "/echo", echoHandler);
+    
+    // if the client asks for /time then return the time in ns since 1970
+    router.Add("GET", "/time", [](rs::httpserver::request_ptr, const rs::httpserver::RequestRouter::CallbackArgs&, rs::httpserver::response_ptr response) {
+        std::stringstream stream;
+        stream << "<html><body>The current time is: " << boost::chrono::system_clock::now() << "</body></html>";
+        response->setContentType("text/html").Send(stream);
+        return true;
+    });
+    
+    // if the client asks for /lorem then return some handy text
+    router.Add("GET", "/lorem", [](rs::httpserver::request_ptr, const rs::httpserver::RequestRouter::CallbackArgs&, rs::httpserver::response_ptr response) {        
+        auto& stream = response->setContentType("text/html").getResponseStream();
+        char lorem[] = "<html><body>Bacon ipsum dolor amet flank corned beef pork chop andouille venison turkey chuck. Kevin t-bone venison flank kielbasa short ribs.</body></html>";
+        stream.Write(reinterpret_cast<rs::httpserver::Stream::byte*>(lorem), 0, sizeof(lorem));
+        stream.Flush();
+        return true;
+    });
     
     // the default handler if all else fails
     auto defaultHandler = [](rs::httpserver::socket_ptr socket, rs::httpserver::request_ptr request, rs::httpserver::response_ptr response) {

@@ -1,6 +1,10 @@
 #ifndef RS_LIBHTTPSERVER_STREAM_H
 #define	RS_LIBHTTPSERVER_STREAM_H
 
+#include <iostream>
+
+#include "config.h"
+
 namespace rs {
 namespace httpserver {
 
@@ -58,6 +62,21 @@ public:
         byte buffer[2048];
         while ((bytesRead = inStream.Read(buffer, 0, sizeof(buffer))) > 0) {
             outStream.Write(buffer, 0, bytesRead);
+        }
+    }
+    
+    /**
+     * Copies the contents of one stream to another
+     * @param inStream the source stream to read from
+     * @param outStream the destination stream to write to
+     */
+    static void Copy(std::iostream& inStream, Stream& outStream) {
+        inStream.seekg(0);
+        
+        byte buffer[2048];
+        while (inStream) {
+            inStream.read(reinterpret_cast<std::iostream::char_type*>(buffer), sizeof(buffer));
+            outStream.Write(buffer, 0, inStream.gcount());
         }
     }
 };
