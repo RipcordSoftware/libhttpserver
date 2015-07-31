@@ -8,7 +8,7 @@ int rs::httpserver::ResponseStream::Write(const Stream::byte* buffer, int offset
     auto written = 0;
     
     while (written < count) {
-        auto sentBytes = socket_->Send(buffer + written, count - written);
+        auto sentBytes = socket_->Send(buffer + offset + written, count - written);
         if (sentBytes <= 0) {
             throw SocketWriteException();
         }
