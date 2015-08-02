@@ -13,6 +13,10 @@ namespace httpserver {
  */
 class Stream {
 public:
+    Stream() {}
+    Stream(const Stream&) = delete;
+    Stream& operator=(const Stream&) = delete;
+    
     typedef unsigned char byte;
     
     /**
