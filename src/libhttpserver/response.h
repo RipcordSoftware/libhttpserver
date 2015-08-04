@@ -52,7 +52,7 @@ public:
         return setContentType(item.getType(), item.getCompressible());
     }
     
-    Response& setContentType(const std::string& contentType = emptyValue_, bool compress = false) {
+    Response& setContentType(const std::string& contentType = emptyValue_, bool compress = true) {
         compress_ = compress & request_->ClientAcceptsGzip();
         return setHeader(Headers::ContentType, contentType);
     }
