@@ -276,3 +276,21 @@ TEST_F(RequestHeaderTests, test13) {
     
     ASSERT_TRUE(thrown);
 }
+
+TEST_F(RequestHeaderTests, test14) {
+    rs::httpserver::HeaderBuffer buffer;
+    buffer.Receive([](rs::httpserver::Stream::byte* buffer, int length, bool peek) {
+        const char request[] = "GET /?test=%22true%22&simple=false&percent=%&hash=%23&malformed=%2&colon=%3a HTTP/1.1\r\nHost: localhost\r\n\r\n";        
+        std::memcpy(buffer, request, sizeof(request) - 1);        
+        return sizeof(request) - 1;
+    });
+    
+    auto headers = rs::httpserver::RequestHeaders::Create(buffer);
+    ASSERT_TRUE(!!headers);
+    ASSERT_STREQ("GET", headers->getMethod().c_str());
+    ASSERT_STREQ("/", headers->getUri().c_str());
+    ASSERT_STREQ("/?test=%22true%22&simple=false&percent=%&hash=%23&malformed=%2&colon=%3a", headers->getRawUri().c_str());
+    ASSERT_STREQ(R"(test="true"&simple=false&percent=%&hash=#&malformed=%2&colon=:)", headers->getQueryString().c_str());
+    ASSERT_STREQ("HTTP/1.1", headers->getVersion().c_str());
+    ASSERT_STREQ("localhost", headers->getHost().c_str());
+}

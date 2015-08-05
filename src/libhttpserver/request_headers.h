@@ -116,6 +116,9 @@ private:
 
     void GetHeaders(const HeaderBuffer& buffer, int headersLength);
     
+    static std::string UriDecode(const std::string&);
+    static unsigned GetDigitValue(char ch);
+    
     std::string method_;
     std::string version_;
     std::string uri_;

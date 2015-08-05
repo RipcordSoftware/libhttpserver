@@ -94,10 +94,41 @@ void rs::httpserver::RequestHeaders::GetHeaders(const HeaderBuffer& buffer, int 
     
     auto queryStringStart = std::find(rawUri_.cbegin(), rawUri_.cend(), '?');
     if (queryStringStart != rawUri_.cend()) {
-        uri_ = std::move(std::string(rawUri_.cbegin(), queryStringStart));
-        queryString_ = std::move(std::string(queryStringStart + 1, rawUri_.cend()));
+        uri_ = std::string(rawUri_.cbegin(), queryStringStart);
+        queryString_ = UriDecode(std::string(queryStringStart + 1, rawUri_.cend()));
     } else {
         uri_ = rawUri_;
         queryString_ = emptyValue_;
+    }
+}
+
+std::string rs::httpserver::RequestHeaders::UriDecode(const std::string& data) {            
+    if (data.find('%') != std::string::npos) {
+        auto size = data.size();
+        std::string decodedData;
+        decodedData.reserve(size);
+        
+        for (decltype(size) i = 0; i < size; ++i) {
+            auto ch = data[i];
+            if (ch == '%' && (i + 2) < size && std::isxdigit(data[i + 1]) && std::isxdigit(data[i + 2])) {
+                unsigned code = GetDigitValue(data[++i]) << 4;
+                code |= GetDigitValue(data[++i]);
+                decodedData.push_back((char)code);
+            } else {
+                decodedData.push_back(ch);
+            }                        
+        }
+        
+        return decodedData;
+    } else {
+        return data;
+    }        
+}
+
+unsigned rs::httpserver::RequestHeaders::GetDigitValue(char ch) {
+    if (ch >= 0x30 && ch <= 0x39) {
+        return ch - 0x30;
+    } else {
+        return (ch | 0x20) - 0x61 + 10;
     }
 }
