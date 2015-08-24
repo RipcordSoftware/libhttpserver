@@ -78,6 +78,13 @@ rs::httpserver::Response& rs::httpserver::Response::setLastModified(std::time_t 
     return setHeader(Headers::LastModified, formattedTime);
 }
 
+rs::httpserver::Response& rs::httpserver::Response::setNoCache() {
+    return setHeader(Headers::Pragma, "no-cache").
+            setHeader(Headers::CacheControl, "max-age=0, no-cache, no-store").
+            setHeader(Headers::LastModified, "Mon, 1 Jan 1990 00:00:00 GMT").
+            setHeader(Headers::ETag, emptyValue_);
+}
+
 std::string rs::httpserver::Response::FormatLastModifiedTime(std::time_t lastModifiedTime) {
     auto ptime = boost::posix_time::from_time_t(lastModifiedTime);
     auto date = ptime.date();

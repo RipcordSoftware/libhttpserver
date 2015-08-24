@@ -29,3 +29,5 @@ const std::string rs::httpserver::Headers::LastModified = "Last-Modified";
 const std::string rs::httpserver::Headers::ETag = "ETag";
 const std::string rs::httpserver::Headers::IfNoneMatch = "If-None-Match";
 const std::string rs::httpserver::Headers::IfModifiedSince = "If-Modified-Since";
+const std::string rs::httpserver::Headers::CacheControl = "Cache-Control";
+const std::string rs::httpserver::Headers::Pragma = "Pragma";
