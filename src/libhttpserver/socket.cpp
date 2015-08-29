@@ -21,12 +21,18 @@ std::size_t rs::httpserver::Socket::Receive(int timeout, byte* buffer, int lengt
     bool timed_out = false;
     auto bytes = 0;
     
+	// OSX doesn't seem to work with SO_RCVTIMEO in the same way as Linux
+	// so don't bother with PEEK/timeout logic for the moment since this just
+	// breaks the web server - this problem will be investigated and
+	// fixed later
+#if not defined (__APPLE__)	
     if (socket_->available() <= 0 ) {
         setCustomReceiveTimeout(timeout);        
         
         char canary;
         timed_out = ::recv(socket_->native_handle(), &canary, 1, MSG_PEEK) <= 0;    
     }
+#endif
     
     if (!timed_out) {
         bytes = socket_->receive(boost::asio::mutable_buffers_1(buffer, length), peek ? boost::asio::socket_base::message_peek : 0);
