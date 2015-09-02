@@ -1,6 +1,7 @@
 #include <boost/bind.hpp>
 
 #include "socket.h"
+#include "socket_timeval_option.h"
 
 rs::httpserver::socket_ptr rs::httpserver::Socket::Create(server_ptr server, asio_socket_ptr asio_socket) {
     auto socket = new Socket(server, asio_socket);
@@ -44,20 +45,23 @@ std::size_t rs::httpserver::Socket::Receive(int timeout, byte* buffer, int lengt
 }
 
 int rs::httpserver::Socket::getReceiveTimeout(asio_socket_ptr socket) {
-    struct ::timeval tv;
-    socklen_t tv_length = sizeof(tv);
-    if (::getsockopt(socket->native_handle(), SOL_SOCKET, SO_RCVTIMEO, &tv, &tv_length) == 0) {
-        return tv.tv_sec;
-    } else {
-        return -1;
+    int seconds = -1;
+    
+    SocketTimevalOption<SOL_SOCKET, SO_RCVTIMEO> timeout;
+    boost::system::error_code ec;
+    socket->get_option(timeout, ec);
+    if (ec.value() == boost::system::errc::success) {
+        seconds = timeout.seconds();
     }
+    
+    return seconds;
 }
 
 bool rs::httpserver::Socket::setReceiveTimeout(asio_socket_ptr socket, int seconds) {
-    struct ::timeval tv;
-    tv.tv_sec = seconds;
-    tv.tv_usec = 0;
-    return ::setsockopt(socket->native_handle(), SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) == 0;
+    SocketTimevalOption<SOL_SOCKET, SO_RCVTIMEO> timeout{seconds};
+    boost::system::error_code ec;
+    socket->set_option(timeout, ec);
+    return ec.value() == boost::system::errc::success;
 }
 
 void rs::httpserver::Socket::setDefaultReceiveTimeout() {

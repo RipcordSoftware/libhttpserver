@@ -26,6 +26,7 @@
       <itemPath>response.h</itemPath>
       <itemPath>response_stream.h</itemPath>
       <itemPath>socket.h</itemPath>
+      <itemPath>socket_timeval_option.h</itemPath>
       <itemPath>stream.h</itemPath>
       <itemPath>types.h</itemPath>
       <itemPath>writable_string_stream.h</itemPath>
@@ -131,8 +132,16 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
         <ccTool>
           <standard>8</standard>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
           <commandLine>--coverage</commandLine>
         </ccTool>
         <archiverTool>
@@ -176,21 +185,6 @@
       <folder path="TestFiles/f1">
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
-      <folder path="TestFiles/f10">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f10</output>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -369,6 +363,8 @@
       </item>
       <item path="socket.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="socket_timeval_option.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/chunked_request_stream_tests.cpp"
@@ -415,10 +411,16 @@
       <compileType>
         <cTool>
           <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
           <standard>8</standard>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -468,21 +470,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <folder path="TestFiles/f10">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f10</output>
-        </linkerTool>
-      </folder>
       <folder path="TestFiles/f2">
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f2</output>
@@ -658,6 +645,8 @@
       <item path="socket.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="socket.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="socket_timeval_option.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="stream.h" ex="false" tool="3" flavor2="0">
       </item>
