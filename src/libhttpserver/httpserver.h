@@ -31,6 +31,7 @@ public:
     ~HttpServer();
     
     void Start(const RequestRouter& router, RequestCallback requestCallback);
+    void Start(const RequestRouter& router, RequestCallback requestCallback, Request100ContinueCallback requestContinueCallback);
     void Start(RequestCallback requestCallback);
     void Start(RequestCallback requestCallback, Request100ContinueCallback requestContinueCallback);
     
@@ -47,6 +48,8 @@ private:
     void HandleAccept(socket_ptr socket, const boost::system::error_code& error);    
     void HandleRequest(socket_ptr socket);
     void HandleStop();
+    
+    static bool DefaultRequestContinueCallback(socket_ptr, request_ptr);
     
     const std::string host_;
     const int port_;

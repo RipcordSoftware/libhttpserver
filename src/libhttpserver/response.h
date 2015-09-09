@@ -101,12 +101,13 @@ public:
     }
     
     bool HasResponded() {
-        return socket_->getTotalBytesSent() != socketBytesSentWatermark_;
+        return socket_->getTotalBytesSent() != (socketBytesSentWatermark_ + socketBytesSentContinue_);
     }
 
     void Send(const std::string& data = emptyValue_);
     void Send(Stream& stream);
     void Send(std::iostream& stream);
+    void SendContinue(bool kontinue);
     
     Stream& getResponseStream();
     
@@ -119,7 +120,7 @@ private:
         responseStream_(socket_), chunkedStream_(responseStream_), zStream_(chunkedStream_),
         statusCode_(Headers::DefaultStatusCode), version_(Headers::DefaultVersion), 
         statusDescription_(Headers::DefaultStatusDescription), headers_(),
-        socketBytesSentWatermark_(socket->getTotalBytesSent()),
+        socketBytesSentWatermark_(socket->getTotalBytesSent()), socketBytesSentContinue_(0),
         compress_(false) {}
         
     void SerializeHeaders(std::stringstream& sout);
@@ -149,6 +150,7 @@ private:
     bool compress_;
     
     const std::size_t socketBytesSentWatermark_;
+    std::size_t socketBytesSentContinue_;
 
     const static std::string emptyValue_;
     const static std::string keepAliveHeaderValue_;

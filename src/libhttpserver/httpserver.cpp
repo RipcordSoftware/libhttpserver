@@ -28,15 +28,19 @@ void rs::httpserver::HttpServer::HandleStop() {
 }
 
 void rs::httpserver::HttpServer::Start(const RequestRouter& router, RequestCallback requestCallback) {
+    Start(router, requestCallback, &HttpServer::DefaultRequestContinueCallback); 
+}
+
+void rs::httpserver::HttpServer::Start(const RequestRouter& router, RequestCallback requestCallback, Request100ContinueCallback requestContinueCallback) {
     Start([&](socket_ptr socket, request_ptr request, response_ptr response) {
         if (!router.Match(request, response) && requestCallback) {            
             requestCallback(socket, request, response);
         }
-    });
+    }, requestContinueCallback);
 }
 
 void rs::httpserver::HttpServer::Start(RequestCallback requestCallback) {
-    Start(requestCallback, [](socket_ptr, request_ptr){ return true; });
+    Start(requestCallback, &HttpServer::DefaultRequestContinueCallback);
 }
 
 void rs::httpserver::HttpServer::Start(RequestCallback requestCallback, Request100ContinueCallback request_continue_callback) {
@@ -99,13 +103,18 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
                 auto request = Request::Create(socket, requestHeaders, headerBuffer);
                 auto response = Response::Create(socket, request);
                 
-                // TODO: implement 100-continue logic
-                //requestContinueCallback_(socket, request);
+                auto requestContinue = true;
+                if (!request->IsHttp10() && (request->getMethod() == "PUT" || request->getMethod() == "POST") && requestHeaders->getExpect() == "100-continue") {
+                    requestContinue = requestContinueCallback_(socket, request);
+                    response->SendContinue(requestContinue);
+                }
                 
-                requestCallback_(socket, request, response);
-                
-                if (!response->HasResponded()) {
-                    response->ResetHeaders().setStatusCode(404).setStatusDescription("Not found").Send();
+                if (requestContinue) {
+                    requestCallback_(socket, request, response);
+
+                    if (!response->HasResponded()) {
+                        response->ResetHeaders().setStatusCode(404).setStatusDescription("Not found").Send();
+                    }
                 }
                 
                 headerBuffer.Reset();
@@ -122,13 +131,17 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
         ;
     } catch (const HttpServerException& e) {
         // TODO: do something more useful with this
-        std::cout << "ERROR: " << e.what() << std::endl;
+        std::cerr << "ERROR: " << e.what() << std::endl;
     } catch (const std::exception& e) {
         // TODO: do something more useful with this
-        std::cout << "ERROR: " << e.what() << std::endl;
+        std::cerr << "ERROR: " << e.what() << std::endl;
     } catch (...) {
         // TODO: do something more useful with this
-        std::cout << "ERROR: something bad happened!" << std::endl;
+        std::cerr << "ERROR: something bad happened!" << std::endl;
         throw;
     }
+}
+
+bool rs::httpserver::HttpServer::DefaultRequestContinueCallback(socket_ptr, request_ptr) { 
+    return true; 
 }

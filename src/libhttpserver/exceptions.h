@@ -81,6 +81,15 @@ private:
     const char* what_ = "The response can only be sent to the client once";
 };
 
+class MultipleContinueResponseException : public HttpServerException {
+public:
+    virtual const char* what() const noexcept override {
+        return what_;
+    }    
+private:
+    const char* what_ = "The continue response can only be sent to the client once";
+};
+
 class GzipCompressionException : public HttpServerException {
 public:
     virtual const char* what() const noexcept override {

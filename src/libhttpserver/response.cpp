@@ -27,9 +27,23 @@ void rs::httpserver::Response::Send(std::iostream& inStream) {
     responseStream.Flush();
 }
 
+void rs::httpserver::Response::SendContinue(bool kontinue) {
+    if (socketBytesSentContinue_ > 0) {
+        throw MultipleContinueResponseException{};
+    }
+    
+    const char* header = "HTTP/1.1 100 Continue\r\n\r\n";    
+    if (!kontinue) {        
+        header = "HTTP/1.1 417 Expectation Failed\r\nContent-Length: 0\r\n\r\n";
+    }
+
+    socketBytesSentContinue_ = std::strlen(header);
+    socket_->Send(reinterpret_cast<const rs::httpserver::Stream::byte*>(header), socketBytesSentContinue_);
+}
+
 rs::httpserver::Stream& rs::httpserver::Response::getResponseStream() {
     if (HasResponded()) {
-        throw MultipleResponseException();
+        throw MultipleResponseException{};
     }
     
     if (!request_->IsHttp10() && !HasContentLength()) {
