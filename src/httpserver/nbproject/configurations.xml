@@ -70,9 +70,8 @@
             <linkerLibLibItem>boost_system</linkerLibLibItem>
             <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
-            <linkerLibLibItem>rt</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>--coverage</commandLine>
+          <commandLine>--coverage `if test "$$(uname)" = "Linux"; then echo "-lrt"; fi;` </commandLine>
         </linkerTool>
       </compileType>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
@@ -128,8 +127,8 @@
             <linkerLibLibItem>boost_system</linkerLibLibItem>
             <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
-            <linkerLibLibItem>rt</linkerLibLibItem>
           </linkerLibItems>
+          <commandLine>`if test "$$(uname)" = "Linux"; then echo "-lrt"; fi;` </commandLine>
         </linkerTool>
       </compileType>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
