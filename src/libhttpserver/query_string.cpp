@@ -9,12 +9,12 @@ void rs::httpserver::QueryString::Parse() const {
         for (auto pairStart = start, pairEnd = std::find(pairStart, end, '&'); pairStart < end; pairEnd = std::find(pairStart, end, '&')) {
             auto keyEnd = std::find(pairStart, pairEnd, '=');
             if (keyEnd != pairEnd) {
-                auto key = std::move(std::string(pairStart, keyEnd));
-                auto value = std::move(std::string(keyEnd + 1, pairEnd));
-                lookup_[std::move(key)] = std::move(value);
+                std::string key{pairStart, keyEnd};
+                std::string value{keyEnd + 1, pairEnd};
+                lookup_.emplace(std::move(key), std::move(value));
             } else {
-                auto key = std::move(std::string(pairStart, pairEnd));
-                lookup_[std::move(key)] = emptyValue_;
+                std::string key{pairStart, pairEnd};
+                lookup_.emplace(std::move(key), emptyValue_);
             }
             
             pairStart = pairEnd + 1;
@@ -44,5 +44,5 @@ std::vector<std::string> rs::httpserver::QueryString::getKeys() const {
         keys.push_back(i.first);
     }
     
-    return keys;
+    return std::move(keys);
 }
