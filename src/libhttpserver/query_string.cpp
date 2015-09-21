@@ -17,7 +17,7 @@ void rs::httpserver::QueryString::Parse() const {
                 lookup_.emplace(std::move(key), emptyValue_);
             }
             
-            pairStart = pairEnd + 1;
+            pairStart = *pairEnd ? (pairEnd + 1) : pairEnd;
         }            
     }
 }
