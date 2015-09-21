@@ -33,28 +33,31 @@ bool rs::httpserver::RequestRouter::Match(request_ptr request, response_ptr resp
     auto method = request->getMethod();
     auto methodRoutes = routes_.find(method);
     
-    for (auto route : methodRoutes->second) {
-        boost::match_results<const char*> what;
-        if (boost::regex_match(request->getUri().c_str(), what, std::get<0>(route))) {
-            CallbackArgs groups;
-            std::vector<std::string> heapValues;
-            for (auto& name : std::get<2>(route)) {                    
-                auto value = what[name];
-                auto valueLength = value.second - value.first;                    
-                if (valueLength < 128) {
-                    auto valueBuffer = reinterpret_cast<char*>(alloca(valueLength + 1));
-                    std::strncpy(valueBuffer, value.first, valueLength);
-                    valueBuffer[valueLength] = '\0';
-                    groups.emplace(name.c_str(), valueBuffer);
-                } else {
-                    heapValues.emplace_back(value.str());
-                    groups.emplace(name.c_str(), heapValues.back().c_str());
+    if (methodRoutes != routes_.cend()) {
+        for (auto route : methodRoutes->second) {
+            boost::match_results<const char*> what;
+            if (boost::regex_match(request->getUri().c_str(), what, std::get<0>(route))) {
+                CallbackArgs groups;
+                std::vector<std::string> heapValues;
+                for (auto& name : std::get<2>(route)) {                    
+                    auto value = what[name];
+                    auto valueLength = value.second - value.first;                    
+                    if (valueLength < 128) {
+                        auto valueBuffer = reinterpret_cast<char*>(alloca(valueLength + 1));
+                        std::strncpy(valueBuffer, value.first, valueLength);
+                        valueBuffer[valueLength] = '\0';
+                        groups.emplace(name.c_str(), valueBuffer);
+                    } else {
+                        heapValues.emplace_back(value.str());
+                        groups.emplace(name.c_str(), heapValues.back().c_str());
+                    }
                 }
-            }
-            if ((std::get<1>(route))(request, groups, response)) {
-                return true;
+                if ((std::get<1>(route))(request, groups, response)) {
+                    return true;
+                }
             }
         }
     }
+    
     return false;
 }   
