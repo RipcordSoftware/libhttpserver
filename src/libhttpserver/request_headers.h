@@ -9,6 +9,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/make_shared.hpp>
 
 #include "header_buffer.h"
 #include "types.h"
@@ -110,6 +111,8 @@ public:
     }
     
 private:
+    friend boost::shared_ptr<RequestHeaders> boost::make_shared<RequestHeaders>();
+    
     typedef std::map<std::string, std::string, HeaderKeyComparer> headers;
     
     RequestHeaders() : contentLength_(-1) {}

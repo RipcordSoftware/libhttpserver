@@ -10,7 +10,7 @@ rs::httpserver::request_headers_ptr rs::httpserver::RequestHeaders::Create(Heade
     auto headersEnd = std::search(buffer.cbegin(), buffer.cend(), endOfLine_, endOfLine_ + sizeof(endOfLine_));
     
     if (headersEnd != buffer.cend()) {
-        auto headers = request_headers_ptr(new RequestHeaders());
+        auto headers = boost::make_shared<RequestHeaders>();
         auto headersLength = headersEnd - buffer.cbegin() + sizeof(endOfLine_);
         headers->GetHeaders(buffer, headersLength);
         buffer.setPosition(headersLength);

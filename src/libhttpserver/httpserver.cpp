@@ -47,7 +47,7 @@ void rs::httpserver::HttpServer::Start(RequestCallback requestCallback, Request1
     auto addr = boost::asio::ip::address::from_string(host_);
     boost::asio::ip::tcp::endpoint ep(addr, port_);
     
-    asio_socket_ptr asio_socket(new boost::asio::ip::tcp::socket(service_));    
+    auto asio_socket = boost::make_shared<asio_socket_ptr::element_type>(service_);
     auto socket = Socket::Create(shared_from_this(), asio_socket);
     
     requestCallback_ = requestCallback;
@@ -73,10 +73,10 @@ void rs::httpserver::HttpServer::StartAccept(socket_ptr socket) {
 void rs::httpserver::HttpServer::HandleAccept(socket_ptr socket, const boost::system::error_code& error) {
     if (error) {
         // TODO: do something more useful with this
-        std::cout << error.message() << std::endl;
+        std::cerr << error.message() << std::endl;
     }
     else {
-        asio_socket_ptr new_asio_socket(new boost::asio::ip::tcp::socket(service_));
+        auto new_asio_socket = boost::make_shared<asio_socket_ptr::element_type>(service_);
         auto new_socket = Socket::Create(shared_from_this(), new_asio_socket);    
         StartAccept(std::move(new_socket));    
 
