@@ -41,8 +41,8 @@ std::vector<std::string> rs::httpserver::QueryString::getKeys() const {
     
     std::vector<std::string> keys;
     for (auto i : lookup_) {
-        keys.push_back(i.first);
+        keys.emplace_back(i.first);
     }
     
-    return std::move(keys);
+    return keys;
 }
