@@ -4,7 +4,7 @@ const unsigned rs::httpserver::Config::MinThreadCount = 20;
 const unsigned rs::httpserver::Config::MaxThreadCount = 200;
 const unsigned rs::httpserver::Config::ThreadCoreMultiplier = 16;
 
-const int rs::httpserver::Config::MaxResponseCount = 100;
+const int rs::httpserver::Config::MaxRequestCount = 100;
 
 const int rs::httpserver::Config::HeaderReceiveTimeoutPeriod = 30;
 const int rs::httpserver::Config::BodyReceiveTimeoutPeriod = 60;    

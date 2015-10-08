@@ -12,7 +12,7 @@ public:
     const static unsigned MaxThreadCount;
     const static unsigned ThreadCoreMultiplier;
     
-    const static int MaxResponseCount;
+    const static int MaxRequestCount;
     
     const static int HeaderReceiveTimeoutPeriod;
     const static int BodyReceiveTimeoutPeriod;

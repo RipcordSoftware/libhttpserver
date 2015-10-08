@@ -95,6 +95,10 @@ public:
         return *this;
     }
     
+    void ForceClose() {
+        forceClose_ = true;
+    }
+    
     bool ShouldClose() {
         auto connection = headers_.find(Headers::Connection);
         return connection != headers_.cend() ? boost::iequals(connection->second, "close") : false;
@@ -121,7 +125,7 @@ private:
         statusCode_(Headers::DefaultStatusCode), version_(Headers::DefaultVersion), 
         statusDescription_(Headers::DefaultStatusDescription), headers_(),
         socketBytesSentWatermark_(socket->getTotalBytesSent()), socketBytesSentContinue_(0),
-        compress_(false) {}
+        compress_(false), forceClose_(false) {}
         
     void SerializeHeaders(std::stringstream& sout);
     
@@ -148,6 +152,7 @@ private:
     std::string version_;
     
     bool compress_;
+    bool forceClose_;
     
     const std::size_t socketBytesSentWatermark_;
     std::size_t socketBytesSentContinue_;

@@ -131,7 +131,7 @@ void rs::httpserver::Response::SerializeHeaders(std::stringstream& sout) {
         headers_[Headers::Connection] = "close";
         headers_.erase(Headers::KeepAlive);
         headers_.erase(Headers::TransferEncoding);
-    } else if (request_->IsKeepAlive()) {
+    } else if (!forceClose_ && request_->IsKeepAlive()) {
         headers_[Headers::Connection] = "keep-alive";
         headers_[Headers::KeepAlive] = keepAliveHeaderValue_;
     } else {

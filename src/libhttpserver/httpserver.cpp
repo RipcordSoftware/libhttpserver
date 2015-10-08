@@ -87,10 +87,10 @@ void rs::httpserver::HttpServer::HandleAccept(socket_ptr socket, const boost::sy
 void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
     Socket::ScopedClose close(socket);
     HeaderBuffer headerBuffer(Config::MaxRequestHeaderSize);
-    auto responseCount = 0;
+    auto requestCount = 0;
     
     try {    
-        while (socket->Connected() && responseCount < Config::MaxResponseCount) {
+        while (socket->Connected()) {
             auto headerReceiveTimeout = headerBuffer.getDataLength() > 0 ? Config::HeaderReceiveTimeoutPeriod : Config::KeepAliveTimeoutTotal;
 
             auto responseBytes = headerBuffer.Receive(socket, headerReceiveTimeout);
@@ -100,8 +100,14 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
             
             auto requestHeaders = RequestHeaders::Create(headerBuffer);            
             if (!!requestHeaders) {
+                ++requestCount;                                
+                
                 auto request = Request::Create(socket, requestHeaders, headerBuffer);
                 auto response = Response::Create(socket, request);
+                
+                if (requestCount >= Config::MaxRequestCount) {
+                    response->ForceClose();
+                }
                 
                 auto requestContinue = true;
                 if (!request->IsHttp10() && (request->getMethod() == "PUT" || request->getMethod() == "POST") && requestHeaders->getExpect() == "100-continue") {
@@ -118,8 +124,7 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
                 }
                 
                 headerBuffer.Reset();
-                ++responseCount;
-                
+
                 if (response->ShouldClose()) {
                     socket->Close();
                 }
