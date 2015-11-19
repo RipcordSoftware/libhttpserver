@@ -24,7 +24,7 @@ int main() {
         std::string uri("www/"); uri += filename->second;
         rs::httpserver::FileStream stream(uri);
         if (stream) {
-            auto contentType = rs::httpserver::MimeTypes::GetType(uri);
+            auto contentType = rs::httpserver::MimeTypes::GetExtensionType(uri);
             response->setContentType(contentType.get()).Send(stream);
         }
         return true;
@@ -64,7 +64,7 @@ int main() {
     // the default handler if all else fails
     auto defaultHandler = [](rs::httpserver::socket_ptr socket, rs::httpserver::request_ptr request, rs::httpserver::response_ptr response) {
         auto uri = request->getUri();        
-        auto contentType = rs::httpserver::MimeTypes::GetType(uri);
+        auto contentType = rs::httpserver::MimeTypes::GetExtensionType(uri);
         if (contentType) {
             uri = "www" + uri;
 
