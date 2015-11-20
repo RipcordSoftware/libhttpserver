@@ -99,6 +99,10 @@ rs::httpserver::Response& rs::httpserver::Response::setNoCache() {
             setHeader(Headers::ETag, emptyValue_);
 }
 
+rs::httpserver::Response& rs::httpserver::Response::setContentRange(const std::string& range) {
+    return setHeader(rs::httpserver::Headers::ContentRange, range);
+}
+
 std::string rs::httpserver::Response::FormatLastModifiedTime(std::time_t lastModifiedTime) {
     auto ptime = boost::posix_time::from_time_t(lastModifiedTime);
     auto date = ptime.date();

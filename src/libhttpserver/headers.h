@@ -40,6 +40,7 @@ public:
     static const std::string CacheControl;
     static const std::string Pragma;
     static const std::string Range;
+    static const std::string ContentRange;
 };
 
 }}

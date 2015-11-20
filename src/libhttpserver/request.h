@@ -139,6 +139,14 @@ public:
         
         return etag;
     }
+
+    /**
+     * Gets the literal Range header
+     * @return The literal (unparsed) range header
+     */    
+    const std::string& getRange() const {
+        return request_headers_->getRange();
+    }
     
     /**
      * Gets the Range header and unpicks any byte ranges

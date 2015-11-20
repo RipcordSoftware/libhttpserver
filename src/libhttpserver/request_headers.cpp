@@ -1,5 +1,7 @@
 #include "request_headers.h"
 
+#include <limits>
+
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
 
@@ -9,7 +11,8 @@ const char rs::httpserver::RequestHeaders::endOfLine_[4] = { '\r', '\n', '\r', '
 
 const std::string rs::httpserver::RequestHeaders::emptyValue_;
 
-const rs::httpserver::RequestHeaders::byte_range_collection::value_type::second_type rs::httpserver::RequestHeaders::RANGE_END = ~rs::httpserver::RequestHeaders::byte_range_collection::value_type::second_type{0};
+const rs::httpserver::RequestHeaders::range_index rs::httpserver::RequestHeaders::RANGE_END = 
+    std::numeric_limits<rs::httpserver::RequestHeaders::range_index>::max();
 
 rs::httpserver::request_headers_ptr rs::httpserver::RequestHeaders::Create(HeaderBuffer& buffer) {
     auto headersEnd = std::search(buffer.cbegin(), buffer.cend(), endOfLine_, endOfLine_ + sizeof(endOfLine_));
@@ -151,11 +154,14 @@ rs::httpserver::RequestHeaders::byte_range_collection rs::httpserver::RequestHea
         try {
             for (auto splitRange : splitRanges) {                
                 auto splitIndex = splitRange.find('-');
-                if (splitIndex != std::string::npos) {
+                if (splitIndex == 0 || splitIndex == std::string::npos) {
+                    auto start = boost::lexical_cast<range_index>(splitRange);
+                    ranges.emplace_back(start, RANGE_END);
+                } else {
                     auto str = splitRange.c_str();
                     auto start = boost::lexical_cast<byte_range_collection::value_type::first_type>(str, splitIndex);
-                    auto end = splitIndex < (splitRange.size() - 1) ? boost::lexical_cast<byte_range_collection::value_type::second_type>(str + splitIndex + 1) : RANGE_END;
-                    ranges.emplace_back(start, end);                        
+                    auto end = splitIndex < (splitRange.size() - 1) ? boost::lexical_cast<range_index>(str + splitIndex + 1) : RANGE_END;
+                    ranges.emplace_back(start, end);
                 }
             }
         } catch (const boost::bad_lexical_cast&) {

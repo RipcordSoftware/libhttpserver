@@ -21,9 +21,10 @@ namespace rs {
 namespace httpserver {
 
 class RequestHeaders final : public boost::enable_shared_from_this<RequestHeaders>, private boost::noncopyable {
-public:    
-    using byte_range_collection = std::vector<std::pair<unsigned, unsigned>>;
-    static const byte_range_collection::value_type::second_type RANGE_END;
+public:
+    using range_index = long;
+    using byte_range_collection = std::vector<std::pair<range_index, range_index>>;
+    static const range_index RANGE_END;
     
     static request_headers_ptr Create(HeaderBuffer& buffer);
     

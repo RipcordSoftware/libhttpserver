@@ -77,6 +77,8 @@ public:
     
     Response& setNoCache();
     
+    Response& setContentRange(const std::string& range);
+    
     Response& setHeader(const std::string& key, const std::string& value = emptyValue_) {
         if (value.length() > 0) {
             headers_[key] = value;
