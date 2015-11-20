@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include <vector>
 
 #include <boost/noncopyable.hpp>
 #include <boost/enable_shared_from_this.hpp>
@@ -21,6 +22,8 @@ namespace httpserver {
 
 class RequestHeaders final : public boost::enable_shared_from_this<RequestHeaders>, private boost::noncopyable {
 public:    
+    using byte_range_collection = std::vector<std::pair<unsigned, unsigned>>;
+    static const byte_range_collection::value_type::second_type RANGE_END;
     
     static request_headers_ptr Create(HeaderBuffer& buffer);
     
@@ -92,6 +95,12 @@ public:
     const std::string& getIfModifiedSince() const {
         return getHeader(Headers::IfModifiedSince);
     }
+    
+    const std::string& getRange() const {
+        return getHeader(Headers::Range);
+    }
+    
+    byte_range_collection getByteRanges();
 
     int getContentLength() const {
         if (contentLength_ < 0) {

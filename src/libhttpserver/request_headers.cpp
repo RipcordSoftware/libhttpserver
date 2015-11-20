@@ -1,10 +1,15 @@
 #include "request_headers.h"
 
+#include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
+
 #include <cctype>
 
 const char rs::httpserver::RequestHeaders::endOfLine_[4] = { '\r', '\n', '\r', '\n' };
 
 const std::string rs::httpserver::RequestHeaders::emptyValue_;
+
+const rs::httpserver::RequestHeaders::byte_range_collection::value_type::second_type rs::httpserver::RequestHeaders::RANGE_END = ~rs::httpserver::RequestHeaders::byte_range_collection::value_type::second_type{0};
 
 rs::httpserver::request_headers_ptr rs::httpserver::RequestHeaders::Create(HeaderBuffer& buffer) {
     auto headersEnd = std::search(buffer.cbegin(), buffer.cend(), endOfLine_, endOfLine_ + sizeof(endOfLine_));
@@ -131,4 +136,32 @@ unsigned rs::httpserver::RequestHeaders::GetDigitValue(char ch) {
     } else {
         return (ch | 0x20) - 0x61 + 10;
     }
+}
+
+rs::httpserver::RequestHeaders::byte_range_collection rs::httpserver::RequestHeaders::getByteRanges() {
+    byte_range_collection ranges;
+    
+    auto range = getRange();    
+    if (range.size() > 0 && boost::algorithm::istarts_with(range, "bytes=")) {
+        range = std::string{range.cbegin() + 6, range.cend()};
+
+        std::vector<std::string> splitRanges;
+        boost::split(splitRanges, range, boost::is_any_of(","), boost::token_compress_off);
+
+        try {
+            for (auto splitRange : splitRanges) {                
+                auto splitIndex = splitRange.find('-');
+                if (splitIndex != std::string::npos) {
+                    auto str = splitRange.c_str();
+                    auto start = boost::lexical_cast<byte_range_collection::value_type::first_type>(str, splitIndex);
+                    auto end = splitIndex < (splitRange.size() - 1) ? boost::lexical_cast<byte_range_collection::value_type::second_type>(str + splitIndex + 1) : RANGE_END;
+                    ranges.emplace_back(start, end);                        
+                }
+            }
+        } catch (const boost::bad_lexical_cast&) {
+            ranges.clear();
+        }
+    }
+    
+    return ranges;
 }

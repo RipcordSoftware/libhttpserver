@@ -39,6 +39,7 @@ public:
     static const std::string IfModifiedSince;
     static const std::string CacheControl;
     static const std::string Pragma;
+    static const std::string Range;
 };
 
 }}

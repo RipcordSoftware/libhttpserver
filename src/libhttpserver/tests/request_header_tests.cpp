@@ -294,3 +294,179 @@ TEST_F(RequestHeaderTests, test14) {
     ASSERT_STREQ("HTTP/1.1", headers->getVersion().c_str());
     ASSERT_STREQ("localhost", headers->getHost().c_str());
 }
+
+TEST_F(RequestHeaderTests, test15) {
+    rs::httpserver::HeaderBuffer buffer;
+    buffer.Receive([](rs::httpserver::Stream::byte* buffer, int length, bool peek) {
+        const char request[] = "GET / HTTP/1.1\r\nHost: localhost\r\nRange: bytes=0-10\r\n\r\n";        
+        std::memcpy(buffer, request, sizeof(request) - 1);        
+        return sizeof(request) - 1;
+    });
+    
+    auto headers = rs::httpserver::RequestHeaders::Create(buffer);
+    ASSERT_TRUE(!!headers);
+    ASSERT_STREQ("GET", headers->getMethod().c_str());
+    ASSERT_STREQ("/", headers->getUri().c_str());
+    ASSERT_STREQ("HTTP/1.1", headers->getVersion().c_str());
+    ASSERT_STREQ("localhost", headers->getHost().c_str());
+    ASSERT_STREQ("bytes=0-10", headers->getRange().c_str());
+    
+    auto ranges = headers->getByteRanges();
+    ASSERT_EQ(1, ranges.size());
+    ASSERT_EQ(0, ranges[0].first);
+    ASSERT_EQ(10, ranges[0].second);
+}
+
+TEST_F(RequestHeaderTests, test16) {
+    rs::httpserver::HeaderBuffer buffer;
+    buffer.Receive([](rs::httpserver::Stream::byte* buffer, int length, bool peek) {
+        const char request[] = "GET / HTTP/1.1\r\nHost: localhost\r\nRange: bytes=0-10,100-200\r\n\r\n";        
+        std::memcpy(buffer, request, sizeof(request) - 1);        
+        return sizeof(request) - 1;
+    });
+    
+    auto headers = rs::httpserver::RequestHeaders::Create(buffer);
+    ASSERT_TRUE(!!headers);
+    ASSERT_STREQ("GET", headers->getMethod().c_str());
+    ASSERT_STREQ("/", headers->getUri().c_str());
+    ASSERT_STREQ("HTTP/1.1", headers->getVersion().c_str());
+    ASSERT_STREQ("localhost", headers->getHost().c_str());
+    ASSERT_STREQ("bytes=0-10,100-200", headers->getRange().c_str());
+    
+    auto ranges = headers->getByteRanges();
+    ASSERT_EQ(2, ranges.size());
+    ASSERT_EQ(0, ranges[0].first);
+    ASSERT_EQ(10, ranges[0].second);
+    ASSERT_EQ(100, ranges[1].first);
+    ASSERT_EQ(200, ranges[1].second);
+}
+
+TEST_F(RequestHeaderTests, test17) {
+    rs::httpserver::HeaderBuffer buffer;
+    buffer.Receive([](rs::httpserver::Stream::byte* buffer, int length, bool peek) {
+        const char request[] = "GET / HTTP/1.1\r\nHost: localhost\r\nRange: bytes=42-69,3-21\r\n\r\n";        
+        std::memcpy(buffer, request, sizeof(request) - 1);        
+        return sizeof(request) - 1;
+    });
+    
+    auto headers = rs::httpserver::RequestHeaders::Create(buffer);
+    ASSERT_TRUE(!!headers);
+    ASSERT_STREQ("GET", headers->getMethod().c_str());
+    ASSERT_STREQ("/", headers->getUri().c_str());
+    ASSERT_STREQ("HTTP/1.1", headers->getVersion().c_str());
+    ASSERT_STREQ("localhost", headers->getHost().c_str());
+    ASSERT_STREQ("bytes=42-69,3-21", headers->getRange().c_str());
+    
+    auto ranges = headers->getByteRanges();
+    ASSERT_EQ(2, ranges.size());
+    ASSERT_EQ(42, ranges[0].first);
+    ASSERT_EQ(69, ranges[0].second);
+    ASSERT_EQ(3, ranges[1].first);
+    ASSERT_EQ(21, ranges[1].second);
+}
+
+TEST_F(RequestHeaderTests, test18) {
+    rs::httpserver::HeaderBuffer buffer;
+    buffer.Receive([](rs::httpserver::Stream::byte* buffer, int length, bool peek) {
+        const char request[] = "GET / HTTP/1.1\r\nHost: localhost\r\nRange: bytes= 42-69,3-21\r\n\r\n";        
+        std::memcpy(buffer, request, sizeof(request) - 1);        
+        return sizeof(request) - 1;
+    });
+    
+    auto headers = rs::httpserver::RequestHeaders::Create(buffer);
+    ASSERT_TRUE(!!headers);
+    ASSERT_STREQ("GET", headers->getMethod().c_str());
+    ASSERT_STREQ("/", headers->getUri().c_str());
+    ASSERT_STREQ("HTTP/1.1", headers->getVersion().c_str());
+    ASSERT_STREQ("localhost", headers->getHost().c_str());
+    ASSERT_STREQ("bytes= 42-69,3-21", headers->getRange().c_str());
+    
+    auto ranges = headers->getByteRanges();
+    ASSERT_EQ(0, ranges.size());
+}
+
+TEST_F(RequestHeaderTests, test19) {
+    rs::httpserver::HeaderBuffer buffer;
+    buffer.Receive([](rs::httpserver::Stream::byte* buffer, int length, bool peek) {
+        const char request[] = "GET / HTTP/1.1\r\nHost: localhost\r\nRange: bytes=-69,3-21\r\n\r\n";        
+        std::memcpy(buffer, request, sizeof(request) - 1);        
+        return sizeof(request) - 1;
+    });
+    
+    auto headers = rs::httpserver::RequestHeaders::Create(buffer);
+    ASSERT_TRUE(!!headers);
+    ASSERT_STREQ("GET", headers->getMethod().c_str());
+    ASSERT_STREQ("/", headers->getUri().c_str());
+    ASSERT_STREQ("HTTP/1.1", headers->getVersion().c_str());
+    ASSERT_STREQ("localhost", headers->getHost().c_str());
+    ASSERT_STREQ("bytes=-69,3-21", headers->getRange().c_str());
+    
+    auto ranges = headers->getByteRanges();
+    ASSERT_EQ(0, ranges.size());
+}
+
+TEST_F(RequestHeaderTests, test20) {
+    rs::httpserver::HeaderBuffer buffer;
+    buffer.Receive([](rs::httpserver::Stream::byte* buffer, int length, bool peek) {
+        const char request[] = "GET / HTTP/1.1\r\nHost: localhost\r\nRange: bytes=abc-69,3-21\r\n\r\n";        
+        std::memcpy(buffer, request, sizeof(request) - 1);        
+        return sizeof(request) - 1;
+    });
+    
+    auto headers = rs::httpserver::RequestHeaders::Create(buffer);
+    ASSERT_TRUE(!!headers);
+    ASSERT_STREQ("GET", headers->getMethod().c_str());
+    ASSERT_STREQ("/", headers->getUri().c_str());
+    ASSERT_STREQ("HTTP/1.1", headers->getVersion().c_str());
+    ASSERT_STREQ("localhost", headers->getHost().c_str());
+    ASSERT_STREQ("bytes=abc-69,3-21", headers->getRange().c_str());
+    
+    auto ranges = headers->getByteRanges();
+    ASSERT_EQ(0, ranges.size());
+}
+
+TEST_F(RequestHeaderTests, test21) {
+    rs::httpserver::HeaderBuffer buffer;
+    buffer.Receive([](rs::httpserver::Stream::byte* buffer, int length, bool peek) {
+        const char request[] = "GET / HTTP/1.1\r\nHost: localhost\r\nRange: bytes=10-\r\n\r\n";        
+        std::memcpy(buffer, request, sizeof(request) - 1);        
+        return sizeof(request) - 1;
+    });
+    
+    auto headers = rs::httpserver::RequestHeaders::Create(buffer);
+    ASSERT_TRUE(!!headers);
+    ASSERT_STREQ("GET", headers->getMethod().c_str());
+    ASSERT_STREQ("/", headers->getUri().c_str());
+    ASSERT_STREQ("HTTP/1.1", headers->getVersion().c_str());
+    ASSERT_STREQ("localhost", headers->getHost().c_str());
+    ASSERT_STREQ("bytes=10-", headers->getRange().c_str());
+    
+    auto ranges = headers->getByteRanges();
+    ASSERT_EQ(1, ranges.size());
+    ASSERT_EQ(10, ranges[0].first);
+    ASSERT_EQ(rs::httpserver::RequestHeaders::RANGE_END, ranges[0].second);
+}
+
+TEST_F(RequestHeaderTests, test22) {
+    rs::httpserver::HeaderBuffer buffer;
+    buffer.Receive([](rs::httpserver::Stream::byte* buffer, int length, bool peek) {
+        const char request[] = "GET / HTTP/1.1\r\nHost: localhost\r\nRange:   bytes=10-,1000-  \r\n\r\n";        
+        std::memcpy(buffer, request, sizeof(request) - 1);        
+        return sizeof(request) - 1;
+    });
+    
+    auto headers = rs::httpserver::RequestHeaders::Create(buffer);
+    ASSERT_TRUE(!!headers);
+    ASSERT_STREQ("GET", headers->getMethod().c_str());
+    ASSERT_STREQ("/", headers->getUri().c_str());
+    ASSERT_STREQ("HTTP/1.1", headers->getVersion().c_str());
+    ASSERT_STREQ("localhost", headers->getHost().c_str());
+    ASSERT_STREQ("bytes=10-,1000-", headers->getRange().c_str());
+    
+    auto ranges = headers->getByteRanges();
+    ASSERT_EQ(2, ranges.size());
+    ASSERT_EQ(10, ranges[0].first);
+    ASSERT_EQ(rs::httpserver::RequestHeaders::RANGE_END, ranges[0].second);
+    ASSERT_EQ(1000, ranges[1].first);
+    ASSERT_EQ(rs::httpserver::RequestHeaders::RANGE_END, ranges[1].second);
+}

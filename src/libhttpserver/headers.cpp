@@ -31,3 +31,4 @@ const std::string rs::httpserver::Headers::IfNoneMatch = "If-None-Match";
 const std::string rs::httpserver::Headers::IfModifiedSince = "If-Modified-Since";
 const std::string rs::httpserver::Headers::CacheControl = "Cache-Control";
 const std::string rs::httpserver::Headers::Pragma = "Pragma";
+const std::string rs::httpserver::Headers::Range = "Range";

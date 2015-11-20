@@ -129,7 +129,7 @@ public:
      * @param trimQuotes when true the header field will be returned without the enclosing quotes
      * @return The If-None-Match header
      */
-    const std::string getIfNoneMatch(bool trimQuotes = true) {
+    std::string getIfNoneMatch(bool trimQuotes = true) {
         auto etag = request_headers_->getIfNoneMatch();
         
         // trim off the quotes
@@ -141,10 +141,18 @@ public:
     }
     
     /**
+     * Gets the Range header and unpicks any byte ranges
+     * @return Byte ranges as pairs
+     */    
+    RequestHeaders::byte_range_collection getByteRanges() {
+        return request_headers_->getByteRanges();
+    }
+    
+    /**
      * Gets the If-Modified-Since request header
      * @return The If-Modified-Since header
      */
-    const std::string getIfModifiedSince() {
+    const std::string& getIfModifiedSince() {
         return request_headers_->getIfModifiedSince();
     }
     
