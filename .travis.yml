@@ -32,4 +32,4 @@ before_script:
   - export PATH=~/lcov/usr/bin:$PATH
   - gem install coveralls-lcov
 
-script: make all CXX=g++-4.9 && make test CXX=g++-4.9 && ./coverage.sh gcov-4.9
+script: make -j 2 all CXX=g++-4.9 && make -j 2 test CXX=g++-4.9 && ./coverage.sh gcov-4.9

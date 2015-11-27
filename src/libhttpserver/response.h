@@ -110,7 +110,8 @@ public:
         return socket_->getTotalBytesSent() != (socketBytesSentWatermark_ + socketBytesSentContinue_);
     }
 
-    void Send(const std::string& data = emptyValue_);
+    void Send();
+    void Send(const std::string& data);
     void Send(Stream& stream);
     void Send(std::iostream& stream);
     void SendContinue(bool kontinue);

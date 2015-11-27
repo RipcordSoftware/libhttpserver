@@ -10,6 +10,10 @@
 const std::string rs::httpserver::Response::emptyValue_;
 const std::string rs::httpserver::Response::keepAliveHeaderValue_ = std::string("timeout=") + boost::lexical_cast<std::string>(Config::KeepAliveTimeout);
 
+void rs::httpserver::Response::Send() {
+    getResponseStream().Flush();
+}
+
 void rs::httpserver::Response::Send(const std::string& data) {
     ReadableStringStream stream(data);
     setContentLength(data.length()).Send(stream);
