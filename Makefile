@@ -13,6 +13,7 @@ clean: force_true
 	cd src/httpserver && $(MAKE) $(MFLAGS) $(MAKEOVERRIDES) clean
 	rm -rf docs
 
+.NOTPARALLEL: test
 test: force_true .googletest
 	cd src/libhttpserver && $(MAKE) $(MFLAGS) $(MAKEOVERRIDES) test
 	cd src/httpserver && $(MAKE) $(MFLAGS) $(MAKEOVERRIDES) build && ./test.sh
