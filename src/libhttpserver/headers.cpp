@@ -18,6 +18,7 @@ const std::string rs::httpserver::Headers::ContentType = "Content-Type";
 const std::string rs::httpserver::Headers::Accept = "Accept";
 const std::string rs::httpserver::Headers::AcceptEncoding = "Accept-Encoding";
 const std::string rs::httpserver::Headers::ContentEncoding = "Content-Encoding";
+const std::string rs::httpserver::Headers::ContentDisposition = "Content-Disposition";
 const std::string rs::httpserver::Headers::TransferEncoding = "Transfer-Encoding";
 const std::string rs::httpserver::Headers::Expect = "Expect";
 const std::string rs::httpserver::Headers::UserAgent = "User-Agent";

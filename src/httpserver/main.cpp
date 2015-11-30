@@ -61,9 +61,18 @@ int main() {
         return true;
     });
     
+    router.Add("GET", "/multipart", [](rs::httpserver::request_ptr, const rs::httpserver::RequestRouter::CallbackArgs&, rs::httpserver::response_ptr response) {
+        std::string testTxt = "hello world";
+        auto& stream = response->getMultiResponseStream("text/plain", "test.txt", testTxt.size());
+        rs::httpserver::Stream::Write(stream, testTxt);
+        stream.Flush();
+        
+        return true;
+    });
+    
     // the default handler if all else fails
     auto defaultHandler = [](rs::httpserver::socket_ptr socket, rs::httpserver::request_ptr request, rs::httpserver::response_ptr response) {
-        auto uri = request->getUri();        
+        auto uri = request->getUri();
         auto contentType = rs::httpserver::MimeTypes::GetExtensionType(uri);
         if (contentType) {
             uri = "www" + uri;

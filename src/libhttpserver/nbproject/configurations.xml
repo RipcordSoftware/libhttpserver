@@ -16,6 +16,7 @@
       <itemPath>httpserver.h</itemPath>
       <itemPath>libhttpserver.h</itemPath>
       <itemPath>mime_types.h</itemPath>
+      <itemPath>multipart_response_stream.h</itemPath>
       <itemPath>null_stream.h</itemPath>
       <itemPath>query_string.h</itemPath>
       <itemPath>readable_string_stream.h</itemPath>
@@ -24,6 +25,7 @@
       <itemPath>request_router.h</itemPath>
       <itemPath>request_stream.h</itemPath>
       <itemPath>response.h</itemPath>
+      <itemPath>response_headers.h</itemPath>
       <itemPath>response_stream.h</itemPath>
       <itemPath>socket.h</itemPath>
       <itemPath>socket_timeval_option.h</itemPath>
@@ -47,6 +49,7 @@
       <itemPath>headers.cpp</itemPath>
       <itemPath>httpserver.cpp</itemPath>
       <itemPath>mime_types.cpp</itemPath>
+      <itemPath>multipart_response_stream.cpp</itemPath>
       <itemPath>query_string.cpp</itemPath>
       <itemPath>request.cpp</itemPath>
       <itemPath>request_headers.cpp</itemPath>
@@ -325,6 +328,10 @@
       </item>
       <item path="mime_types.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="multipart_response_stream.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="multipart_response_stream.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="null_stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="query_string.cpp" ex="false" tool="1" flavor2="0">
@@ -352,6 +359,8 @@
       <item path="response.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="response.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="response_headers.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="response_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -608,6 +617,10 @@
       </item>
       <item path="mime_types.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="multipart_response_stream.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="multipart_response_stream.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="null_stream.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="query_string.cpp" ex="false" tool="1" flavor2="0">
@@ -635,6 +648,8 @@
       <item path="response.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="response.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="response_headers.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="response_stream.cpp" ex="false" tool="1" flavor2="0">
       </item>

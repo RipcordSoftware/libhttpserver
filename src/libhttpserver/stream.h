@@ -2,6 +2,7 @@
 #define	RS_LIBHTTPSERVER_STREAM_H
 
 #include <iostream>
+#include <string>
 
 #include "config.h"
 
@@ -82,6 +83,14 @@ public:
             inStream.read(reinterpret_cast<std::iostream::char_type*>(buffer), sizeof(buffer));
             outStream.Write(buffer, 0, inStream.gcount());
         }
+    }
+    
+    static int Write(Stream& stream, const char* buffer, int offset, int count) {
+        return stream.Write(reinterpret_cast<const byte*>(buffer), offset, count);
+    }
+    
+    static int Write(Stream& stream, std::string buffer) {
+        return stream.Write(reinterpret_cast<const byte*>(buffer.c_str()), 0, buffer.size());
     }
 };
 

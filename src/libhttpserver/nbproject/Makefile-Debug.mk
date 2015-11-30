@@ -44,6 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/headers.o \
 	${OBJECTDIR}/httpserver.o \
 	${OBJECTDIR}/mime_types.o \
+	${OBJECTDIR}/multipart_response_stream.o \
 	${OBJECTDIR}/query_string.o \
 	${OBJECTDIR}/request.o \
 	${OBJECTDIR}/request_headers.o \
@@ -138,6 +139,11 @@ ${OBJECTDIR}/mime_types.o: mime_types.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mime_types.o mime_types.cpp
+
+${OBJECTDIR}/multipart_response_stream.o: multipart_response_stream.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/multipart_response_stream.o multipart_response_stream.cpp
 
 ${OBJECTDIR}/query_string.o: query_string.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -390,6 +396,19 @@ ${OBJECTDIR}/mime_types_nomain.o: ${OBJECTDIR}/mime_types.o mime_types.cpp
 	    $(COMPILE.cc) -g -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mime_types_nomain.o mime_types.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/mime_types.o ${OBJECTDIR}/mime_types_nomain.o;\
+	fi
+
+${OBJECTDIR}/multipart_response_stream_nomain.o: ${OBJECTDIR}/multipart_response_stream.o multipart_response_stream.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/multipart_response_stream.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -I. -std=c++11 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/multipart_response_stream_nomain.o multipart_response_stream.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/multipart_response_stream.o ${OBJECTDIR}/multipart_response_stream_nomain.o;\
 	fi
 
 ${OBJECTDIR}/query_string_nomain.o: ${OBJECTDIR}/query_string.o query_string.cpp 

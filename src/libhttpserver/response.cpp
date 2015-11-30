@@ -78,6 +78,41 @@ rs::httpserver::Stream& rs::httpserver::Response::getResponseStream() {
     }    
 }
 
+rs::httpserver::Stream& rs::httpserver::Response::getMultiResponseStream(const char* contentType, const char* filename, std::int64_t contentLength) {            
+    if (multiStream_.getPartCount() == 0) {
+        if (HasResponded()) {
+            throw MultipleResponseException{};
+        }
+        
+        headers_.erase(Headers::ContentLength);
+        
+        forceClose_ = true;
+        headers_[Headers::ContentType] = (boost::format("multipart/related; boundary=\"%1%\"") % MultipartResponseStream::boundary).str();
+        
+        std::stringstream headers;
+        SerializeHeaders(headers);
+
+        socket_->Send(headers.str());
+    }
+    
+    ResponseHeaders partHeaders;
+    partHeaders[Headers::ContentType] = contentType;
+    
+    if (filename) {
+        partHeaders[Headers::ContentDisposition] = (boost::format("attachment; filename=\"%1%\"") % filename).str();
+    } else {
+        partHeaders[Headers::ContentDisposition] = "attachment";
+    }
+    
+    if (contentLength > 0) {
+        partHeaders[Headers::ContentLength] = boost::lexical_cast<std::string>(contentLength);
+    }
+    
+    multiStream_.EmitPart(partHeaders);
+    
+    return multiStream_;
+}
+
 rs::httpserver::Response& rs::httpserver::Response::setETag(const std::string& etag) {
     if (etag.length() > 1 && etag[0] != '"' && etag[etag.length() - 1] != '"') {
         std::string value = '"' + etag + '"';

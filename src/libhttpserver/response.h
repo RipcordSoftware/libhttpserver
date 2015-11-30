@@ -16,18 +16,18 @@
 #include "null_stream.h"
 #include "chunked_response_stream.h"
 #include "gzip_response_stream.h"
+#include "multipart_response_stream.h"
 #include "header_key_comparer.h"
 #include "headers.h"
 #include "request.h"
 #include "mime_types.h"
+#include "response_headers.h"
 
 namespace rs {
 namespace httpserver {
 
 class Response final : public boost::enable_shared_from_this<Response>, private boost::noncopyable {
-public:
-    typedef std::map<std::string, std::string, HeaderKeyComparer> headers;
-    
+public:        
     ~Response() noexcept {}
     
     static response_ptr Create(socket_ptr socket, request_ptr request) {
@@ -117,6 +117,7 @@ public:
     void SendContinue(bool kontinue);
     
     Stream& getResponseStream();
+    Stream& getMultiResponseStream(const char* contentType, const char* filename, std::int64_t contentLength = -1);
     
     void Redirect(const std::string& location);
     
@@ -125,6 +126,7 @@ public:
 private:
     Response(socket_ptr socket, request_ptr request) : socket_(socket), request_(request),
         responseStream_(socket_), chunkedStream_(responseStream_), zStream_(chunkedStream_),
+        multiStream_(responseStream_),
         statusCode_(Headers::DefaultStatusCode), version_(Headers::DefaultVersion), 
         statusDescription_(Headers::DefaultStatusDescription), headers_(),
         socketBytesSentWatermark_(socket->getTotalBytesSent()), socketBytesSentContinue_(0),
@@ -143,12 +145,13 @@ private:
     
     socket_ptr socket_;
     request_ptr request_;
-    headers headers_;
+    ResponseHeaders headers_;
     
     NullStream nullStream_;
     ResponseStream responseStream_;
     ChunkedResponseStream chunkedStream_;
     GzipResponseStream zStream_;
+    MultipartResponseStream multiStream_;
     
     int statusCode_;
     std::string statusDescription_;

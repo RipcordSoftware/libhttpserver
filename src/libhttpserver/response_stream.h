@@ -15,7 +15,7 @@ public:
     
     virtual void Flush() override;
     
-    virtual int Read(Stream::byte* buffer, int offset, int count, bool peek = false) {
+    virtual int Read(Stream::byte* buffer, int offset, int count, bool peek = false) override {
         throw InvalidStreamOperationException();
     }
     
