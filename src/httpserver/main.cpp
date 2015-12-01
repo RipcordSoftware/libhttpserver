@@ -63,7 +63,8 @@ int main() {
     
     router.Add("GET", "/multipart", [](rs::httpserver::request_ptr, const rs::httpserver::RequestRouter::CallbackArgs&, rs::httpserver::response_ptr response) {
         std::string testTxt = "hello world";
-        auto& stream = response->getMultiResponseStream("text/plain", "test.txt", testTxt.size());
+        auto& stream = response->getMultiResponseStream();
+        stream.EmitPart("text/plain", "test.txt", testTxt.size());
         rs::httpserver::Stream::Write(stream, testTxt);
         stream.Flush();
         

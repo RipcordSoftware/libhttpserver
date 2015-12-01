@@ -117,7 +117,7 @@ public:
     void SendContinue(bool kontinue);
     
     Stream& getResponseStream();
-    Stream& getMultiResponseStream(const char* contentType, const char* filename, std::int64_t contentLength = -1);
+    MultipartResponseStream& getMultiResponseStream();
     
     void Redirect(const std::string& location);
     

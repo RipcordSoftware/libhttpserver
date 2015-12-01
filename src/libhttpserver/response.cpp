@@ -78,7 +78,7 @@ rs::httpserver::Stream& rs::httpserver::Response::getResponseStream() {
     }    
 }
 
-rs::httpserver::Stream& rs::httpserver::Response::getMultiResponseStream(const char* contentType, const char* filename, std::int64_t contentLength) {            
+rs::httpserver::MultipartResponseStream& rs::httpserver::Response::getMultiResponseStream() {
     if (multiStream_.getPartCount() == 0) {
         if (HasResponded()) {
             throw MultipleResponseException{};
@@ -94,21 +94,6 @@ rs::httpserver::Stream& rs::httpserver::Response::getMultiResponseStream(const c
 
         socket_->Send(headers.str());
     }
-    
-    ResponseHeaders partHeaders;
-    partHeaders[Headers::ContentType] = contentType;
-    
-    if (filename) {
-        partHeaders[Headers::ContentDisposition] = (boost::format("attachment; filename=\"%1%\"") % filename).str();
-    } else {
-        partHeaders[Headers::ContentDisposition] = "attachment";
-    }
-    
-    if (contentLength > 0) {
-        partHeaders[Headers::ContentLength] = boost::lexical_cast<std::string>(contentLength);
-    }
-    
-    multiStream_.EmitPart(partHeaders);
     
     return multiStream_;
 }

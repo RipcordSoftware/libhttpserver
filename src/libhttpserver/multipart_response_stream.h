@@ -22,7 +22,7 @@ public:
     
     virtual long getLength() override;
     
-    void EmitPart(const ResponseHeaders& headers);
+    void EmitPart(const char* contentType, const char* filename = nullptr, std::int64_t contentLength = -1);
     
     unsigned getPartCount() { return partCount_; }
     
