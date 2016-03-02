@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 URL=http://localhost:10024
 SERVER_ROOT=${PWD}/dist/Debug/GNU-Linux-x86
