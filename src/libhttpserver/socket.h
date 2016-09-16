@@ -18,9 +18,9 @@ namespace httpserver {
     
 class Socket final : public boost::enable_shared_from_this<Socket>, private boost::noncopyable {
 public:
-    typedef unsigned char byte;
+    using byte = unsigned char;
     
-    class ScopedClose {
+    class ScopedClose final {
     public:
         ScopedClose(socket_ptr socket) : socket_(socket) {}
         ~ScopedClose() { socket_->Close(); }
@@ -99,7 +99,7 @@ public:
 private:
     
     Socket(server_ptr server, asio_socket_ptr socket) : 
-        server_(server), socket_(socket), defaultReceiveTimeout(-1), currentReceiveTimeout(-1),
+        server_(server), socket_(socket), defaultReceiveTimeout_(-1), currentReceiveTimeout_(-1),
         totalBytesSent_(0), totalBytesReceived_(0) {
     }
         
@@ -108,12 +108,14 @@ private:
 
     void setDefaultReceiveTimeout();
     void setCustomReceiveTimeout(int seconds);
-            
+    
+    bool Peek(int timeout);
+    
     server_ptr server_;
     asio_socket_ptr socket_;
     
-    int defaultReceiveTimeout;
-    int currentReceiveTimeout;
+    int defaultReceiveTimeout_;
+    int currentReceiveTimeout_;
     
     long totalBytesSent_;
     long totalBytesReceived_;
@@ -121,5 +123,4 @@ private:
     
 }}
 
-#endif	/* RS_LIBHTTPSERVER_SOCKET_H */
-
+#endif /* RS_LIBHTTPSERVER_SOCKET_H */
