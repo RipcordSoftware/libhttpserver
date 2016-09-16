@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 
+if [ "$CONF" = "" ]; then
+    CONF=Debug
+fi
+
 URL=http://localhost:10024
-SERVER_ROOT=${PWD}/dist/Debug/GNU-Linux-x86
+SERVER_ROOT=${PWD}/dist/${CONF}/GNU-Linux-x86
 WEB_ROOT=${SERVER_ROOT}/www
-uris=(`find $WEB_ROOT -type f -printf "%P\n"`)
+uris=(`find ${WEB_ROOT} -type f | cut -c ${#WEB_ROOT}- | cut -c 3-`)
 
 ${SERVER_ROOT}/httpserver &
+
+sleep 2
 
 trap 'kill %1' 0
 
