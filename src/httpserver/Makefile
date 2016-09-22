@@ -49,6 +49,8 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 
+LDLIBS:=$(shell echo 'int main(){}' | $(CXX) -x c++ -o /dev/null -lrt - > /dev/null 2>&1 && echo '-lrt')
+
 COVERAGE_FLAGS:=$(shell cd /tmp; echo 'int main(){}' | $(CXX) -x c++ -o /dev/null --coverage - > /dev/null 2>&1 && echo '--coverage')
 
 # build

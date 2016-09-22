@@ -52,7 +52,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../libhttpserver/dist/Release/GNU-Linux-x86/libhttpserver.a -lboost_filesystem -lboost_thread -lboost_date_time -lboost_chrono -lboost_regex -lboost_system `pkg-config --libs zlib` -lpthread   
+LDLIBSOPTIONS=../libhttpserver/dist/Release/GNU-Linux-x86/libhttpserver.a -lboost_filesystem -lboost_thread -lboost_date_time -lboost_chrono -lboost_regex -lboost_system -lpthread -lz $(LDLIBS)
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -62,12 +62,12 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/httpserver: ../libhttpserver/dist/Rel
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/httpserver: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/httpserver ${OBJECTFILES} ${LDLIBSOPTIONS} `if test "$$(uname)" = "Linux"; then echo "-lrt"; fi;` 
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/httpserver ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 `pkg-config --cflags zlib` -std=c++11  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
