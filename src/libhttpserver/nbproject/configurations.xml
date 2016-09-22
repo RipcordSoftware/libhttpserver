@@ -179,8 +179,8 @@
             <linkerLibLibItem>boost_date_time</linkerLibLibItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>
             <linkerLibLibItem>boost_regex</linkerLibLibItem>
-            <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibLibItem>z</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a $(COVERAGE_FLAGS)</commandLine>
         </linkerTool>
@@ -468,8 +468,8 @@
             <linkerLibLibItem>boost_date_time</linkerLibLibItem>
             <linkerLibLibItem>boost_system</linkerLibLibItem>
             <linkerLibLibItem>boost_regex</linkerLibLibItem>
-            <linkerOptionItem>`pkg-config --libs zlib`</linkerOptionItem>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
+            <linkerLibLibItem>z</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>../../externals/installed/lib/libgtest_main.a ../../externals/installed/lib/libgtest.a</commandLine>
         </linkerTool>
