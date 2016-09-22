@@ -48,8 +48,8 @@
 MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
-GTEST_VER=1.7.0
 
+COVERAGE_FLAGS:=$(shell cd tmp; echo 'int main(){}' | $(CXX) -x c++ -o /dev/null --coverage - > /dev/null 2>&1 && echo '--coverage')
 
 # build
 build: .build-post
