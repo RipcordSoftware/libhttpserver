@@ -83,14 +83,17 @@ bool rs::httpserver::Socket::Peek(int timeout) {
 }
 #else
 bool rs::httpserver::Socket::Peek(int timeout) {
-    auto available = socket_->available();
+    auto available = socket_->available() > 0;
     
-    if (available <= 0) {
-        struct pollfd fd{.fd=socket_->native_handle(), .events=POLLRDNORM, .revents=0};
-        struct pollfd fds[1] = { fd };
-        available = ::poll(fds, 1, timeout * 1000);
+    if (!available) {
+        struct pollfd fds[1] = { {.fd=socket_->native_handle(), .events=POLLIN, .revents=0} };
+        available = ::poll(fds, 1, timeout * 1000) > 0 && fds[0].revents == POLLIN;
+
+        // a socket close will appear as a read event, so probe for available bytes again
+        // since we only return true if data is available
+        available = available ? socket_->available() > 0 : false;
     }
     
-    return available > 0;
+    return available;
 }
 #endif

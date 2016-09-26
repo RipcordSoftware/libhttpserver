@@ -136,10 +136,10 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
         ;
     } catch (const HttpServerException& e) {
         // TODO: do something more useful with this
-        std::cerr << "ERROR: " << e.what() << std::endl;
+        std::cerr << "ERROR (HttpServerException): " << e.what() << std::endl;
     } catch (const std::exception& e) {
         // TODO: do something more useful with this
-        std::cerr << "ERROR: " << e.what() << std::endl;
+        std::cerr << "ERROR (std::exception): " << e.what() << std::endl;
     } catch (...) {
         // TODO: do something more useful with this
         std::cerr << "ERROR: something bad happened!" << std::endl;
