@@ -89,13 +89,13 @@ Apart from including the `libhttpserver.h` you will need to configure your appli
 
 ## Building
 You will need:
-* GCC 4.8 or higher
+* GCC 4.8 or clang 3.5 or higher
 * GNU Make
 * Boost 1.53 or higher
 * ZLib 1.2.7 or higher
 * Doxygen (for the docs)
 
-To build the binaries:
+To build the binaries on Linux:
 ```
  $ make
 ```
@@ -109,5 +109,7 @@ To build the documentation:
 ```
  $ make docs
 ```
+
+On OSX or BSD add `CC=clang CXX=clang++` to the command line, e.g. `make CC=clang CXX=clang++`.
 
 Alternately open and build with NetBeans C++.
