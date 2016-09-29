@@ -1,1 +1,5 @@
-make -j 2 all CXX=g++-4.9 && make -j 2 test CXX=g++-4.9 && ./coverage.sh gcov-4.9
+make CC=${_CC} CXX=$(_CXX) -j 2 all && make CC=${_CC} CXX=$(_CXX) -j 2 test
+
+if [[ "${COV}" != "" ]]; then
+    ./coverage.sh ${_COV}
+fi
