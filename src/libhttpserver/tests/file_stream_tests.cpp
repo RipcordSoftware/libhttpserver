@@ -145,5 +145,5 @@ TEST_F(FileStreamTests, test11) {
     
     auto time = stream.getLastModifiedTime();
     ASSERT_TRUE(!!time);
-    ASSERT_GE(2015, std::gmtime(time.get_ptr())->tm_year + 1900);
+    ASSERT_LE(2015, std::gmtime(time.get_ptr())->tm_year + 1900);
 }
