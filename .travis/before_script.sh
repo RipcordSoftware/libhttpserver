@@ -19,6 +19,11 @@ if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
 elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     brew update
     brew install boost
+
+    # rename the boost libs so we can link to them
+    BOOST_LIBS=$(echo /usr/local/Cellar/boost/?.??.*/lib)
+    ln -s ${BOOST_LIBS}/libboost_thread-mt.a ${BOOST_LIBS}/libboost_thread.a
+    ln -s ${BOOST_LIBS}/libboost_thread-mt.dylib ${BOOST_LIBS}/libboost_thread.dylib    
 fi
 
 popd
