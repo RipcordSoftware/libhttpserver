@@ -13,7 +13,7 @@ matrix:
     - os: osx
       compiler: clang
       osx_image: xcode6.4
-      env: _CC=clang _CXX=clang++
+      env: _CC=clang _CXX=clang++ _LDFLAGS="-L$(echo /usr/local/Cellar/boost/?.??.*/lib)"
   allow_failures:
     - os: osx
     
