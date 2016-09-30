@@ -14,6 +14,9 @@ matrix:
       compiler: clang
       osx_image: xcode6.4
       env: _CC=clang _CXX=clang++
+  allow_failures:
+    - os: osx
+    
 
 addons:
   apt:
