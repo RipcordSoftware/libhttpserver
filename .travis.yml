@@ -14,9 +14,6 @@ matrix:
       compiler: clang
       osx_image: xcode6.4
       env: _CC=clang _CXX=clang++ _LDFLAGS="-L$(echo /usr/local/Cellar/boost/?.??.*/lib)"
-  allow_failures:
-    - os: osx
-    
 
 addons:
   apt:

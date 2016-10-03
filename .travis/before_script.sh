@@ -18,7 +18,7 @@ if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
     gem install coveralls-lcov
 elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     brew update
-    brew install boost +universal
+    brew install boost
 
     # rename the boost libs so we can link to them
     BOOST_LIBS=$(echo /usr/local/Cellar/boost/?.??.*/lib)
