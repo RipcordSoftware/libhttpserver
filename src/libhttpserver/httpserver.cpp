@@ -95,7 +95,7 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
 
             auto responseBytes = headerBuffer.Receive(socket, headerReceiveTimeout);
             if (responseBytes <= 0) {
-                throw HeaderTimeoutException();
+                throw HeaderTimeoutException(headerBuffer.getDataLength());
             }
             
             auto requestHeaders = RequestHeaders::Create(headerBuffer);            
@@ -132,16 +132,25 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
                 throw HeaderSizeException();
             }
         }
-    } catch (const HeaderTimeoutException&) {
-        ;
+    } catch (const HeaderTimeoutException& e) {
+        if (e.receivedBytes_ > 0) {
+            SendRequestTimeout(socket);
+            std::cerr << "ERROR (HeaderTimeoutException): " << e.what() << std::endl;
+        }
+    } catch (const HeaderSizeException& e) {
+        SendBadRequest(socket);
+        std::cerr << "ERROR (HttpServerException): " << e.what() << std::endl;
+    } catch (const HeaderMalformedException& e) {
+        SendBadRequest(socket);
+        std::cerr << "ERROR (HttpServerException): " << e.what() << std::endl;
     } catch (const HttpServerException& e) {
-        // TODO: do something more useful with this
+        SendBadRequest(socket);
         std::cerr << "ERROR (HttpServerException): " << e.what() << std::endl;
     } catch (const std::exception& e) {
-        // TODO: do something more useful with this
+        SendInternalServerError(socket);
         std::cerr << "ERROR (std::exception): " << e.what() << std::endl;
     } catch (...) {
-        // TODO: do something more useful with this
+        SendInternalServerError(socket);
         std::cerr << "ERROR: something bad happened!" << std::endl;
         throw;
     }
@@ -149,4 +158,40 @@ void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
 
 bool rs::httpserver::HttpServer::DefaultRequestContinueCallback(socket_ptr, request_ptr) { 
     return true; 
+}
+
+void rs::httpserver::HttpServer::SendRequestTimeout(socket_ptr socket) {
+    try {
+        if (!!socket && socket->Connected()) {
+            socket->Send("HTTP/1.1 408 Request Timeout\r\nConnection: close\r\n\r\n");
+            socket->Close();
+        }
+    }
+    catch (const std::exception&) {
+        ;
+    }
+}
+
+void rs::httpserver::HttpServer::SendBadRequest(socket_ptr socket) {
+    try {
+        if (!!socket && socket->Connected()) {
+            socket->Send("HTTP/1.1 400 Bad Request\r\nConnection: close\r\n\r\n");
+            socket->Close();
+        }
+    }
+    catch (const std::exception&) {
+        ;
+    }
+}
+
+void rs::httpserver::HttpServer::SendInternalServerError(socket_ptr socket) {
+    try {
+        if (!!socket && socket->Connected()) {
+            socket->Send("HTTP/1.1 500 Internal Server Error\r\nConnection: close\r\n\r\n");
+            socket->Close();
+        }
+    }
+    catch (const std::exception&) {
+        ;
+    }
 }

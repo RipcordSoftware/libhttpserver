@@ -51,6 +51,10 @@ private:
     
     static bool DefaultRequestContinueCallback(socket_ptr, request_ptr);
     
+    static void SendRequestTimeout(socket_ptr);
+    static void SendBadRequest(socket_ptr);
+    static void SendInternalServerError(socket_ptr);
+    
     const std::string host_;
     const int port_;
     const int threads_;

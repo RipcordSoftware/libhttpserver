@@ -35,11 +35,15 @@ public:
 
 class HeaderTimeoutException : public HttpServerException {
 public:
-    HeaderTimeoutException() : HttpServerException("Timed out waiting for request headers") {}
+    HeaderTimeoutException(int receivedBytes) : 
+        HttpServerException("Timed out waiting for request headers"),
+        receivedBytes_(receivedBytes) {}
     
     virtual const char* what() const noexcept override {
         return what_.c_str();
     }
+    
+    const int receivedBytes_;
 };
 
 class HeaderSizeException : public HttpServerException {
