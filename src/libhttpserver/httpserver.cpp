@@ -73,7 +73,7 @@ void rs::httpserver::HttpServer::StartAccept(socket_ptr socket) {
 void rs::httpserver::HttpServer::HandleAccept(socket_ptr socket, const boost::system::error_code& error) {
     if (error) {
         // TODO: do something more useful with this
-        std::cerr << error.message() << std::endl;
+        std::cerr << "ERROR (boost::system::error_code) " << error.message() << std::endl;
     }
     else {
         auto new_asio_socket = boost::make_shared<asio_socket_ptr::element_type>(service_);

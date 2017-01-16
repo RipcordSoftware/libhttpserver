@@ -35,7 +35,7 @@ void rs::httpserver::RequestHeaders::GetHeaders(const HeaderBuffer& buffer, int 
     auto methodStart = headersStart;
     auto methodEnd = std::find(headersStart, headersEnd, ' ');
     if (methodEnd == headersEnd) {
-        throw HeaderMalformedException();
+        throw HeaderMalformedException("Missing method");
     }
     
     method_.assign(methodStart, methodEnd);
@@ -45,7 +45,7 @@ void rs::httpserver::RequestHeaders::GetHeaders(const HeaderBuffer& buffer, int 
     auto uriStart = methodEnd;
     auto uriEnd = std::find(uriStart, headersEnd, ' ');
     if (methodEnd == headersEnd) {
-        throw HeaderMalformedException();
+        throw HeaderMalformedException("Missing URI");
     }
     
     rawUri_.assign(uriStart, uriEnd);
@@ -55,7 +55,7 @@ void rs::httpserver::RequestHeaders::GetHeaders(const HeaderBuffer& buffer, int 
     auto versionStart = uriEnd;
     auto versionEnd = std::find(versionStart, headersEnd, '\r');
     if (versionEnd == headersEnd || versionEnd == versionStart) {
-        throw HeaderMalformedException();
+        throw HeaderMalformedException("Missing version");
     }
     
     auto lineStart = versionEnd + 2;
@@ -64,14 +64,14 @@ void rs::httpserver::RequestHeaders::GetHeaders(const HeaderBuffer& buffer, int 
     version_.assign(versionStart, versionEnd);
         
     if (version_.find("HTTP/") != 0 || version_.length() != 8 || !std::isdigit(version_[5]) || version_[6] != '.' || !std::isdigit(version_[7])) {
-        throw HeaderMalformedException();
+        throw HeaderMalformedException("Malformed version");
     }        
            
     while (lineStart < headersEnd && *lineStart != '\r') {
         auto nameStart = lineStart;
         auto nameEnd = std::find(nameStart, headersEnd, ':');
         if (nameEnd == headersEnd) {
-            throw HeaderMalformedException();
+            throw HeaderMalformedException("Bad header key");
         }
 
         auto valueStart = nameEnd + 1;        
@@ -81,7 +81,7 @@ void rs::httpserver::RequestHeaders::GetHeaders(const HeaderBuffer& buffer, int 
         
         auto valueEnd = std::find(valueStart, headersEnd, '\r');
         if (valueEnd == headersEnd) {
-            throw HeaderMalformedException();
+            throw HeaderMalformedException("Bad header value");
         }
         
         lineStart = valueEnd + 2;
