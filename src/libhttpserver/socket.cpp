@@ -70,16 +70,16 @@ void rs::httpserver::Socket::setCustomReceiveTimeout(int seconds) {
 
 #if defined (__linux__)
 bool rs::httpserver::Socket::Peek(int timeout) {
-    auto available = socket_->available();
+    auto available = socket_->available() > 0;
     
-    if (available <= 0 ) {
+    if (!available) {
         setCustomReceiveTimeout(timeout);
         
         char canary;
-        available = ::recv(socket_->native_handle(), &canary, 1, MSG_PEEK);
+        available = ::recv(socket_->native_handle(), &canary, 1, MSG_PEEK) > 0;
     }
     
-    return available > 0;
+    return available;
 }
 #else
 bool rs::httpserver::Socket::Peek(int timeout) {
