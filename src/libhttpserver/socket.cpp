@@ -8,8 +8,6 @@ rs::httpserver::socket_ptr rs::httpserver::Socket::Create(server_ptr server, asi
     
 #if defined (__linux__)
     socket->setDefaultReceiveTimeout();
-#else
-    socket->NoDelay(true);
 #endif
     
     return socket_ptr(socket);

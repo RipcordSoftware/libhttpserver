@@ -85,6 +85,10 @@ void rs::httpserver::HttpServer::HandleAccept(socket_ptr socket, const boost::sy
 }
 
 void rs::httpserver::HttpServer::HandleRequest(socket_ptr socket) {
+#if !defined(__linux__)
+    socket->NoDelay(true);
+#endif
+    
     Socket::ScopedClose close(socket);
     HeaderBuffer headerBuffer(Config::MaxRequestHeaderSize);
     auto requestCount = 0;
