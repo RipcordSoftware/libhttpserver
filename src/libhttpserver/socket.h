@@ -76,12 +76,9 @@ public:
         return socket_->available(err) > 0;
     }
     
-    void Flush() {
-        boost::asio::ip::tcp::no_delay optionNoDelay(true);
-        boost::asio::ip::tcp::no_delay optionDelay(false);
-        socket_->set_option(optionNoDelay);
-        socket_->set_option(optionDelay);
-    }
+    void Flush();
+    
+    void NoDelay(bool enable);
     
     asio_socket_ptr getAsioSocket() { return socket_; }    
     

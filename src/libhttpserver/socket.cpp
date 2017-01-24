@@ -8,6 +8,8 @@ rs::httpserver::socket_ptr rs::httpserver::Socket::Create(server_ptr server, asi
     
 #if defined (__linux__)
     socket->setDefaultReceiveTimeout();
+#else
+    socket->NoDelay(true);
 #endif
     
     return socket_ptr(socket);
@@ -97,3 +99,15 @@ bool rs::httpserver::Socket::Peek(int timeout) {
     return available;
 }
 #endif
+
+void rs::httpserver::Socket::Flush() {
+#if defined (__linux__)
+    NoDelay(true);
+    NoDelay(false);
+#endif
+}
+
+void rs::httpserver::Socket::NoDelay(bool enable) {
+    boost::asio::ip::tcp::no_delay option(enable);
+    socket_->set_option(option);
+}
