@@ -50,7 +50,7 @@ rs::httpserver::Stream& rs::httpserver::Response::getResponseStream() {
         throw MultipleResponseException{};
     }
     
-    if (!request_->IsHttp10() && !HasContentLength()) {
+    if (!request_->IsHttp10() && !HasContentLength() && statusCode_ != 304) {
         headers_[Headers::TransferEncoding] = "chunked";
         
         if (compress_) {
