@@ -15,9 +15,29 @@
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="www" displayName="www" projectFiles="true">
+      <logicalFolder name="f1" displayName="css" projectFiles="true">
+        <itemPath>www/css/bootstrap.min.css</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="fonts" projectFiles="true">
+        <itemPath>www/fonts/glyphicons-halflings-regular.eot</itemPath>
+        <itemPath>www/fonts/glyphicons-halflings-regular.svg</itemPath>
+        <itemPath>www/fonts/glyphicons-halflings-regular.ttf</itemPath>
+        <itemPath>www/fonts/glyphicons-halflings-regular.woff</itemPath>
+        <itemPath>www/fonts/glyphicons-halflings-regular.woff2</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f3" displayName="scripts" projectFiles="true">
+        <logicalFolder name="f1" displayName="jquery" projectFiles="true">
+          <logicalFolder name="f1" displayName="1.11.1" projectFiles="true">
+            <itemPath>www/scripts/jquery/1.11.1/jquery.min.js</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+        <itemPath>www/scripts/bootstrap.min.js</itemPath>
+      </logicalFolder>
+      <itemPath>www/Earth-Wallpaper-NASA-14.jpg</itemPath>
       <itemPath>www/bootstrap.html</itemPath>
       <itemPath>www/index.html</itemPath>
       <itemPath>www/rfc2616.txt</itemPath>
+      <itemPath>www/sunset17.jpg</itemPath>
       <itemPath>www/test.html</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -77,11 +97,49 @@
       </compileType>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="www/Earth-Wallpaper-NASA-14.jpg" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="www/bootstrap.html" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/css/bootstrap.min.css" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/fonts/glyphicons-halflings-regular.eot"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="www/fonts/glyphicons-halflings-regular.svg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="www/fonts/glyphicons-halflings-regular.ttf"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="www/fonts/glyphicons-halflings-regular.woff"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="www/fonts/glyphicons-halflings-regular.woff2"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="www/index.html" ex="false" tool="3" flavor2="0">
       </item>
       <item path="www/rfc2616.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/scripts/bootstrap.min.js" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/scripts/jquery/1.11.1/jquery.min.js"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="www/sunset17.jpg" ex="false" tool="3" flavor2="0">
       </item>
       <item path="www/test.html" ex="false" tool="3" flavor2="0">
       </item>
@@ -134,11 +192,49 @@
       </compileType>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="www/Earth-Wallpaper-NASA-14.jpg" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="www/bootstrap.html" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/css/bootstrap.min.css" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/fonts/glyphicons-halflings-regular.eot"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="www/fonts/glyphicons-halflings-regular.svg"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="www/fonts/glyphicons-halflings-regular.ttf"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="www/fonts/glyphicons-halflings-regular.woff"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="www/fonts/glyphicons-halflings-regular.woff2"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="www/index.html" ex="false" tool="3" flavor2="0">
       </item>
       <item path="www/rfc2616.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/scripts/bootstrap.min.js" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="www/scripts/jquery/1.11.1/jquery.min.js"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="www/sunset17.jpg" ex="false" tool="3" flavor2="0">
       </item>
       <item path="www/test.html" ex="false" tool="3" flavor2="0">
       </item>
