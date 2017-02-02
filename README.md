@@ -17,6 +17,7 @@ Features:
 
 | OS           | Architecture       | Status                       |
 |--------------|--------------------|------------------------------|
+| Debian 8.6   | i386               | [![debian-8.6-i386](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-debian-i386-8.6)](https://jenkins.ripcordsoftware.com/job/libhttpserver-debian-i386-8.6/) |
 | Debian 8.6   | amd64              | [![debian-8.6-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-debian-8.6)](https://jenkins.ripcordsoftware.com/job/libhttpserver-debian-8.6/) |
 | Ubuntu 14.04 | amd64              | [![ubutu-14.04-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-ubuntu-14.04)](https://jenkins.ripcordsoftware.com/job/libhttpserver-ubuntu-14.04/) |
 | Ubuntu 16.04 | amd64              | [![ubuntu-16.04-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-ubuntu-16.04)](https://jenkins.ripcordsoftware.com/job/libhttpserver-ubuntu-16.04/) |
