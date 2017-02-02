@@ -13,6 +13,18 @@ Features:
 * Low memory overhead streaming response API with helpers for strings and files
 * Utilizes HTTP keep-alive up to a configured request limit
 
+## Build Status
+
+| OS           | Architecture       | Status                       |
+|--------------|--------------------|------------------------------|
+| Debian 8.6   | amd64              | [![debian-8.6-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-debian-8.6)](https://jenkins.ripcordsoftware.com/job/libhttpserver-debian-8.6/) |
+| Ubuntu 14.04 | amd64              | [![ubutu-14.04-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-ubuntu-14.04)](https://jenkins.ripcordsoftware.com/job/libhttpserver-ubuntu-14.04/) |
+| Ubuntu 16.04 | amd64              | [![ubuntu-16.04-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-ubuntu-16.04)](https://jenkins.ripcordsoftware.com/job/libhttpserver-ubuntu-16.04/) |
+| CentOS 6.8   | amd64              | [![centos-6.8-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-centos-6.8)](https://jenkins.ripcordsoftware.com/job/libhttpserver-centos-6.8/) |
+| CentOS 7.3   | amd64              | [![centos-7.3-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-centos-7.3)](https://jenkins.ripcordsoftware.com/job/libhttpserver-centos-7.3/) |
+| Fedora 25    | amd64              | [![fedora-25-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-fedora-25)](https://jenkins.ripcordsoftware.com/job/libhttpserver-fedora-25/) |
+| FreeBSD 11   | amd64              | [![freebsd-11-amd64](https://jenkins-bsd.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-freebsd-11)](https://jenkins-bsd.ripcordsoftware.com/job/libhttpserver-freebsd-11/) |
+
 ## Examples
 The simplist possible web server:
 ```c++
@@ -75,28 +87,6 @@ rs::httpserver::MimeTypes::AddType(".bz2", "application/x-bzip2", false);
 
 See `src/httpserver/main.cpp` for a working file based web server impl with last-modified/etag support.
 
-## Build Status
-
-| OS           | Architecture       | Status                       |
-|--------------|--------------------|------------------------------|
-| Debian 8.6   | amd64              | [![debian-8.6-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-debian-8.6)](https://jenkins.ripcordsoftware.com/job/libhttpserver-debian-8.6/) |
-| Ubuntu 14.04 | amd64              | [![ubutu-14.04-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-ubuntu-14.04)](https://jenkins.ripcordsoftware.com/job/libhttpserver-ubuntu-14.04/) |
-| Ubuntu 16.04 | amd64              | [![ubuntu-16.04-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-ubuntu-16.04)](https://jenkins.ripcordsoftware.com/job/libhttpserver-ubuntu-16.04/) |
-| CentOS 6.8   | amd64              | [![centos-6.8-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-centos-6.8)](https://jenkins.ripcordsoftware.com/job/libhttpserver-centos-6.8/) |
-| CentOS 7.3   | amd64              | [![centos-7.3-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-centos-7.3)](https://jenkins.ripcordsoftware.com/job/libhttpserver-centos-7.3/) |
-| Fedora 25    | amd64              | [![fedora-25-amd64](https://jenkins.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-fedora-25)](https://jenkins.ripcordsoftware.com/job/libhttpserver-fedora-25/) |
-| FreeBSD 11   | amd64              | [![freebsd-11-amd64](https://jenkins-bsd.ripcordsoftware.com/buildStatus/icon?job=libhttpserver-freebsd-11)](https://jenkins-bsd.ripcordsoftware.com/job/libhttpserver-freebsd-11/) |
-
-## Linking
-Apart from including the `libhttpserver.h` you will need to configure your application to link against the following libraries:
-* libhttpserver (!)
-* boost_filesystem
-* boost_thread
-* boost_date_time
-* boost_system
-* zlib
-* pthreads
-
 ## Building
 You will need:
 * GCC 4.8 or clang 3.5 or higher
@@ -122,4 +112,12 @@ To build the documentation:
 
 On OSX or BSD add `CC=clang CXX=clang++` to the command line, e.g. `make CC=clang CXX=clang++`.
 
-Alternately open and build with NetBeans C++.
+## Linking
+Apart from including the `libhttpserver.h` you will need to configure your application to link against the following libraries:
+* libhttpserver (!)
+* boost_filesystem
+* boost_thread
+* boost_date_time
+* boost_system
+* zlib
+* pthreads
