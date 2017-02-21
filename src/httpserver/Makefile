@@ -49,9 +49,16 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 
-LDLIBS:=$(shell echo 'int main(){}' | $(CXX) -x c++ -o /dev/null -lrt - > /dev/null 2>&1 && echo '-lrt')
+# tests a compiler flag is valid, if so returns it
+FLAG_PROBE=$(shell cd /tmp; echo 'int main(){}' | $(CXX) -x c++ -o /dev/null $(1) - > /dev/null 2>&1 && echo '$(1)')
 
-COVERAGE_FLAGS:=$(shell cd /tmp; echo 'int main(){}' | $(CXX) -x c++ -o /dev/null --coverage - > /dev/null 2>&1 && echo '--coverage')
+# tests a compiler flag is valid, if so returns it, otherwise returns the second argument
+FLAG_PROBE2=$(shell cd /tmp; (echo 'int main(){}' | $(CXX) -x c++ -o /dev/null $(1) - > /dev/null 2>&1 && echo '$(1)') || echo '$(2)')
+
+LDLIBS:=$(call FLAG_PROBE, '-lrt')
+LDLIBS+=$(call FLAG_PROBE2, '-lboost_thread-mt', '-lboost_thread')
+
+COVERAGE_FLAGS:=$(call FLAG_PROBE, '--coverage')
 
 # build
 build: .build-post
